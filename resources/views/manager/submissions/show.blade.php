@@ -1,0 +1,116 @@
+@extends('layouts.app')
+
+@section('title', 'Review Manager - ' . $submission->no_pengajuan)
+@section('page-title', 'Review & Persetujuan Akhir Manager KPR')
+
+@section('content')
+<div class="row g-3 mb-4">
+    <div class="col-12 col-lg-8">
+        <div class="card-custom p-4 mb-4">
+            <h5 class="fw-bold text-dark mb-3"><i class="fa-solid fa-user text-primary me-2"></i> Profil & Finansial Nasabah</h5>
+            <div class="row g-3 small">
+                <div class="col-6 col-md-4">
+                    <span class="text-muted d-block">Nama Nasabah</span>
+                    <strong class="text-dark fs-6">{{ $submission->user->name }}</strong>
+                </div>
+                <div class="col-6 col-md-4">
+                    <span class="text-muted d-block">NIK</span>
+                    <strong class="text-dark">{{ $submission->user->profile->nik ?? '-' }}</strong>
+                </div>
+                <div class="col-6 col-md-4">
+                    <span class="text-muted d-block">Pekerjaan</span>
+                    <strong class="text-dark">{{ $submission->user->profile->pekerjaan ?? '-' }}</strong>
+                </div>
+                <div class="col-6 col-md-4">
+                    <span class="text-muted d-block">Total Penghasilan</span>
+                    <strong class="text-success">Rp {{ number_format(($submission->user->profile->penghasilan_bulanan ?? 0) + ($submission->user->profile->penghasilan_pasangan ?? 0), 0, ',', '.') }}</strong>
+                </div>
+                <div class="col-6 col-md-4">
+                    <span class="text-muted d-block">Plafon KPR</span>
+                    <strong class="text-primary">Rp {{ number_format($submission->nilai_pinjaman, 0, ',', '.') }}</strong>
+                </div>
+                <div class="col-6 col-md-4">
+                    <span class="text-muted d-block">Tenor</span>
+                    <strong class="text-dark">{{ $submission->tenor_tahun }} Tahun</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- SMART Engine Matrix -->
+        <div class="card-custom p-4">
+            <h6 class="fw-bold text-dark mb-3"><i class="fa-solid fa-table text-primary me-2"></i> Hasil Rekomendasi SMART System</h6>
+            <div class="p-3 mb-3 bg-light rounded-3 border">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <div class="small text-muted fw-bold">SKOR SMART SISTEM</div>
+                        <span class="display-6 fw-bold text-primary">{{ number_format($submission->final_smart_score ?? 0, 2) }}</span>
+                        <small class="text-muted">/ 100.00</small>
+                    </div>
+                    <div>
+                        @if($submission->status_keputusan === 'DITERIMA')
+                            <span class="badge-success-custom fs-5"><i class="fa-solid fa-circle-check me-1"></i> DITERIMA</span>
+                        @else
+                            <span class="badge-danger-custom fs-5"><i class="fa-solid fa-circle-xmark me-1"></i> TIDAK DITERIMA</span>
+                        @endif
+                    </div>
+                </div>
+            </div>
+
+            <div class="small">
+                <strong class="d-block mb-1">Analisis Otomatis Mesin SMART:</strong>
+                @if(isset($submission->smartResult->explanations['summary']))
+                    <ul class="ps-3 text-muted">
+                        @foreach($submission->smartResult->explanations['summary'] as $reason)
+                            <li>{{ $reason }}</li>
+                        @endforeach
+                    </ul>
+                @endif
+            </div>
+        </div>
+    </div>
+
+    <!-- Right Column: Approval Action Card -->
+    <div class="col-12 col-lg-4">
+        <div class="card-custom p-4 h-100">
+            <h5 class="fw-bold text-dark mb-3"><i class="fa-solid fa-stamp text-primary me-2"></i> Form Persetujuan Manager</h5>
+
+            <div class="mb-3">
+                <span class="text-muted small d-block">Status Pengajuan Saat Ini:</span>
+                @if($submission->status_pengajuan === 'approved')
+                    <span class="badge bg-success fs-6"><i class="fa-solid fa-check me-1"></i> Approved oleh {{ $submission->approver->name ?? 'Manager' }}</span>
+                @elseif($submission->status_pengajuan === 'rejected')
+                    <span class="badge bg-danger fs-6"><i class="fa-solid fa-xmark me-1"></i> Rejected oleh {{ $submission->approver->name ?? 'Manager' }}</span>
+                @else
+                    <span class="badge bg-warning text-dark fs-6"><i class="fa-solid fa-clock me-1"></i> Menunggu Keputusan Manager</span>
+                @endif
+            </div>
+
+            <!-- Approve Form -->
+            <form action="{{ route('manager.submissions.approve', $submission->id) }}" method="POST" class="mb-3">
+                @csrf
+                <div class="mb-3">
+                    <label class="form-label fw-semibold small">Catatan Manager (Opsional untuk Setuju)</label>
+                    <textarea name="manager_notes" class="form-control form-control-sm" rows="3" placeholder="Tambahkan catatan persetujuan...">{{ $submission->manager_notes }}</textarea>
+                </div>
+                <button type="submit" class="btn btn-success w-100 py-2 rounded-3 shadow-sm" onclick="return confirm('Setujui pengajuan KPR ini?')">
+                    <i class="fa-solid fa-check-circle me-1"></i> SETUJUI PENGAJUAN (APPROVE)
+                </button>
+            </form>
+
+            <hr>
+
+            <!-- Reject Form -->
+            <form action="{{ route('manager.submissions.reject', $submission->id) }}" method="POST">
+                @csrf
+                <div class="mb-3">
+                    <label class="form-label fw-semibold small text-danger">Alasan Penolakan (Wajib jika menolak)</label>
+                    <textarea name="manager_notes" class="form-control form-control-sm" rows="2" placeholder="Tuliskan alasan penolakan..." required></textarea>
+                </div>
+                <button type="submit" class="btn btn-outline-danger w-100 py-2 rounded-3" onclick="return confirm('Tolak pengajuan KPR ini?')">
+                    <i class="fa-solid fa-times-circle me-1"></i> TOLAK PENGAJUAN (REJECT)
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+@endsection

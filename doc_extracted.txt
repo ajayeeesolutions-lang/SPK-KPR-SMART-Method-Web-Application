@@ -1,0 +1,3038 @@
+﻿BAB I PENDAHULUAN
+
+Latar Belakang
+
+Perkembangan teknologi informasi di era digital saat ini telah mendorong berbagai sektor untuk memanfaatkan sistem berbasis komputer dalam meningkatkan efektivitas dan akurasi proses kerja. Digitalisasi tidak hanya berperan dalam mempercepat pengolahan data, tetapi juga membantu proses pengambilan keputusan agar lebih objektif, terstruktur, dan dapat dipertanggungjawabkan. Dalam bidang bisnis dan layanan keuangan, pemanfaatan sistem pendukung keputusan menjadi salah satu solusi penting untuk mengurangi kesalahan analisis serta meningkatkan kualitas pelayanan kepada konsumen.
+Pemerintah bersama dengan pihak perbankan menyediakan berbagai skema pembiayaan perumahan guna memenuhi kebutuhan masyarakat dalam memiliki hunian yang layak. Dua jenis pembiayaan rumah yang umum ditawarkan adalah Kredit Pemilikan Rumah (KPR) Subsidi dan KPR Komersial (Non-Subsidi). KPR Subsidi ditujukan bagi Masyarakat Berpenghasilan Rendah (MBR) dengan dukungan bantuan dari pemerintah, sedangkan KPR Komersial diperuntukkan bagi masyarakat umum dengan ketentuan suku bunga mengikuti mekanisme pasar (Sari et al., n.d.). Menurut (Ratulangi, 2022), KPR merupakan fasilitas pembiayaan yang membantu masyarakat dalam memperoleh hunian melalui mekanisme kredit dengan syarat dan ketentuan tertentu yang ditetapkan oleh pihak perbankan.
+Dalam proses pemasaran perumahan, tidak hanya ketepatan jenis KPR yang menjadi faktor penting, tetapi juga kecepatan dan ketepatan dalam menangani calon pembeli. Setiap calon pembeli memiliki kondisi finansial, kelengkapan administrasi, tingkat responsivitas, serta kesiapan yang berbeda-beda dalam melanjutkan proses pengajuan KPR. Perbedaan karakteristik tersebut menunjukkan bahwa tidak semua calon pembeli berada pada tingkat kesiapan yang sama dalam proses pembelian properti. Penelitian di bidang real estate menegaskan bahwa variasi profil dan perilaku pembeli menuntut adanya segmentasi dan pengelolaan prospek yang tepat agar strategi pemasaran dapat berjalan lebih efektif (Razanah & Pandunata, 2025). Oleh karena itu, diperlukan suatu mekanisme penilaian yang
+
+1
+
+
+mampu mengidentifikasi tingkat kesiapan dan potensi masing-masing calon pembeli, sehingga pihak pengembang dapat menentukan kelayakan penanganan secara lebih terarah guna meningkatkan peluang keberhasilan transaksi dan efisiensi proses pemasaran.
+Namun, pada kondisi aktual di PT Citra Pasada Properti, proses penilaian kelayakan calon debitur KPR masih dilakukan secara manual dan sangat bergantung pada pertimbangan subjektif pihak marketing maupun administrasi. Penilaian dilakukan berdasarkan beberapa aspek seperti pendapatan, status pekerjaan, kelengkapan dokumen, serta riwayat BI Checking, namun belum menggunakan sistem yang terstruktur dan terukur. Kondisi tersebut berpotensi menyebabkan ketidakkonsistenan hasil penilaian dan meningkatkan risiko kesalahan dalam menentukan kelayakan calon debitur.
+Selain itu, proses penilaian kelayakan calon debitur KPR di PT Citra Pasada Properti masih dilakukan secara manual dan sangat bergantung pada pertimbangan subjektif pihak marketing maupun administrasi. Penilaian terhadap calon debitur dilakukan berdasarkan beberapa aspek seperti pendapatan, status pekerjaan, kelengkapan dokumen, serta riwayat BI Checking, namun belum menggunakan sistem yang terstruktur dan terukur. Kondisi tersebut berpotensi menimbulkan ketidakkonsistenan dalam proses penilaian sehingga keputusan yang dihasilkan belum tentu mencerminkan tingkat kelayakan calon debitur yang sebenarnya. Situasi ini semakin kompleks karena jumlah calon debitur yang harus dianalisis relatif banyak, sementara waktu dan sumber daya yang tersedia terbatas. Akibatnya, proses penilaian menjadi kurang efektif, membutuhkan waktu yang lebih lama, serta meningkatkan risiko terjadinya kesalahan dalam menentukan kelayakan pengajuan KPR
+Berdasarkan permasalahan tersebut, diperlukan suatu Sistem Penunjang Keputusan (SPK) yang mampu membantu proses penilaian kelayakan calon debitur KPR secara objektif dan sistematis. Sistem ini dirancang untuk memberikan rekomendasi kelayakan berdasarkan beberapa kriteria yang telah ditentukan. Metode SMART (Simple Multi Attribute Rating Technique) dipilih karena mampu melakukan proses penilaian multikriteria secara sederhana, fleksibel, dan
+
+
+menghasilkan nilai akhir yang dapat digunakan sebagai dasar penentuan status kelayakan calon debitur menjadi layak atau tidak layak. Dengan penerapan metode SMART, sistem diharapkan mampu memberikan rekomendasi prioritas tindak lanjut calon pembeli secara lebih objektif, konsisten, dan dapat dipertanggungjawabkan, sehingga proses pemasaran perumahan subsidi di PT Citra Pasada Properti dapat berjalan lebih efektif dan efisien.
+Sebagai refernsi Jurnal Penelitian sebelumnya yang dilakukan oleh Danu et al., (2025) mengembangkan sistem pendukung keputusan penilaian kelayakan calon debitur KPR menggunakan metode SMART (Simple Multi Attribute Rating Technique) untuk membantu proses pengambilan keputusan berdasarkan beberapa kriteria penting. Studi tersebut menunjukkan bahwa metode SMART efektif digunakan dalam melakukan penilaian multikriteria secara sistematis melalui proses pembobotan dan perhitungan nilai utilitas pada setiap kriteria. Hasil penelitian membuktikan bahwa metode SMART mampu menghasilkan keputusan yang lebih objektif, terukur, dan konsisten dalam menentukan kelayakan calon debitur. Temuan ini memperkuat bahwa metode SMART merupakan metode yang relevan untuk diterapkan dalam sistem penunjang keputusan penilaian kelayakan calon debitur KPR pada penelitian ini.
+Adapun Penelitian yang dilakukan oleh (Rakhmawati, 2025) menunjukkan bahwa penerapan metode Analytical Hierarchy Process (SMART) dalam Sistem Pendukung Keputusan mampu membantu proses penilaian kelayakan pengajuan KPR Subsidi secara lebih objektif dan sistematis. Dalam penelitiannya, SMART digunakan untuk melakukan pembobotan terhadap beberapa kriteria penting seperti pendapatan, pekerjaan, usia, dan riwayat kredit, sehingga menghasilkan prioritas keputusan yang lebih akurat dibandingkan penilaian manual. Hasil penelitian tersebut membuktikan bahwa sistem berbasis SMART dapat meminimalkan subjektivitas, mempercepat proses evaluasi, serta meningkatkan konsistensi dalam pengambilan keputusan kelayakan KPR. Hal ini menunjukkan bahwa metode SMART relevan dan efektif untuk diterapkan dalam sistem pendukung keputusan penentuan jenis KPR pada penelitian ini.
+
+
+Berdasarkan permasalahan diatas maka penulis tertarik untuk membuat sebuah penelitian yang berjudul ”Sistem Penunjang Keputusan Penilaian Kelayakan Calon Debitur Kredit Pemilikan Rumah (KPR) Menggunakan Metode SMART pada PT Citra Pasada Properti”.
+Identifikasi Masalah
+Berdasarkan latar belakang yang telah diuraikan, maka dapat diidentifikasi beberapa permasalahan sebagai berikut:
+Proses penilaian kelayakan calon debitur KPR masih dilakukan secara subjektif
+.karena  dilakukan  secara  manual  berdasarkan  intuisi  dan  pengalaman
+marketing tanpa didukung oleh kriteria serta perhitungan yang terstruktur.
+Belum terdapat sistem pendukung keputusan yang membantu proses evaluasi kelayakan calon debitur secara terstruktur.
+Inefisiensi waktu dan sumber daya tim marketing, karena masih banyak waktu yang dihabiskan untuk menangani calon pembeli yang belum memenuhi persyaratan administrasi atau memiliki risiko tinggi ditolak oleh pihak bank.
+Penentuan kelayakan calon debitur belum menggunakan metode perhitungan yang objektif. sehingga perusahaan belum dapat melakukan penilaian dan penentuan secara objektif berdasarkan indikator kelayakan KPR.
+Rumusan Masalah
+Berdasarkan identifikasi masalah tersebut, maka rumusan masalah dalam penelitian ini adalah sebagai berikut:
+Bagaimana merancang sistem pendukung keputusan yang dapat membantu keputusan penilaian kelayakan calon debitur KPR di PT Citra Pasada Properti secara objektif dan terstruktur?
+Bagaimana menerapkan metode SMART dalam proses penilaian kelayakan calon debitur KPR berdasarkan kriteria yang telah ditentukan?
+Bagaimana menghasilkan keputusan kelayakan calon debitur berupa layak atau tidak layak secara objektif?
+
+Batasan Masalah
+Agar pembahasan dalam penelitian ini lebih terarah dan tidak menyimpang dari tujuan yang telah ditetapkan, maka ditentukan beberapa batasan masalah sebagai berikut:
+Objek penelitian difokuskan pada calon pembeli rumah di PT Citra Pasada Properti.
+Metode yang digunakan dalam sistem penunjang keputusan adalah SMART.
+Sitsem digunakan untuk penilaian kelayakan calon debitur KPR
+Kriteria yang digunakan dalam proses penilaian meliputi riwayat SLIK OJK, penghasilan bersih, usia, status dan lama pekerjaan, serta jumlah tanggungan calon debitur.
+Output sistem berupa hasil penilaian kelayakan calon debitur dengan kategori layak dan tidak layak berdasarkan hasil perhitungan metode SMART.
+Sistem hanya membahas proses penilaian kelayakan calon debitur KPR subsidi pada tahap pengajuan awal dan tidak mencakup proses akad kredit maupun pencairan kredit.
+Tujuan Penelitian
+Adapun manfaat yang diharapkan oleh penulis dari penelitian ini adalah sebagai berikut:
+Merancang dan membangun sistem penunjang keputusan yang dapat membantu proses penilaian kelayakan calon debitur Kredit Pemilikan Rumah (KPR) di PT Citra Pasada Properti secara objektif dan terstruktur.
+Menerapkan metode SMART (Simple Multi Attribute Rating Technique) dalam proses penilaian kelayakan calon debitur berdasarkan kriteria yang telah ditentukan.
+Menghasilkan sistem yang mampu memberikan rekomendasi keputusan kelayakan calon debitur berupa kategori layak atau tidak layak sebagai dasar pendukung dalam proses pengajuan KPR.
+Manfaat Penelitian
+Penelitian ini diharapkan memberikan manfaat baik secara teoretis maupun praktis.
+Manfaat Teoritis
+Penelitian ini dapat menjadi referensi bagi penelitian selanjutnya yang berkaitan dengan penerapan Sistem Penunjang Keputusan menggunakan metode SMART (Simple Multi Attribute Rating Technique).
+Penelitian ini dapat menambah wawasan dan pengembangan ilmu pengetahuan di bidang sistem informasi dan pengambilan keputusan multikriteria, khususnya dalam konteks penilaian kelayakan calon debitur Kredit Pemilikan Rumah (KPR)
+Manfaat Praktis
+Hasil penelitian ini dapat membantu perusahaan dalam melakukan penilaian kelayakan calon debitur KPR secara lebih objektif, terstruktur, dan konsisten
+Sistem yang dibangun dapat menjadi alat bantu dalam proses pengambilan keputusan penentuan kelayakan calon debitur berdasarkan kriteria yang telah ditentukan.
+Pertanyaan Penelitian
+Berdasarkan identifikasi masalah yang diuraikan sebelumnya, maka terdapat pertanyaan penelitian sebagai berikut:
+Apakah sistem penunjang keputusan yang dirancang dapat membantu proses penilaian kelayakan calon debitur KPR di PT Citra Pasada Properti secara objektif dan terstruktur?
+Apakah metode SMART (Simple Multi Attribute Rating Technique) dapat diterapkan secara efektif dalam proses penilaian kelayakan calon debitur berdasarkan kriteria yang telah ditentukan?
+Apakah sistem yang dibangun mampu menghasilkan rekomendasi keputusan kelayakan calon debitur berupa layak atau tidak layak secara tepat dan konsisten?
+Metodologi Penelitian
+Metodologi penelitian merupakan pendekatan atau teknik yang digunakan untuk memperoleh data dan informasi yang dibutuhkan dalam suatu penelitian. Data dan informasi tersebut dapat bersumber dari studi literatur, seperti jurnal
+
+
+ilmiah, artikel, tesis, buku, serta sumber tertulis lainnya yang relevan dengan topik penelitian. Selain itu, data juga dapat diperoleh melalui media elektronik dan sumber digital yang mendukung.
+Dalam penelitian ini, pengumpulan data tidak hanya dilakukan melalui studi pustaka, tetapi juga melalui metode pengumpulan data secara langsung, seperti observasi, wawancara, dan dokumentasi. Metode-metode tersebut digunakan untuk memperoleh data yang akurat dan sesuai dengan kebutuhan penelitian. Adapun metode penelitian yang digunakan dalam penelitian ini dijelaskan sebagai berikut:
+Teknik Pengumpulan Data
+Teknik yang dilakukan untuk mengumpulkan data adalah sebagai berikut :
+Studi Literatur
+Adapun Studi Literatur yang dilakukan yaitu dengan pencarian data data yang dibutuhkan dengan yang berkaitan dengan permasalahan seputar permasalahan yang sedang di hadapi
+Wawancara
+Adapun teknik wawancara yang dilakukan penulis yaitu melakukan wawancara dengan melakukan sesi tanya jawab apa saja yang sedang di hadapi berikut merupakan hasil wawancara.
+Observasi
+Adapun teknik observasi yang dilakukan penulis adalah dengan mendatangi langsung PT Citra Pasada Properti tersebut untuk melihat dan meninjau lokasi tersebut
+Metode Penyelesaian Masalah
+Kerangka atau Metode yang dipergunakan
+Metode penyelesaian masalah yang digunakan dalam penelitian ini adalah SMART (Simple Multi Attribute Rating Technique). Metode SMART dipilih karena mampu membantu proses pengambilan keputusan multikriteria secara sederhana, fleksibel, dan terstruktur. Metode ini digunakan untuk melakukan penilaian kelayakan calon debitur KPR
+
+
+berdasarkan beberapa kriteria yang telah ditentukan sehingga menghasilkan keputusan yang lebih objektif Metode SMART digunakan untuk:
+Menentukan menentukan bobot kepentingan pada setiap kriteria penilaian kelayakan calon debitur.
+Menghitung nilai utilitas dari setiap kriteria berdasarkan data calon debitur.
+Menghasilkan nilai akhir sebagai dasar penentuan keputusan kelayakan calon debitur KPR.
+Metode ini relevan dengan karakteristik penelitian karena mampu mengolah berbagai kriteria penilaian secara sistematis dan menghasilkan keputusan berupa kategori layak atau tidak layak.
+Tahapan Metode Secara Sistematis
+Tahapan metode SMART dalam penelitian ini dilakukan sebagai berikut:
+Seleksi Data
+Data yang digunakan adalah data calon pembeli rumah di PT Citra Pasada Properti yang mengajukan KPR subsidi. Data yang dipilih hanya yang berkaitan dengan kriteria penelitian, yaitu:
+Riwayat SLIK OJK
+Usia
+Penghasilan Bersih
+Status dan Lama Pekerjaan
+Jumlah Tanggungan
+Preprocessing Data
+Pada tahap ini dilakukan:
+Pemeriksaan kelengkapan data a. Pemeriksaan kelengkapan data calon debitur
+Penghapusan data yang tidak lengkap atau duplikat
+Transformasi data kualitatif ke dalam bentuk nilai numerik berdasarkan skala penilaian SMART
+
+Penerapan Metode SMART
+Tahapan perhitungan SMART meliputi:
+Menentukan kriteria dan bobot setiap kriteria
+Melakukan normalisasi bobot kriteria
+Menentukan nilai utilitas setiap alternatif berdasarkan kriteria
+Menghitung nilai akhir menggunakan rumus SMART dengan menjumlahkan hasil perkalian bobot dan nilai utilitas
+Evaluasi Hasil
+Evaluasi dilakukan dengan membandingkan hasil perhitungan sistem dengan kriteria kelayakan yang telah ditentukan. Hasil evaluasi digunakan untuk memastikan bahwa sistem mampu memberikan keputusan secara objektif dan konsisten.
+Interpretasi Hasil
+Hasil akhir dari metode SMART berupa rekomendasi keputusan kelayakan calon debitur KPR dengan kategori layak atau tidak layak. Calon debitur dengan nilai akhir yang memenuhi batas minimum kelayakan akan dinyatakan layak, sedangkan calon debitur yang nilainya berada di bawah batas minimum akan dinyatakan tidak layak.
+Variabel, Kriteria, atau Atribut Penelitian
+Alternatif
+Alternatif dalam penelitian ini adalah calon pembeli rumah di PT Citra Pasada Properti yang mengajukan KPR subsidi.
+Kriteria
+Kriteria yang digunakan dalam proses pengambilan keputusan meliputi:
+Riwayat SLIK OJK
+Penghasilan Bersih
+Status dan Lama Pekerjaan
+Usia
+Jumlah Tanggungan
+Kriteria tersebut digunakan sebagai dasar dalam proses perhitungan nilai utilitas dan penentuan kelayakan calon debitur menggunakan
+
+
+metode SMART. Setiap kriteria memiliki tingkat kepentingan yang berbeda dan akan diolah untuk menghasilkan keputusan berupa kategori layak atau tidak layak terhadap pengajuan KPR calon debitur.
+Kriteria Subkriteria
+
+Jadwal Kegiatan
+Penulis Menyusun jadwal pelaksanaan penelitian yang akan dilaksanakan yang dapat dilihat pada :
+Tabel 1. 1 Jadwal Kegiatan Penelitian
+
+No
+Tahapan
+1
+2
+3
+4
+5
+
+
+1
+2
+3
+4
+1
+2
+3
+4
+1
+2
+3
+4
+1
+2
+3
+4
+1
+2
+3
+4
+1
+Identifikasi
+Masalah
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2
+Communication
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3
+Quick Plan
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+4
+Modeling
+Quick Design
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+5
+Construction of
+Prototype
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+6
+Deployment, Delivery &
+Feedback
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+7
+Dokumentasi
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+BAB II KAJIAN PUSTAKA
+
+Teori-teori terkait bahasan penelitian (Relevan Theories)
+Konsep Dasar Data dan Informasi
+Data berasal dari bahasa Latin datum yang berarti “sesuatu yang diberikan”, sedangkan bentuk jamaknya adalah data. Menurut Jogiyanto (1999), data merupakan sumber utama dalam pembentukan informasi. Data dapat diartikan sebagai sekumpulan keterangan atau fakta mentah yang digunakan sebagai bahan dasar dalam melakukan analisis dan penarikan kesimpulan. Data dapat berupa satuan tunggal (datum) maupun kumpulan dari beberapa datum yang membentuk suatu himpunan data.
+Data juga dapat didefinisikan sebagai kumpulan fakta yang digunakan sebagai input dalam suatu proses pengolahan sehingga menghasilkan informasi sebagai output. Agar data dapat dimanfaatkan secara optimal, data harus memiliki tingkat kebenaran yang dapat dipercaya (reliable), akurat, tepat waktu, serta relevan dengan kebutuhan. Dalam konteks pengambilan keputusan, data berperan penting karena menjadi dasar dalam menentukan langkah dan kebijakan yang akan diambil (Prehanto et al., 2020).
+Informasi merupakan hasil dari proses pengolahan data melalui metode tertentu sehingga memiliki makna dan nilai guna bagi penerimanya. Menurut McLeod dalam kutipan Yakub (2012), informasi adalah data yang telah diolah sehingga menjadi lebih berguna dan berarti bagi pengguna dalam mendukung aktivitas sistem informasi. Dengan demikian, informasi tidak hanya sekadar kumpulan data, tetapi telah melalui proses yang menjadikannya relevan dan dapat dimanfaatkan.
+Informasi juga dapat diartikan sebagai data yang telah diproses, diinterpretasikan, maupun diklasifikasikan sehingga dapat digunakan sebagai dasar dalam proses pengambilan keputusan (Prehanto et al., 2020).
+
+
+
+12
+
+
+Informasi yang berkualitas mampu membantu pengguna dalam memahami kondisi yang terjadi serta menentukan tindakan yang tepat.
+Sumber utama informasi adalah data yang merepresentasikan kejadian nyata pada waktu tertentu. Data tersebut perlu diolah melalui suatu tahapan yang dikenal sebagai siklus pengolahan data (data processing life cycle), yang meliputi proses pengumpulan, pengolahan, penyimpanan, dan penyajian data, sehingga menghasilkan informasi yang akurat dan bermanfaat.
+Menurut (Ati et al., 2014) Pengetahuan merupakan hasil pemahaman manusia terhadap dunia yang terbentuk melalui proses pengolahan dan interpretasi informasi yang diterima. Pengetahuan bersifat dinamis dan dapat mengalami perubahan seiring dengan bertambahnya informasi dan pengalaman yang diperoleh. Oleh karena itu, meskipun individu menerima informasi yang sama, pengetahuan yang terbentuk pada setiap individu dapat berbeda, tergantung pada cara pemahaman dan interpretasinya.
+Data memiliki peranan yang sangat penting dalam proses pengambilan keputusan karena menyediakan informasi yang bersifat objektif dan faktual. Data menjadi dasar utama bagi manajemen atau pengambil keputusan untuk memahami kondisi nyata yang sedang dihadapi serta menentukan langkah yang paling tepat (Iraza & Irwan, 2023). Peranan data dalam pengambilan keputusan antara lain sebagai berikut:
+Data memberikan landasan yang kuat bagi pengambil keputusan sehingga keputusan tidak hanya didasarkan pada intuisi atau asumsi, tetapi pada fakta yang dapat dipertanggungjawabkan.
+Melalui analisis data, organisasi dapat mengidentifikasi permasalahan yang terjadi serta menemukan peluang baru yang sebelumnya tidak terlihat.
+Data memungkinkan organisasi untuk melakukan prediksi dan peramalan terhadap kondisi di masa depan, sehingga keputusan yang diambil lebih antisipatif dan strategis
+
+
+Dengan memanfaatkan data, organisasi dapat mengevaluasi proses kerja, mengurangi pemborosan, serta meningkatkan efisiensi dan efektivitas operasional
+Data digunakan untuk mengukur dan mengevaluasi kinerja organisasi, baik dari segi keuangan, operasional, maupun pencapaian tujuan yang telah ditetapkan.
+Keputusan yang didukung oleh data yang akurat dan relevan dapat meminimalkan risiko kesalahan serta dampak negatif yang mungkin timbul akibat keputusan yang kurang tepat
+Pemanfaatan data secara optimal membantu organisasi dalam merumuskan strategi yang lebih baik, sehingga mampu bersaing secara efektif dengan pihak lain
+Konsep Sistem Pendukung Keputusan
+Sistem Penunjang Keputusan (SPK) atau Decision Support System
+(DSS) pertama kali diperkenalkan pada awal tahun 1970-an oleh Michael
+S. Scott Morton melalui konsep yang dikenal dengan istilah Management Decision Systems. Konsep ini muncul sebagai respons terhadap kebutuhan manajemen akan suatu sistem yang mampu membantu proses pengambilan keputusan secara lebih sistematis dan berbasis data. Seiring perkembangannya, berbagai perusahaan, lembaga penelitian, serta perguruan tinggi mulai melakukan kajian dan pengembangan SPK dengan memanfaatkan kemajuan teknologi komputer. Hal tersebut mendorong SPK menjadi salah satu sistem informasi penting yang digunakan untuk mendukung pengambilan keputusan manajerial dalam berbagai bidang dan tingkat organisasi (Vadreas et al., 2018).
+Sistem pendukung keputusan merupakan sebuah sistem berbasis komputer yang dirancang untuk membantu pengambil keputusan dalam menentukan pilihan terbaik dengan memanfaatkan data, model, serta berbagai kriteria atau faktor pendukung yang relevan. Sistem ini tidak menggantikan peran pengambil keputusan, tetapi berfungsi sebagai alat bantu dengan menyajikan informasi yang terstruktur, analisis alternatif,
+
+
+serta rekomendasi yang objektif sehingga proses pengambilan keputusan dapat dilakukan secara lebih cepat, akurat, dan rasional (Hadi, 2022).
+Sistem pendukung keputusan merupakan salah satu komponen dari sistem informasi berbasis komputer yang mencakup sistem berbasis pengetahuan atau manajemen pengetahuan. Sistem ini digunakan untuk membantu proses pengambilan keputusan dengan memanfaatkan data serta berbagai model analisis, khususnya dalam menangani dan menyelesaikan permasalahan yang bersifat tidak terstruktur atau kompleks (Arfan et al., 2023).
+Dapat disimpulkan bahwa sistem pendukung keputusan merupakan sistem informasi berbasis komputer yang berperan sebagai alat bantu dalam proses pengambilan keputusan dengan memanfaatkan data, model analisis, serta pengetahuan yang relevan. Sistem ini dirancang untuk menyajikan informasi dan alternatif keputusan secara objektif dan terstruktur, sehingga mampu membantu pengambil keputusan dalam menyelesaikan permasalahan yang bersifat kompleks atau tidak terstruktur secara lebih efektif, cepat, dan rasional tanpa menggantikan peran manusia sebagai penentu keputusan akhir.
+Berdasarkan (Senapaty et al., 2024) tujuan Decision Support System (DSS) adalah sebagai berikut :
+Membantupengambilkeputusandalammenentukanalternatif keputusan yang paling tepat berdasarkan data dan kriteria yang relevan.
+Menyediakan informasi yang akurat, terstruktur, dan mudah dipahami sebagai dasar pengambilan keputusan.
+Mendukung penyelesaian masalah yang bersifat kompleks dan tidak terstruktur melalui pemanfaatan model dan teknik analisis.
+Meningkatkan kualitas dan objektivitas keputusan dengan mengurangi ketergantungan pada intuisi semata.
+Mempercepat proses pengambilan keputusan tanpa menghilangkan peran pengambil keputusan sebagai penentu akhir.
+
+
+Mengoptimalkan penggunaan data dan pengetahuan yang tersedia agar keputusan yang dihasilkan lebih efektif dan rasional
+Karakteristik sistem penunjang keputusan antara lain sebagai berikut (Juliana, Tongam E Panggabean, 2023) :
+Mampu mendukung proses pengambilan keputusan dalam lingkungan organisasi atau kegiatan bisnis.
+Melibatkan interaksi antar pengguna, di mana kendali utama dalam penentuan keputusan tetap berada pada pengguna.
+Berfungsi membantu pengambilan keputusan dengan memahami permasalahan yang dihadapi serta menangani beberapa keputusan yang saling berkaitan.
+Memiliki kemampuan interaktif atau dialogis sehingga dapat menyajikan informasi sesuai dengan kebutuhan pengguna.
+Terdiri dari beberapa subsistem yang saling terintegrasi dan bekerja bersama sebagai satu kesatuan sistem yang utuh.
+Memiliki dua komponen utama, yaitu data sebagai sumber informasi dan model sebagai alat analisis dalam proses pengambilan keputusan.
+Kredit Pemilikan Rumah
+Kredit merupakan penyediaan dana atau dokumen bernilai uang yang diberikan berdasarkan suatu perjanjian pinjam-meminjam antara bank sebagai pemberi pinjaman dan pihak lain sebagai peminjam. Dalam perjanjian tersebut, pihak peminjam memiliki kewajiban untuk mengembalikan dana yang diterima beserta bunga sesuai dengan jangka waktu dan ketentuan yang telah disepakati. Istilah kredit berasal dari kata Latin credere yang bermakna kepercayaan, yang menunjukkan bahwa pemberian kredit didasarkan pada keyakinan kreditur terhadap kemampuan debitur dalam memenuhi kewajibannya. Dari perspektif ekonomi, kredit dipahami sebagai bentuk pembayaran yang ditunda, karena pengembalian dana atau barang tidak dilakukan pada saat penerimaan, melainkan pada waktu tertentu di masa mendatang. Dengan demikian, sistem kredit
+
+
+digunakan secara luas sebagai mekanisme pembiayaan dalam berbagai aktivitas ekonomi (Sari et al., n.d.).
+Kredit Pemilikan Rumah (KPR) merupakan fasilitas pembiayaan yang disediakan oleh lembaga keuangan atau kreditur untuk membantu masyarakat dalam memperoleh rumah hunian, baik berupa rumah tapak maupun rumah susun. Melalui KPR, kepemilikan rumah dilakukan dengan cara pembelian yang pembayarannya dicicil dalam jangka waktu tertentu sesuai dengan perjanjian yang telah disepakati. Skema KPR dapat diterapkan melalui sistem konvensional maupun sistem syariah, yang masing-masing memiliki mekanisme pembiayaan dan ketentuan berbeda, namun tetap bertujuan memberikan kemudahan bagi masyarakat dalam memiliki tempat tinggal secara legal dan terjangkau (Azis & Mariskha, 2023).
+Dan menurut (Ratulangi, 2022), KPR atau Kredit Pemilikan Rumah adalah salah satu bentuk layanan pembiayaan yang disediakan oleh bank bagi nasabah yang membutuhkan dana khusus untuk kepemilikan, pembangunan, maupun renovasi rumah. Fasilitas kredit ini diberikan dengan ketentuan tertentu, termasuk jangka waktu pengembalian dan skema pembayaran yang disepakati, sehingga dapat membantu nasabah dalam memenuhi kebutuhan perumahan secara lebih terencana.
+Jadi, Kredit Pemilikan Rumah (KPR) merupakan fasilitas pembiayaan yang disediakan oleh lembaga keuangan, khususnya bank, untuk membantu masyarakat memenuhi kebutuhan perumahan, baik dalam hal kepemilikan, pembangunan, maupun renovasi rumah. KPR memungkinkan kepemilikan rumah dilakukan melalui sistem pembayaran angsuran dalam jangka waktu tertentu dengan ketentuan yang telah disepakati, baik melalui skema konvensional maupun syariah, sehingga memberikan kemudahan dan kepastian bagi masyarakat dalam memperoleh tempat tinggal secara legal, terencana, dan terjangkau.
+Menurut Otoritas Jasa Keuangan (OJK), Kredit Pemilikan Rumah (KPR) di Indonesia secara umum terbagi ke dalam dua jenis, yaitu KPR
+
+
+Subsidi dan KPR Non-Subsidi. KPR Subsidi merupakan fasilitas pembiayaan yang ditujukan bagi masyarakat berpenghasilan menengah ke bawah untuk memenuhi kebutuhan kepemilikan atau perbaikan rumah. Bentuk bantuan yang diberikan pemerintah dapat berupa subsidi untuk meringankan beban angsuran kredit maupun subsidi tambahan dana untuk pembangunan atau renovasi rumah. Karena bersifat bantuan pemerintah, KPR Subsidi memiliki ketentuan khusus dan tidak semua pemohon dapat memperoleh fasilitas ini.
+Sementara itu, KPR Non-Subsidi merupakan pembiayaan perumahan yang disediakan oleh bank dengan ketentuan yang mengikuti regulasi umum perbankan. Penentuan jumlah kredit, jangka waktu, serta suku bunga ditetapkan berdasarkan kebijakan masing-masing bank. KPR Non-Subsidi dapat dimanfaatkan untuk berbagai keperluan, antara lain pembelian rumah dari developer maupun non-developer, pembelian rumah bekas, rumah siap huni, rumah yang masih dalam tahap pembangunan (indent), serta pengalihan kredit perumahan (take over) dari bank lain.
+Kerangka atau Metodologi SPK
+Pada dasarnya, pengambilan keputusan merupakan proses pemilihan alternatif terbaik dari sejumlah pilihan yang tersedia dengan menggunakan mekanisme yang paling tepat. Agar keputusan yang dihasilkan akurat dan dapat dipertanggungjawabkan, proses pengambilan keputusan tidak dilakukan secara langsung, melainkan melalui beberapa tahapan yang sistematis. Dalam proses pemodelan untuk pembangunan Decision Support System (DSS), terdapat beberapa langkah yang harus dilakukan sebagaimana dikemukakan oleh (Kusrini, 2007), yaitu sebagai berikut:
+Studi Kelayakan (Intelligence)
+Pada tahap ini dilakukan penentuan tujuan serta pengumpulan informasi yang relevan. Kegiatan yang dilakukan meliputi pencarian prosedur, pengumpulan data, identifikasi dan klasifikasi permasalahan,
+
+
+serta penentuan pihak yang terkait dengan masalah tersebut hingga terbentuk rumusan masalah yang jelas.
+Perancangan (Design)
+Tahap perancangan berfokus pada penyusunan dan perumusan model yang akan digunakan dalam sistem. Pada tahap ini juga ditetapkan kriteria-kriteria penilaian, dicari berbagai alternatif model yang dapat digunakan untuk menyelesaikan permasalahan, serta dilakukan prediksi terhadap kemungkinan keluaran. Selain itu, variabel-variabel yang memengaruhi model ditentukan secara sistematis.
+Pemilihan (Choice)
+Setelah berbagai alternatif model dan variabel ditetapkan, tahap ini bertujuan untuk memilih model terbaik beserta solusi yang dihasilkan. Pada tahap ini juga dilakukan analisis sensitivitas dengan mengubah beberapa variabel untuk mengetahui pengaruhnya terhadap hasil keputusan.
+Implementasi (Implementation)
+Tahap terakhir adalah mengimplementasikan model yang telah dipilih ke dalam bentuk aplikasi atau sistem DSS. Pada tahap ini, model yang telah dirancang dan diuji diintegrasikan ke dalam sistem agar dapat digunakan secara nyata dalam mendukung proses pengambilan keputusan.
+Metode SMART (Simple Multi Attribute Rating Technique).
+SMART (Simple Multi Attribute Rating Technique) merupakan metode pengambilan keputusan multikriteria yang diperkenalkan oleh Edward pada tahun 1977. Metode ini didasarkan pada konsep bahwa setiap alternatif memiliki sejumlah kriteria dengan nilai tertentu, di mana masing-masing kriteria mempunyai bobot yang menunjukkan tingkat kepentingannya dibandingkan kriteria lainnya. Bobot tersebut digunakan sebagai dasar dalam melakukan penilaian terhadap setiap alternatif sehingga dapat diperoleh alternatif yang paling optimal (Lestari et al., 2022).
+
+
+SMART menggunakan model linear additive untuk memperkirakan nilai dari setiap alternatif yang tersedia. Metode SMART termasuk metode pengambilan keputusan yang bersifat fleksibel dan banyak digunakan karena memiliki proses yang sederhana dalam menyesuaikan kebutuhan pengambil keputusan serta mudah dalam melakukan analisis terhadap hasil keputusan (Lestari et al., 2022). Parameter digunakan sebagai dasar dalam menentukan keputusan, di mana setiap parameter memiliki rentang nilai dan bobot yang berbeda sesuai tingkat kepentingannya. Adapun tahapan perhitungan menggunakan metode TOPSIS adalah sebagai berikut (Andriyani & Oktaviani, 2022):
+Menghitung normalisasi bobot kriteria dilakukan dengan membandingkan nilai bobot setiap kriteria terhadap total seluruh bobot kriteria menggunakan persamaan berikut:
+4281170161595𝑤𝑗
+
+
+
+Keterangan:
+𝑊𝑗 =𝑚
+4281170-81798∑∑𝑗=1
+∑
+∑
+𝑤𝑗
+
+Wj merupakan hasil normalisasi bobot kriteria ke-j, wj adalah nilai bobot kriteria ke-j, dan m adalah jumlah seluruh kriteria.
+Menentukannilaiutilityuntuksetiapkriteriasesuaidengan karakteristik kriterianya, yaitu:
+Untuk kriteria yang mengutamakan nilai lebih kecil, digunakan persamaan:
+ 𝐶𝑚𝑎𝑥 − 𝐶𝑜𝑢𝑡
+441579085381𝐶− 𝐶𝐶− 𝐶𝑢_𝑖(𝑎_𝑖) =
+𝐶− 𝐶
+𝐶− 𝐶
+𝑚𝑎𝑥𝑚𝑖𝑛
+Untuk kriteria yang mengutamakan nilai lebih besar, digunakan persamaan:
+𝑢_𝑖(𝑎_𝑖) =  𝐶𝑜𝑢𝑡 − 𝐶𝑚𝑖𝑛 
+𝐶𝑚𝑎𝑥 − 𝐶𝑚𝑖𝑛
+ui(ai) adalah nilai utility pada kriteria ke-i, Cmax merupakan nilai kriteria maksimum, Cmin merupakan nilai kriteria minimum, dan Cout adalah nilai dari kriteria ke-i.
+
+
+Menghitung nilai akhir alternatif dilakukan dengan menjumlahkan hasil perkalian antara bobot kriteria yang telah dinormalisasi dengan nilai utility masing-masing kriteria menggunakan persamaan berikut:
+𝑚
+𝑢(𝑎𝑖) = ∑ 𝑤𝑗𝑢𝑖(𝑎𝑖)
+𝑗=1
+u(ai) adalah nilai total alternatif, wj merupakan hasil normalisasi bobot kriteria, dan ui(ai) adalah nilai utility pada setiap kriteria.
+Kriteria, Variabel, atau Atribut Data
+Dalam pengambilan keputusan multikriteria, permasalahan keputusan dipandang sebagai proses pemilihan satu alternatif terbaik dari sejumlah alternatif yang tersedia dengan mempertimbangkan beberapa kriteria tertentu. Menurut (Amatik, 2023), pengambilan keputusan melibatkan pengambil keputusan, kriteria yang telah diidentifikasi, serta alternatif yang layak, yang kemudian dianalisis untuk menentukan pilihan terbaik berdasarkan tujuan yang ingin dicapai.
+Variabel atau atribut data merupakan faktor-faktor yang digunakan untuk menggambarkan karakteristik suatu permasalahan atau objek keputusan. Variabel tersebut menjadi dasar dalam penentuan kriteria, yaitu aspek-aspek penting yang memengaruhi hasil pengambilan keputusan. Kriteria berfungsi sebagai acuan penilaian untuk mengevaluasi setiap alternatif berdasarkan tingkat kepentingannya terhadap tujuan keputusan. Dalam metode SMART, setiap kriteria diberikan bobot sesuai tingkat kepentingannya, kemudian digunakan dalam proses perhitungan nilai utility untuk menentukan alternatif terbaik secara objektif dan terstruktur.
+Bobot merupakan nilai yang menunjukkan tingkat kepentingan relatif dari setiap kriteria terhadap tujuan keputusan. Bobot digunakan untuk merepresentasikan preferensi pengambil keputusan terhadap kriteria yang ada, sehingga kriteria yang lebih penting memiliki pengaruh yang lebih besar dalam proses evaluasi. Penentuan bobot bertujuan untuk memastikan bahwa keputusan yang dihasilkan mencerminkan prioritas dan kepentingan yang sebenarnya dari pengambil keputusan.
+
+
+Alternatif merupakan sekumpulan pilihan atau solusi yang memungkinkan untuk dipilih sebagai hasil keputusan. Setiap alternatif dievaluasi berdasarkan kriteria dan bobot yang telah ditentukan untuk mengetahui tingkat kesesuaiannya terhadap tujuan keputusan. Hasil evaluasi alternatif kemudian digunakan untuk menentukan peringkat atau prioritas alternatif, sehingga alternatif dengan nilai tertinggi dapat dipilih sebagai keputusan terbaik
+Evaluasi dan Pengukuran Kinerja Metode
+Evaluasi dan pengukuran kinerja metode dalam Sistem Pendukung Keputusan bertujuan untuk menilai sejauh mana metode yang digunakan mampu menghasilkan keputusan yang tepat, relevan, dan dapat dipertanggungjawabkan. Menurut (Zhang & Pu, 2006), kinerja sistem pendukung keputusan dapat dievaluasi melalui hubungan antara kualitas hasil keputusan dan usaha yang diperlukan dalam proses pengambilan keputusan. Evaluasi ini penting karena sistem pendukung keputusan tidak hanya dituntut menghasilkan keputusan yang akurat, tetapi juga harus mampu membantu pengguna mengambil keputusan secara efisien.
+Salah satu aspek utama dalam evaluasi kinerja metode adalah akurasi keputusan. Akurasi keputusan menunjukkan sejauh mana hasil keputusan yang dihasilkan sistem sesuai dengan keputusan terbaik yang seharusnya diperoleh. (Zhang & Pu, 2006) menjelaskan bahwa akurasi keputusan dapat diartikan sebagai kemampuan sistem dalam merekomendasikan alternatif yang paling sesuai dengan preferensi pengguna, sehingga keputusan yang dihasilkan tidak menimbulkan kesalahan atau penyesalan di kemudian hari. Semakin tinggi tingkat akurasi, maka semakin baik kualitas sistem dalam mendukung proses pengambilan keputusan.
+Selain akurasi, evaluasi kinerja metode juga berkaitan dengan validitas hasil keputusan. Validitas menunjukkan bahwa keputusan yang dihasilkan benar-benar mencerminkan kondisi nyata dan didasarkan pada kriteria serta preferensi yang relevan. Sistem pendukung keputusan yang
+
+
+valid mampu memproses data dan preferensi pengguna secara konsisten sehingga keputusan yang dihasilkan dapat dipercaya dan digunakan sebagai dasar pengambilan kebijakan.
+(Zhang & Pu, 2006) juga menekankan pentingnya tingkat kesesuaian keputusan, yaitu keselarasan antara hasil keputusan yang dihasilkan sistem dengan tujuan pengguna atau kebutuhan organisasi. Tingkat kesesuaian ini menggambarkan apakah sistem pendukung keputusan mampu memberikan rekomendasi yang sesuai dengan harapan pengguna dan konteks permasalahan yang dihadapi. Keputusan yang memiliki tingkat kesesuaian tinggi akan lebih mudah diterima dan diimplementasikan oleh pengambil keputusan.
+Dengan demikian, evaluasi dan pengukuran kinerja metode dalam Sistem Pendukung Keputusan dilakukan untuk memastikan bahwa metode yang digunakan mampu menghasilkan keputusan yang akurat, valid, dan sesuai dengan tujuan pengambilan keputusan. Evaluasi ini menjadi dasar penting dalam menilai efektivitas metode yang diterapkan serta kontribusinya dalam mendukung proses pengambilan keputusan secara sistematis dan objektif.
+Pada metode SMART, evaluasi kinerja dilakukan untuk memastikan bahwa hasil keputusan yang dihasilkan bersifat objektif, akurat, dan sesuai dengan tujuan pengambilan keputusan. Secara umum, evaluasi metode SMART meliputi beberapa aspek berikut:
+Evaluasi pertama adalah ketepatan pembobotan kriteria. Metode SMART menilai apakah bobot yang diberikan pada setiap kriteria telah sesuai dengan tingkat kepentingannya dalam proses pengambilan keputusan. Pembobotan yang tepat akan menghasilkan penilaian alternatif yang lebih objektif dan relevan.
+Evaluasi berikutnya adalah akurasi hasil keputusan. SMART dievaluasi berdasarkan kemampuannya dalam menghasilkan peringkat alternatif yang sesuai dengan kondisi nyata atau kebutuhan pengguna. Semakin
+
+
+sesuai hasil perhitungan SMART dengan keputusan yang diharapkan, maka semakin baik tingkat akurasi metode tersebut.
+Selain itu, dilakukan evaluasi validitas keputusan. Validitas menunjukkan bahwa kriteria, bobot, dan nilai utility yang digunakan telah sesuai dengan permasalahan yang dianalisis. Keputusan dianggap valid apabila seluruh komponen penilaian mampu merepresentasikan tujuan pengambilan keputusan secara tepat.
+Evaluasi selanjutnya adalah tingkat kesesuaian keputusan. Aspek ini menilai sejauh mana hasil keputusan dari metode SMART dapat memenuhi kebutuhan pengguna, tujuan organisasi, atau aturan yang berlaku. Hasil keputusan yang memiliki tingkat kesesuaian tinggi akan lebih mudah diterapkan dalam proses pengambilan keputusan.
+Terakhir, evaluasi juga mencakup keandalan metode. Keandalan menunjukkan bahwa metode SMART mampu menghasilkan keputusan yang konsisten dan stabil apabila digunakan pada kondisi yang sama dengan data serta bobot kriteria yang tidak mengalami perubahan signifikan.
+Implementasi Sistem
+Implementasi sistem merupakan tahap penerapan hasil analisis Sistem Pendukung Keputusan ke dalam suatu sistem informasi yang dapat digunakan oleh pengguna dalam mendukung proses pengambilan keputusan. Pada tahap ini, hasil perhitungan dan rekomendasi yang dihasilkan oleh metode SPK disajikan dalam bentuk informasi yang mudah dipahami dan dimanfaatkan oleh pengambil keputusan, tanpa membahas aspek teknis pengembangan sistem.
+Dalam implementasinya, hasil SPK diintegrasikan ke dalam sistem informasi sebagai bahan pertimbangan dalam menentukan keputusan. Sistem berfungsi sebagai media penyajian informasi yang menampilkan hasil evaluasi, peringkat, atau prioritas alternatif berdasarkan kriteria yang telah ditentukan. Dengan demikian, pengguna dapat memahami hasil
+
+
+analisis secara menyeluruh dan menggunakan rekomendasi tersebut sebagai dasar dalam pengambilan keputusan akhir.
+Implementasi sistem juga bertujuan untuk memastikan bahwa hasil SPK selaras dengan kebutuhan pengguna dan kebijakan organisasi. Informasi yang dihasilkan oleh sistem diharapkan mampu meningkatkan objektivitas, konsistensi, dan efektivitas dalam proses pengambilan keputusan. Melalui implementasi yang tepat, sistem informasi dapat menjadi alat pendukung yang membantu organisasi dalam mengambil keputusan secara lebih sistematis dan terstruktur.
+Permodelan dan Perancangan Sistem
+Unified Modeling Language (UML)
+Unified Modeling Language (UML) merupakan bahasa pemodelan standar yang digunakan untuk memvisualisasikan, mendeskripsikan, dan merancang perangkat lunak. UML menjadi salah satu metode dalam pengembangan sistem berbasis objek serta berfungsi sebagai alat bantu untuk mempermudah proses perancangan dan pengembangan sistem (Binangkit et al., 2023). Dalam perancangan sistem berbasis objek, UML menyediakan berbagai jenis diagram, antara lain use case diagram, activity diagram, sequence diagram, dan class diagram, yang digunakan untuk menggambarkan fungsi, alur proses, interaksi, serta struktur sistem secara terstruktur dan sistematis.
+Unified Modeling Language (UML) merupakan alat yang digunakan dalam pengembangan sistem berbasis objek maupun sistem yang bersifat berkelanjutan. Penggunaan UML mempermudah proses perancangan sistem karena disajikan dalam bentuk visual yang jelas serta berfungsi sebagai bahasa standar dalam penyusunan blueprint perangkat lunak. Dalam perancangan sistem berorientasi objek, UML menyediakan berbagai jenis diagram, antara lain Use Case Diagram, Activity Diagram, Sequence Diagram, Class Diagram, dan Deployment Diagram, yang masing-masing digunakan untuk menggambarkan fungsi, alur proses, interaksi, struktur, serta penempatan komponen sistem secara terstruktur (Pangestu et al., 2024).
+
+Berdasarkan kedua pengertian tersebut, dapat disimpulkan bahwa Unified Modeling Language (UML) merupakan bahasa pemodelan standar yang digunakan sebagai alat bantu dalam pengembangan dan perancangan sistem berbasis objek. UML menyajikan rancangan sistem dalam bentuk visual yang terstruktur sehingga memudahkan pemahaman terhadap fungsi, alur proses, interaksi, serta struktur dan penempatan komponen sistem. Dengan menyediakan berbagai jenis diagram, UML berperan sebagai blueprint perangkat lunak yang membantu pengembang dalam merancang sistem secara sistematis, jelas, dan berkelanjutan. Beberapa diagram yang digunakan dalam penelitian ini sebagai berikut:
+Use Case Diagram
+Use Case Diagram merupakan diagram yang umumnya dibuat pada tahap awal dalam pemodelan perangkat lunak berorientasi objek. Diagram ini digunakan untuk menggambarkan fungsi-fungsi yang dijalankan oleh aktor, di mana aktor tersebut merepresentasikan pengguna atau pihak yang berinteraksi dengan sistem. Dalam penyusunannya, Use Case Diagram mengacu pada hasil analisis kebutuhan sistem, serupa dengan proses pada pengembangan perangkat lunak terstruktur yang menggunakan Data Flow Diagram (DFD). Dengan demikian, Use Case Diagram berperan penting dalam menjelaskan kebutuhan fungsional sistem dari sudut pandang pengguna (Sinta & Efendi, 2021). Berikut ini simbol-simbol pada use case diagram.
+Tabel 2. 1 Simbol Use Case Diagram
+
+Simbol
+Nama Simbol
+Keterangan
+
+Aktor
+Mewakili peran orang, system yang lain, atau alat ketika berkomunikasi
+dengan use case
+
+
+Use Case
+Abstraksi dan interaksi antara system dan aktor
+
+
+
+
+Association
+Abstraksi dari penghubung antara actor
+dengan use case
+
+
+Generalisasi
+Menunjukkan spesialisasi actor untuk
+dapat berpatisipasi dengan use case
+
+
+Include
+Menunjukkan bahwa suatu use case
+seluruhnya merupakan fungsionalitas dari use case lainnya.
+
+
+Extend
+Menunjukkan bahwa suatu use case merupakan tambahan fungsional dari use case lainnya jika suatu kondisi
+terpenuhi
+
+Activity Diagram
+Activity Diagram merupakan salah satu diagram UML yang paling sering digunakan dalam perancangan sistem. Diagram ini berfungsi untuk menggambarkan alur aktivitas atau urutan tindakan yang dijalankan oleh sistem, baik untuk mengendalikan proses eksekusi maupun merepresentasikan aliran data. Activity Diagram dapat diterapkan pada perancangan tingkat tinggi, seperti pemodelan proses bisnis, maupun pada perancangan tingkat rendah untuk menjelaskan algoritma yang akan diimplementasikan. Diagram ini menampilkan alur kerja atau rangkaian aktivitas yang terjadi di dalam sistem dengan menekankan pada aliran kontrol dari satu aktivitas ke aktivitas berikutnya. Selain itu, Activity Diagram bersifat hierarkis, di mana suatu aktivitas dapat diuraikan menjadi serangkaian sub-aktivitas atau tindakan yang saling berkaitan (Wayahdi & Ruziq, 2023).
+Tabel 2. 2 Simbol Activity Diagram
+
+Simbol
+Nama
+Keterangan
+
+
+Status Awal
+Sebuah diagram aktivitas memiliki
+sebuah status awal
+
+
+
+
+Aktivitas
+Aktivitas yang dilakukan system,
+aktivitas biasanya diawali dengan kata kerja
+
+
+Decision
+Percabangan dimana ada pilihan
+aktivitas yang lebih dari satu
+
+
+Penggabungan / Join
+Penggabungan dimana yang mana lebih dari satu aktivitas lalu
+digabungkan jadi satu
+
+Status Akhir
+Status akhir yang dilakukan system, sebuah diagram aktivitas memiliki
+sebuah status akhir
+
+
+Swimlane
+Swimlane memisahkan organisasi bisnis yang bertanggung jawab
+terhadap aktivitas yang terjadi
+
+Sequence Diagram
+Sequence Diagram merupakan salah satu diagram UML yang paling umum digunakan untuk menggambarkan interaksi antar objek serta pertukaran pesan yang terjadi seiring waktu. Diagram ini menunjukkan bagaimana aktivitas atau peristiwa dalam sebuah use case diterjemahkan ke dalam operasi yang dijalankan oleh objek-objek kelas. Sequence Diagram banyak digunakan karena bersifat intuitif dan mampu menampilkan perilaku sistem secara parsial dengan jelas (Wayahdi & Ruziq, 2023).
+Fokus utama Sequence Diagram adalah memperlihatkan urutan interaksi antar objek serta hubungan yang terjadi di antara objek-objek tersebut. Diagram ini merepresentasikan bagaimana bagian-bagian dalam sistem saling berkomunikasi untuk menjalankan suatu fungsi tertentu. Dengan demikian, Sequence Diagram membantu menggambarkan kolaborasi objek yang dirancang untuk diimplementasikan pada saat sistem dijalankan.
+
+
+Tabel 2. 3 Simbol Sequence Digram
+
+Simbol
+Nama
+Keterangan
+
+Aktor
+Orang, proses atau sistem lain yang berinteraksi dengan sistem informasi dan memperoleh manfaat darinya. Aktor berperan dalam berpartisipasi secara berurutan serta dapat mengirim
+atau menerima pesan dalam sistem.
+
+
+Lifeline
+Komponen yang digambarkan garis putus terhubung dengan objek
+
+
+Objek
+Mengilustrasikan objekobjek yang terlibat dan berperan dalam suatu proses dengan berinteraksi secara berurutan   melalui   pengiriman
+dan/atau penerimaan pesan.
+
+
+Activation
+Menunjukkanketerkaitanantara
+objek dengan pesan yang dikirim atau diterima.
+
+Message (call)
+Menunjukkan alur pesan sebagai peristiwa yang dikirim dari lifeline objek  pengirim  ke  lifeline  objek
+penerima.
+
+
+Message (return)
+Menunjukkan alur pengiriman pesan ke objek pemanggil serta indikasi bahwa   objek   penerima   telah
+menyelesaikan prosesnya.
+
+
+Create
+Menunjukkan bahwasuatu objek menciptakanobjeklain,dengan
+
+
+
+
+panah yang mengarah ke objek yang
+dibuat.
+
+
+Destroy
+Menunjukkan bahwa suatu objek mengakhiri proses objek lain, dengan panah yang mengarah ke objek yang dihentikan. Sebaiknya, jika terdapat proses pembuatan (create), maka juga
+ada proses penghancuran (destroy).
+
+Perancangan Basis Data (Class Diagram)
+Perancangan basis data dalam penelitian ini dilakukan menggunakan Class Diagram yang bertujuan untuk menggambarkan struktur data, atribut, serta hubungan antar kelas dalam sistem. Class Diagram merupakan diagram UML yang digunakan untuk menggambarkan struktur sistem secara statis dengan menampilkan kelas, paket, dan objek beserta hubungan antar elemen tersebut, seperti inheritance, association, aggregation, dan composition. Kelas merupakan bentuk abstraksi yang merepresentasikan struktur serta perilaku umum dari sekumpulan objek. Sementara itu, objek adalah instansiasi dari kelas yang dapat dibuat, diubah, dan dihapus selama sistem dijalankan. Setiap objek memiliki keadaan yang ditentukan oleh nilai atributnya serta keterkaitannya dengan objek lain (Wayahdi & Ruziq, 2023).
+Class Diagram berfungsi sebagai sarana perencanaan dan komunikasi antar pengembang dalam proses pengembangan sistem. Diagram ini menyajikan gambaran struktur statis sistem dengan memperlihatkan kelas-kelas yang ada beserta relasi di antaranya. Selain itu, Class Diagram digunakan untuk memodelkan struktur sistem yang mampu menyimpan data dan menjalankan fungsi atau operasi tertentu, serta menjadi dasar penting dalam tahapan pengembangan perangkat lunak selanjutnya, khususnya pada fase perancangan sistem.
+
+
+Tabel 2. 4 Simbol Class Diagram
+
+Simbol
+Nama
+Keterangan
+
+
+Kelas
+Kelas pada struktur system
+
+Interface
+Samadengankonsepinterface
+dalampemrogramanberorientasi objek
+
+
+Association
+Relasi antarkelas dengan arti umum,
+asosiasibiasanyajugadisertai dengan multiplicity
+
+
+Directed Association
+Relasi antarkelas dengan makna kelas yang digunakan oleh kelas yang lain, asosiasi biasanya juga
+disertai dengan muliplicity
+
+
+Generalisasi
+Relasi antarkelas dengan makna generalisasispesialisasi(umum
+khusus)
+
+
+Dependency
+Relasi  antarkelas  dengan  makna
+kebergantungan antarkelas
+
+
+Aggregation
+Relasi  antarkelas  dengan  makna
+semua-bagian (wholepart)
+Konsep Pengujian Sistem
+Menjelaskan teori pengujian sistem yang digunakan, seperti pengujian black-box, termasuk tujuan dan teknik pengujian. Menjelaskan teori pengujian sistem yang digunakan, seperti pengujian black-box, termasuk tujuan dan teknik pengujian.
+Pengujian sistem merupakan tahapan penting dalam pengembangan sistem yang bertujuan untuk memastikan bahwa sistem yang dibangun telah berjalan sesuai dengan kebutuhan dan spesifikasi yang ditetapkan. Pengujian dilakukan  untuk  menemukan  kesalahan  (error),  kekurangan,  maupun
+
+
+ketidaksesuaian fungsi sistem sebelum sistem digunakan secara penuh oleh pengguna.
+Black Box.
+Metode Blackbox Testing merupakan teknik pengujian perangkat lunak yang menitikberatkan pada pengujian fungsi sistem berdasarkan spesifikasi yang telah ditentukan. Pada metode ini, penguji menguji sistem dengan memberikan berbagai kondisi input tanpa memperhatikan struktur atau kode program di dalamnya. Proses Blackbox Testing dilakukan dengan mencoba menjalankan aplikasi serta memasukkan data pada setiap form atau fitur yang tersedia untuk memastikan bahwa fungsi sistem berjalan sebagaimana mestinya. Pengujian ini bertujuan untuk mengetahui apakah sistem telah sesuai dengan kebutuhan dan harapan pengguna. Dalam penerapannya, Blackbox Testing umumnya menggunakan dua teknik utama, yaitu Equivalence Partitioning dan Boundary Value Analysis (Shadiq et al., 2021).
+Blackbox testing merupakan jenis pengujian yang memperlakukan perangkat lunak tanpa mengetahui atau memperhatikan cara kerja internalnya. Dalam metode ini, penguji memandang sistem seperti sebuah black box, di mana fokus pengujian tidak terletak pada struktur atau isi program, melainkan pada perilaku dan hasil keluaran yang dihasilkan berdasarkan masukan yang diberikan melalui proses pengujian dari sisi luar sistem (Wintana et al., 2022).
+White Box
+White Box Testing merupakan metode pengujian perangkat lunak yang dilakukan dengan cara memeriksa dan menganalisis struktur serta kode program untuk mengidentifikasi kesalahan atau kekurangan dalam aplikasi. Metode ini melibatkan peninjauan modul secara mendetail guna memastikan setiap bagian kode berfungsi sesuai dengan yang diharapkan. Salah satu teknik yang sering digunakan dalam White Box Testing adalah basis path testing, karena mampu menghasilkan jumlah test case yang memberikan
+
+
+cakupan pengujian lebih menyeluruh dibandingkan dengan teknik pengujian lainnya (Shadiq et al., 2021).
+White box testing dikenal sebagai pengujian struktural, di mana perangkat lunak yang diuji bersifat transparan bagi penguji. Pada metode ini, pengujian dirancang dari sudut pandang pengembang karena struktur internal sistem telah diketahui. Seluruh bagian kode yang dapat diuji akan diperiksa dengan tujuan untuk menemukan kesalahan logika atau kekeliruan dalam kode sumber perangkat lunak (Praniffa et al., 2023).
+
+
+Penelitian Sebelumnya (Previous Work)
+
+No
+Judul, Penulis, Tahun
+Masalah Penelitian
+Tujuan Penelitian
+Metodologi Penelitian / Pemecahan Masalah
+Jumlah Data / Sampel
+Hasil Penelitian / Temuan Utama
+Limitasi / Keterbatasan
+Persamaan & Perbedaan dengan Penelitian Saat Ini
+1
+Sistem Pendukung Keputusan untuk pemilihan bibit semangka Metode Fuzzy Tsukamoto (Sihombing, 2020)
+Proses penentuan bibit masih manual dan subjektif
+Menghasilkan sistem yang membantu penentuan bibit secara objektif
+Fuzzy Tsukamoto, SPK berbasis desktop
+5 data bibit
+Sistem mampu memberikan rekomendasi rangking bibit (kualitas) berdasarkan kriteria yang ditetapkan
+Sistem belum berbasis web dan belum terintegrasi antar pengguna
+Persamaan: menggunakan logika Fuzzy Perbedaan: penelitian ini berbasis web dan fokus pada CPCL
+
+Kerangka Teoritis (Theoritical Framework)
+48202334983Latar Belakang MasalahPenilaian kelayakan KPR di PT Citra Pasada Properti yang saat ini masih manual dan subjektif memicu inefisiensi waktu serta tingginya risiko kesalahan keputusan. Oleh karena itu, Sistem Pendukung Keputusan (SPK) dengan metode SMART mendesak diterapkan agar proses evaluasi calon debitur menjadi lebih cepat, objektif, dan akurat.Rumusan MasalahBagaimana merancang SPK kelayakan KPR yang objektif di PT Citra Pasada Properti?Bagaimana menerapkan metode SMART pada kriteria penilaian?Bagaimana menghasilkan keputusan akhir (layak/tidak layak) secara objektif?Metode Pengembangan SistemWaterfallMetode Pengumpulan DataObservasiWawancaraStudi Pustaka / DokumenPenelitianPengumpulan DataPenyelesaian MasalahPengembangan SistemTujuan PenelitianMerancang SPK kelayakan KPR yang objektif di PT Citra Pasada Properti.Menerapkan metode SMART pada kriteria penilaian calon debitur.Menghasilkan sistem yang merekomendasikan keputusan "layak" atau "tidak layak".HasilSistem memberikan rekomendasi kelayakan pembeli KPRsecara objektif, transparan, dan terukurMetode Penyelesaian MasalahSMARTImplementasiMenerapkan teori Test & ValidasiPengujian Sistem (Whitebox/Blackbox)00Latar Belakang MasalahPenilaian kelayakan KPR di PT Citra Pasada Properti yang saat ini masih manual dan subjektif memicu inefisiensi waktu serta tingginya risiko kesalahan keputusan. Oleh karena itu, Sistem Pendukung Keputusan (SPK) dengan metode SMART mendesak diterapkan agar proses evaluasi calon debitur menjadi lebih cepat, objektif, dan akurat.Rumusan MasalahBagaimana merancang SPK kelayakan KPR yang objektif di PT Citra Pasada Properti?Bagaimana menerapkan metode SMART pada kriteria penilaian?Bagaimana menghasilkan keputusan akhir (layak/tidak layak) secara objektif?Metode Pengembangan SistemWaterfallMetode Pengumpulan DataObservasiWawancaraStudi Pustaka / DokumenPenelitianPengumpulan DataPenyelesaian MasalahPengembangan SistemTujuan PenelitianMerancang SPK kelayakan KPR yang objektif di PT Citra Pasada Properti.Menerapkan metode SMART pada kriteria penilaian calon debitur.Menghasilkan sistem yang merekomendasikan keputusan "layak" atau "tidak layak".HasilSistem memberikan rekomendasi kelayakan pembeli KPRsecara objektif, transparan, dan terukurMetode Penyelesaian MasalahSMARTImplementasiMenerapkan teori Test & ValidasiPengujian Sistem (Whitebox/Blackbox)
+Latar Belakang Masalah
+Penilaian kelayakan KPR di PT Citra Pasada Properti yang saat ini masih manual dan subjektif memicu inefisiensi waktu serta tingginya risiko kesalahan keputusan. Oleh karena itu, Sistem Pendukung Keputusan (SPK) dengan metode SMART mendesak diterapkan agar proses evaluasi calon debitur menjadi lebih cepat, objektif, dan akurat.
+Rumusan Masalah
+Bagaimana merancang SPK kelayakan KPR yang objektif di PT Citra Pasada Properti?
+Bagaimana menerapkan metode SMART pada kriteria penilaian?
+Bagaimana menghasilkan keputusan akhir (layak/tidak layak) secara objektif?
+Metode Pengembangan Sistem
+Waterfall
+Metode Pengumpulan Data
+Observasi
+Wawancara
+Studi Pustaka / Dokumen
+
+Penelitian
+Pengumpulan Data
+Penyelesaian Masalah
+Pengembangan Sistem
+Tujuan Penelitian
+Merancang SPK kelayakan KPR yang objektif di PT Citra Pasada Properti.
+Menerapkan metode SMART pada kriteria penilaian calon debitur.
+Menghasilkan sistem yang merekomendasikan keputusan "layak" atau "tidak layak".
+Hasil
+Sistem memberikan rekomendasi kelayakan pembeli KPR
+secara objektif, transparan, dan terukur
+Metode Penyelesaian Masalah
+SMART
+Implementasi
+Menerapkan teori 
+
+
+Test & Validasi
+Pengujian Sistem (Whitebox/Blackbox)
+
+
+Latar Belakang Masalah
+Penilaian kelayakan KPR di PT Citra Pasada Properti yang saat ini masih manual dan subjektif memicu inefisiensi waktu serta tingginya risiko kesalahan keputusan. Oleh karena itu, Sistem Pendukung Keputusan (SPK) dengan metode SMART mendesak diterapkan agar proses evaluasi calon debitur menjadi lebih cepat, objektif, dan akurat.
+Rumusan Masalah
+Bagaimana merancang SPK kelayakan KPR yang objektif di PT Citra Pasada Properti?
+Bagaimana menerapkan metode SMART pada kriteria penilaian?
+Bagaimana menghasilkan keputusan akhir (layak/tidak layak) secara objektif?
+Metode Pengembangan Sistem
+Waterfall
+Metode Pengumpulan Data
+Observasi
+Wawancara
+Studi Pustaka / Dokumen
+
+Penelitian
+Pengumpulan Data
+Penyelesaian Masalah
+Pengembangan Sistem
+Tujuan Penelitian
+Merancang SPK kelayakan KPR yang objektif di PT Citra Pasada Properti.
+Menerapkan metode SMART pada kriteria penilaian calon debitur.
+Menghasilkan sistem yang merekomendasikan keputusan "layak" atau "tidak layak".
+Hasil
+Sistem memberikan rekomendasi kelayakan pembeli KPR
+secara objektif, transparan, dan terukur
+Metode Penyelesaian Masalah
+SMART
+Implementasi
+Menerapkan teori 
+
+
+Test & Validasi
+Pengujian Sistem (Whitebox/Blackbox)
+
+
+
+341019430015400985279403860Identifikasi MasalahPenilaian kelayakan KPR masih manual dan subjektif karena hanya mengandalkan intuisi marketing.Belum adanya Sistem Pendukung Keputusan (SPK) untuk mengevaluasi kelayakan secara terstruktur.Inefisiensi waktu tim marketing akibat menangani calon pembeli yang tidak memenuhi syarat atau berisiko tinggi.Belum digunakannya metode perhitungan yang objektif berdasarkan indikator kelayakan KPR.0Identifikasi MasalahPenilaian kelayakan KPR masih manual dan subjektif karena hanya mengandalkan intuisi marketing.Belum adanya Sistem Pendukung Keputusan (SPK) untuk mengevaluasi kelayakan secara terstruktur.Inefisiensi waktu tim marketing akibat menangani calon pembeli yang tidak memenuhi syarat atau berisiko tinggi.Belum digunakannya metode perhitungan yang objektif berdasarkan indikator kelayakan KPR.
+Identifikasi Masalah
+Penilaian kelayakan KPR masih manual dan subjektif karena hanya mengandalkan intuisi marketing.
+Belum adanya Sistem Pendukung Keputusan (SPK) untuk mengevaluasi kelayakan secara terstruktur.
+Inefisiensi waktu tim marketing akibat menangani calon pembeli yang tidak memenuhi syarat atau berisiko tinggi.
+Belum digunakannya metode perhitungan yang objektif berdasarkan indikator kelayakan KPR.
+Identifikasi Masalah
+Penilaian kelayakan KPR masih manual dan subjektif karena hanya mengandalkan intuisi marketing.
+Belum adanya Sistem Pendukung Keputusan (SPK) untuk mengevaluasi kelayakan secara terstruktur.
+Inefisiensi waktu tim marketing akibat menangani calon pembeli yang tidak memenuhi syarat atau berisiko tinggi.
+Belum digunakannya metode perhitungan yang objektif berdasarkan indikator kelayakan KPR.
+
+337383918542000
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Gambar 2. 1 Kerangka Penelitian
+
+BAB III METODOLOGI
+
+Jenis atau Desain Penelitian
+Jenis penelitian yang digunakan dalam penelitian ini adalah penelitian kuantitatif dengan pendekatan Sistem Pendukung Keputusan (SPK). Menurut (Syahroni & Irfan, 2022) Penelitian kuantitatif merupakan metode penelitian ilmiah yang berfokus pada pengumpulan dan pengolahan data berbentuk angka. Data tersebut dapat disajikan dalam bentuk nilai numerik, tabel, maupun grafik, kemudian dianalisis menggunakan teknik statistik untuk menghasilkan kesimpulan yang objektif dan terukur. Pendekatan ini bertujuan menghasilkan temuan yang sistematis, dapat diuji, dan dapat digunakan sebagai dasar dalam pengambilan keputusan.
+Pendekatan kuantitatif dipilih karena penelitian ini berfokus pada pengolahan data penilaian calon debitur KPR berdasarkan sejumlah kriteria yang telah ditentukan. Proses pengolahan data dilakukan melalui tahapan pembobotan kriteria, normalisasi nilai, perhitungan nilai utilitas, serta perhitungan nilai akhir menggunakan metode SMART (Simple Multi Attribute Rating Technique). Melalui pendekatan ini, keputusan yang dihasilkan tidak hanya berdasarkan pertimbangan subjektif, tetapi juga didukung oleh proses perhitungan matematis yang terstruktur sehingga dapat meningkatkan objektivitas dalam penilaian kelayakan calon debitur..
+Penelitian ini bertujuan untuk membantu proses pengambilan keputusan dalam menentukan kelayakan calon debitur Kredit Pemilikan Rumah (KPR) melalui penerapan metode SMART. Penerapan metode ini diharapkan mampu menghasilkan rekomendasi keputusan berupa layak atau tidak layak secara lebih objektif, sistematis, dan dapat dipertanggungjawabkan.
+Tempat dan Waktu Penelitian
+Lokasi penelitian adalah tempat berlangsungnya proses penelitian untuk mengumpulkan data yang diperlukan. Menurut Nasution (2003), lokasi penelitian
+
+
+mengacu pada lingkungan sosial yang ditandai oleh tiga komponen utama, yaitu pihak yang terlibat, tempat terjadinya kegiatan, serta aktivitas yang dapat diamati oleh peneliti (Gaspar et al., 2023). Penelitian ini dilaksanakan di PT Citra Pasada Properti, sebuah perusahaan yang bergerak di bidang pengembangan perumahan dan penyediaan hunian bagi masyarakat. Perusahaan ini berperan dalam membantu konsumen memperoleh rumah melalui skema pembiayaan Kredit Pemilikan Rumah (KPR), baik subsidi maupun non-subsidi. Pemilihan lokasi penelitian didasarkan pada adanya kebutuhan perusahaan terhadap sistem yang mampu membantu proses pengambilan keputusan, khususnya dalam penilaian kelayakan calon debitur KPR. Objek penelitian difokuskan pada proses penilaian kelayakan calon debitur KPR. Proses ini menjadi penting karena berkaitan dengan ketepatan dalam menentukan calon debitur yang layak untuk melanjutkan proses pengajuan KPR ke pihak perbankan. Berdasarkan hasil pengamatan awal, diketahui bahwa proses penilaian masih dilakukan secara manual dan belum menggunakan sistem berbasis kriteria yang terukur. Penilaian calon debitur masih bergantung pada pertimbangan subjektif pihak marketing maupun administrasi sehingga hasil keputusan yang
+diperoleh belum sepenuhnya konsisten.
+Kondisi tersebut berpotensi menimbulkan beberapa kendala, seperti ketidaktepatan dalam menentukan kelayakan calon debitur, meningkatnya risiko pengajuan KPR yang ditolak oleh pihak bank, serta kurang efektifnya proses evaluasi data calon debitur. Selain itu, proses penilaian yang dilakukan secara manual juga membutuhkan waktu yang relatif lebih lama sehingga dapat memengaruhi efektivitas pelayanan perusahaan kepada calon debitur.
+Data penelitian diperoleh melalui interaksi langsung dengan pihak terkait di perusahaan, khususnya bagian marketing dan administrasi. Proses pengumpulan data dilakukan melalui observasi terhadap alur kerja yang sedang berjalan, wawancara untuk menggali informasi mengenai kendala yang dihadapi, serta studi dokumentasi guna memperoleh data pendukung yang relevan. Melalui pendekatan tersebut, diharapkan sistem yang dikembangkan benar-benar sesuai dengan kebutuhan pengguna serta mampu memberikan solusi terhadap permasalahan yang ada.
+
+
+Adapun waktu penelitian direncanakan berlangsung mulai dari tahap persiapan, pengumpulan data, analisis kebutuhan, perancangan sistem, hingga penyusunan laporan penelitian. Secara keseluruhan, penelitian dilaksanakan dalam rentang waktu yang disesuaikan dengan jadwal akademik agar setiap tahapan dapat dilakukan secara sistematis dan terarah.
+Definisi Operasional Variabel
+Definisi operasional variabel dalam penelitian ini mencakup dua aspek utama, yaitu variabel pada rancang bangun sistem dan variabel pada proses analisis data menggunakan metode Data Mining/Sistem Pendukung Keputusan (SPK). Definisi ini digunakan sebagai batasan operasional agar setiap komponen yang diteliti dapat diukur, dirancang, dan diimplementasikan secara jelas.
+Alternatif dan Kriteria
+Alternatif
+Alternatif dalam penelitian ini adalah calon debitur Kredit Pemilikan Rumah (KPR) subsidi di PT Citra Pasada Properti yang mengajukan pembiayaan rumah dan menjadi objek dalam proses penilaian kelayakan menggunakan metode SMART).
+Kriteria
+Kriteria yang digunakan dalam penelitian ini adalah sebagai berikut:
+Riwayat SLIK OJK (C1)
+Kriteria ini digunakan untuk menilai riwayat kredit calon debitur berdasarkan hasil pengecekan SLIK OJK. Riwayat kredit menjadi indikator penting dalam melihat tingkat kedisiplinan calon debitur dalam memenuhi kewajiban pembayaran kredit sebelumnya. Semakin baik status riwayat kredit calon debitur, maka semakin tinggi nilai yang diberikan pada kriteria ini.
+Penghasilan Bersih (C2)
+Kriteria ini digunakan untuk menilai kemampuan finansial calon debitur berdasarkan jumlah penghasilan bersih yang diterima setiap bulan. Penghasilan bersih menjadi faktor penting dalam menentukan kemampuan calon debitur untuk membayar cicilan KPR secara rutin. Semakin besar penghasilan bersih yang dimiliki, maka semakin tinggi nilai kriterianya.
+
+
+Status dan Lama Pekerjaan (C3)
+Kriteria ini digunakan untuk menilai stabilitas pekerjaan calon debitur berdasarkan status pekerjaan dan lama bekerja. Pekerjaan yang tetap dan masa kerja yang lebih lama menunjukkan tingkat kestabilan ekonomi yang lebih baik sehingga memiliki risiko kredit yang lebih rendah. Data diperoleh dari dokumen pekerjaan calon debitur.
+Usia (C4)
+Kriteria ini digunakan untuk menilai usia calon debitur pada saat pengajuan KPR. Usia menjadi salah satu pertimbangan dalam kemampuan pembayaran kredit jangka panjang. Calon debitur dengan usia produktif memiliki nilai yang lebih baik dibandingkan usia yang mendekati batas maksimum pembiayaan.
+Jumlah Tanggungan (C5)
+Kriteria ini digunakan untuk menilai jumlah anggota keluarga yang menjadi tanggungan calon debitur. Jumlah tanggungan memengaruhi kemampuan finansial dalam memenuhi kewajiban pembayaran cicilan KPR. Semakin sedikit jumlah tanggungan, maka semakin tinggi nilai pada kriteria ini.
+No
+Kriteria
+Himpunan (Sub-Kriteria)
+Rentang Nilai (Domain)
+Semesta Pembicara
+Keterangan
+1
+Riwayat SLIK OJK (C1)
+Kolektibilitas 1 (Lancar)
+80 - 100
+[0 - 100]
+Menilai tingkat kedisiplinan calon debitur dalam memenuhi kewajiban pembayaran kredit sebelumnya berdasarkan laporan OJK.
+
+
+Kolektibilitas 2 (Dalam Perhatian Khusus)
+60 - 80
+
+
+
+
+Kolektibilitas 3 (Kurang Lancar)
+20 - 60
+
+
+
+
+Kolektibilitas 4 & 5 (Diragukan/Macet)
+0 - 20
+
+
+2
+Penghasilan Bersih (C2)
+Rp 6.000.000 – Rp 8.000.000 (Maks. Subsidi)
+80 - 100
+[0 - 100]
+Menilai kemampuan finansial calon debitur untuk membayar cicilan KPR secara rutin. Nilai tertinggi berada pada batas maksimal syarat KPR subsidi.
+
+
+Rp 4.000.000 – Rp 5.999.999
+60 - 80
+
+
+
+
+Rp 2.500.000 – Rp 3.999.999
+40 - 60
+
+
+
+
+< Rp 2.500.000
+0 - 40
+
+
+3
+Status dan Lama Pekerjaan (C3)
+Pegawai Tetap (Masa kerja ≥ 2 Tahun)
+80 - 100
+[0 - 100]
+Menilai stabilitas pekerjaan calon debitur. Pekerjaan tetap dan masa kerja yang lebih lama menunjukkan tingkat kestabilan ekonomi yang lebih baik.
+
+
+Pegawai Tetap (Masa kerja < 2 Tahun)
+60 - 80
+
+
+
+
+Pegawai Kontrak / Wiraswasta (≥ 2 Tahun)
+40 - 60
+
+
+
+
+Pegawai Kontrak / Wiraswasta (< 2 Tahun)
+0 - 40
+
+
+4
+Usia (C4)
+21 – 30 Tahun
+80 - 100
+[0 - 100]
+Menilai usia pada saat pengajuan. Usia yang lebih muda/produktif memiliki nilai utilitas lebih tinggi karena kemampuan tenor pembayaran jangka panjang.
+
+
+31 – 40 Tahun
+60 - 80
+
+
+
+
+41 – 50 Tahun
+40 - 60
+
+
+
+
+> 50 Tahun
+0 - 40
+
+
+5
+Jumlah Tanggungan (C5)
+0 – 1 Orang
+80 - 100
+[0 - 100]
+Menilai beban pengeluaran keluarga. Semakin sedikit jumlah tanggungan, maka nilai kemampuan finansial (utilitas) semakin tinggi.
+
+
+2 – 3 Orang
+60 - 80
+
+
+
+
+4 – 5 Orang
+40 - 60
+
+
+
+
+> 5 Orang
+0 - 40
+
+
+
+Kebutuhan Fungsional
+Kebutuhan fungsional adalah proses-proses yang nantinya akan dilakukan oleh sistem yang akan dibuat. Kebutuhan fungsional yang akan dibuat sebagai berikut:
+Debitur memiliki hak akses untuk melakukan registrasi dan login ke dalam sistem serta menginput data pengajuan KPR subsidi. Data yang diinput meliputi identitas pribadi, data pekerjaan, penghasilan bersih, usia, jumlah tanggungan, serta dokumen persyaratan pendukung pengajuan KPR subsidi. Debitur juga dapat melihat status pengajuan dan hasil penilaian kelayakan yang diberikan oleh sistem.
+Marketing memiliki hak akses untuk melakukan login ke dalam sistem serta menginput, mengubah, menyimpan, dan melihat data calon debitur. Data yang dikelola meliputi identitas calon debitur, riwayat SLIK OJK, penghasilan bersih, status dan lama pekerjaan, usia, jumlah tanggungan, serta dokumen pendukung lainnya. Marketing juga dapat melakukan proses analisis kelayakan
+
+
+calon debitur menggunakan metode SMART dan melihat hasil rekomendasi yang dihasilkan sistem.
+Admin memiliki hak akses untuk login dan mengelola seluruh data pendukung sistem, seperti data pengguna, data kriteria, data bobot kriteria, nilai subkriteria, dan data calon debitur. Admin juga dapat melakukan pengaturan bobot pada setiap kriteria sesuai kebutuhan penilaian serta mengelola hasil perhitungan metode SMART yang nantinya digunakan sebagai laporan rekomendasi kelayakan calon debitur KPR.
+Pimpinan/Developer memiliki akses untuk login dan melihat laporan hasil penilaian kelayakan calon debitur yang dihasilkan sistem. Laporan tersebut mencakup detail nilai setiap kriteria, hasil perhitungan utility, nilai akhir SMART, serta status keputusan kelayakan calon debitur sebagai bahan evaluasi dan pendukung pengambilan keputusan.
+Sistem secara otomatis memproses data calon debitur menggunakan metode SMART, mulai dari normalisasi bobot kriteria, perhitungan nilai utility setiap alternatif, hingga menghasilkan nilai akhir dan keputusan kelayakan calon debitur. Sistem juga menyimpan seluruh data dan hasil perhitungan ke dalam database, menampilkan notifikasi apabila terjadi kesalahan input data, serta membatasi hak akses pengguna sesuai peran masing-masing pengguna.
+Kebutuhan Non – Fungsional
+Analisis kebutuhan non-fungsional merupakan kebutuhan di luar fungsi utama sistem yang diperlukan untuk mendukung jalannya aplikasi yang dikembangkan. Kebutuhan non-fungsional ini mencakup spesifikasi perangkat keras, perangkat lunak, serta pengguna yang terlibat dalam penggunaan Sistem Penunjang Keputusan menggunakan metode SMART.
+Analisis Kebutuhan Perangkat Keras (Hardware)
+Perangkat keras yang digunakan dalam pengembangan dan pengoperasian sistem e-commerce berbasis web ini adalah sebagai berikut:
+Device : Laptop
+Processor : AMD Ryzen 3 / Intel I3
+Memory : 8,00 GB
+
+
+Analisis Kebutuhan Perangkat Lunak (Software)
+Perangkat lunak yang digunakan dalam pengembangan dan pengoperasian sistem adalah sebagai berikut:
+Microsoft Windows 11
+Google Chrome
+Visual Studio Code
+Laragon
+Draw.io
+Identifikasi Aktor
+Identifikasi aktor bertujuan menentukan pihak yang terlibat dalam Sistem Pendukung Keputusan Prioritas Tindak Lanjut Calon Pembeli Perumahan Subsidi, beserta peran dan hak aksesnya. Identifikasi ini menjadi dasar penyusunan Use Case Diagram dan rancangan hak akses sistem.
+Tabel 3. 1 Identifikasi Aktor
+
+No
+Aktor
+Deskripsi
+Peran dalam Sistem
+1
+Debitur
+Calon pembeli rumah yang mengajukan KPR subsidi
+Melakukan registrasi dan login ke sistem, menginput data pengajuan KPR subsidi, melengkapi data identitas dan dokumen persyaratan, serta melihat status hasil penilaian
+kelayakan pengajuan KPR
+2
+Admin
+Petugas yang memiliki hak akses penuh terhadap sistem
+Mengelola data pengguna, mengelola data kriteria dan bobot SMART, melakukan pemeliharaan data sistem, serta memantau proses perhitungan dan hasil rekomendasi kelayakan calon debitur
+3
+Marketing
+Pegawai yang berinteraksi langsung dengan calon debitur KPR
+Melakukan login ke sistem, menginput dan memperbarui data calon debitur, mengisi data kriteria penilaian seperti riwayat SLIK OJK, penghasilan bersih, status dan lama pekerjaan, usia, serta jumlah tanggungan, menjalankan proses perhitungan SMART, melihat hasil penilaian kelayakan, serta mencetak atau menyimpan laporan hasil rekomendasi
+4
+Owner
+Pimpinan atau pemilik perusahaan
+Melakukan login untuk melihat laporan hasil penilaian kelayakan calon debitur, memantau nilai akhir dan status keputusan, serta
+
+
+
+
+
+menggunakan hasil sistem sebagai bahan evaluasi dan pendukung pengambilan keputusan
+
+Kerangka atau Tahapan penelitian
+Kerangka penelitian merupakan gambaran sistematis mengenai alur dan tahapan yang dilakukan peneliti dalam menyelesaikan penelitian, mulai dari identifikasi permasalahan hingga diperolehnya hasil dan kesimpulan penelitian. Dalam penelitian ini, tahapan penelitian disusun berdasarkan pendekatan Sistem Pendukung Keputusan (SPK) dengan penerapan metode SMART (Simple Multi Attribute Rating Technique) serta mengacu pada model pengembangan sistem Prototyping. Adapun tahapan penelitian yang dilakukan adalah sebagai berikut:
+Identifikasi Masalah
+Tahap awal penelitian dilakukan dengan mengidentifikasi permasalahan yang terjadi pada proses penilaian kelayakan calon debitur KPR subsidi di PT Citra Pasada Properti. Identifikasi dilakukan melalui pengamatan langsung terhadap proses kerja yang berjalan sehingga diperoleh gambaran mengenai kendala, kebutuhan, dan kelemahan sistem yang ada, khususnya terkait proses penilaian kelayakan yang masih dilakukan secara manual dan bersifat subjektif.
+Communication
+Pada tahap ini, peneliti melakukan komunikasi dengan pihak terkait, terutama bagian marketing dan administrasi. Tujuan tahap ini adalah untuk menggali kebutuhan sistem, memahami kriteria yang digunakan dalam penilaian kelayakan calon debitur, serta memperoleh data dan informasi yang relevan sebagai dasar perancangan sistem pendukung keputusan.
+Quick Plan
+Tahap perencanaan cepat dilakukan untuk menentukan ruang lingkup penelitian, tujuan sistem, metode yang digunakan, serta kebutuhan data dan perangkat lunak yang diperlukan. Pada tahap ini juga ditentukan bahwa metode SMART digunakan untuk membantu proses penilaian dan pengambilan keputusan kelayakan calon debitur KPR subsidi.
+
+
+Modeling Quick Design
+Tahap ini merupakan proses perancangan awal sistem yang meliputi perancangan alur sistem, struktur database, antarmuka sistem, serta model perhitungan SMART. Perancangan dilakukan secara sederhana namun terstruktur agar mudah dipahami dan digunakan oleh pengguna. Selain itu, pada tahap ini juga dilakukan perancangan kriteria, bobot, dan nilai utility yang digunakan dalam proses penilaian.
+Construction of Prototype
+Pada tahap ini, prototype sistem pendukung keputusan dibangun berdasarkan hasil perancangan sebelumnya. Prototype mencakup proses input data calon debitur, pengolahan data menggunakan metode SMART, perhitungan nilai utility dan nilai akhir, serta penyajian hasil rekomendasi kelayakan calon debitur dalam bentuk status layak atau tidak layak.
+Deployment, Delivery & Feedback
+Prototype yang telah dibangun kemudian diuji dan digunakan secara terbatas oleh pengguna. Pengguna memberikan umpan balik terkait fungsi sistem, kemudahan penggunaan, dan kesesuaian hasil rekomendasi dengan kebutuhan perusahaan. Masukan tersebut digunakan sebagai bahan evaluasi dan penyempurnaan sistem.
+Dokumentasi
+Tahap akhir penelitian adalah penyusunan dokumentasi dan laporan penelitian. Dokumentasi mencakup seluruh proses penelitian mulai dari latar belakang masalah, metodologi penelitian, perancangan sistem, implementasi metode SMART, hingga hasil dan pembahasan penelitian. Tahap ini bertujuan agar seluruh proses penelitian terdokumentasi secara sistematis dan dapat Melalui tahapan penelitian tersebut, diharapkan sistem pendukung keputusan yang dikembangkan mampu membantu PT Citra Pasada Properti dalam menentukan kelayakan calon debitur KPR subsidi secara objektif, sistematis, dan konsisten.
+Metode Penyelesaian Masalah
+Metode penyelesaian masalah yang digunakan dalam penelitian ini adalah SMART (Simple Multi Attribute Rating Technique) yang diimplementasikan dalam
+
+
+sebuah Sistem Pendukung Keputusan (SPK) untuk menentukan kelayakan calon debitur Kredit Pemilikan Rumah (KPR) subsidi di PT Citra Pasada Properti. Metode SMART dipilih karena mampu menyelesaikan permasalahan pengambilan keputusan multikriteria secara sederhana, sistematis, dan objektif melalui proses pembobotan dan perhitungan nilai utility pada setiap kriteria.
+Permasalahan utama yang dihadapi perusahaan adalah proses penilaian kelayakan calon debitur yang masih dilakukan secara manual dan bersifat subjektif. Kondisi tersebut berpotensi menyebabkan ketidakkonsistenan keputusan serta meningkatkan risiko pengajuan KPR yang tidak sesuai dengan ketentuan pembiayaan. Oleh karena itu, diperlukan suatu metode yang mampu mengakomodasi berbagai kriteria penilaian dan menghasilkan keputusan yang objektif serta dapat dipertanggungjawabkan.
+Penyelesaian masalah dilakukan melalui tahapan penerapan metode SMART sebagai berikut:
+Penentuan Tujuan
+Tahap awal dilakukan dengan menetapkan tujuan utama sistem, yaitu menentukan kelayakan calon debitur KPR subsidi berdasarkan kriteria yang telah ditentukan.
+Penentuan Kriteria dan Alternatif
+Kriteria penilaian ditentukan berdasarkan hasil observasi dan wawancara dengan pihak perusahaan, khususnya bagian marketing dan administrasi. Kriteria tersebut disesuaikan dengan persyaratan umum pengajuan KPR subsidi. Alternatif yang digunakan dalam penelitian ini adalah calon debitur yang mengajukan pembelian rumah di PT Citra Pasada Properti.
+Penentuan Bobot Kriteria
+Setiap kriteria diberikan bobot sesuai tingkat kepentingannya dalam proses penilaian kelayakan calon debitur. Bobot digunakan sebagai dasar dalam proses perhitungan metode SMART untuk menentukan pengaruh masing-masing kriteria terhadap hasil akhir keputusan.
+
+
+Normalisasi Bobot Kriteria
+Bobot kriteria yang telah ditentukan kemudian dinormalisasi agar total keseluruhan bobot bernilai 1. Proses normalisasi dilakukan untuk mempermudah perhitungan nilai akhir pada metode SMART.
+Penentuan Nilai Utility
+Setiap alternatif diberikan nilai utility berdasarkan data pada masing-masing kriteria. Nilai utility digunakan untuk mengubah data kriteria ke dalam skala penilaian yang seragam sehingga dapat dilakukan proses perhitungan secara objektif.
+Perhitungan Nilai Akhir
+Nilai akhir setiap alternatif diperoleh dari hasil perkalian antara bobot kriteria yang telah dinormalisasi dengan nilai utility pada masing-masing kriteria. Seluruh hasil perkalian kemudian dijumlahkan untuk memperoleh nilai akhir SMART.
+Penentuan Hasil Keputusan
+Berdasarkan nilai akhir yang diperoleh, sistem akan menentukan status kelayakan calon debitur. Calon debitur yang memiliki nilai akhir sesuai atau melebihi batas minimum kelayakan akan dinyatakan layak, sedangkan calon debitur yang memiliki nilai di bawah batas minimum akan dinyatakan tidak layak.
+Penyajian Hasil Keputusan
+Hasil perhitungan SMART disajikan dalam bentuk laporan penilaian kelayakan calon debitur yang dapat digunakan oleh pihak perusahaan sebagai bahan pertimbangan dalam pengambilan keputusan.
+Dengan menerapkan metode SMART dalam Sistem Pendukung Keputusan, diharapkan proses penentuan kelayakan calon debitur KPR subsidi dapat dilakukan secara objektif, konsisten, dan sistematis sehingga mampu meningkatkan efektivitas pengambilan keputusan di PT Citra Pasada Properti.
+Teknik dan Instrumen Pengumpulan Data
+Teknik Pengumpulan Data
+Teknik yang dilakukan untuk mengumpulkan data adalah sebagai berikut :
+
+
+Studi Literatur
+Adapun Studi Literatur yang dilakukan yaitu dengan pencarian data data yang dibutuhkan dengan yang berkaitan dengan permasalahan seputar permasalahan yang sedang di hadapi.
+Wawancara
+Adapun teknik wawancara yang dilakukan penulis yaitu melakukan wawancara dengan melakukan sesi tanya jawab apa saja yang sedang di hadapi berikut merupakan hasil wawancara.
+Pada kondisi aktual di PT Citra Pasada Properti, belum terdapat sistem yang dapat membantu pihak marketing dalam menentukan urutan prioritas penanganan calon pembeli. Seluruh calon pembeli diperlakukan relatif sama tanpa adanya pemeringkatan berdasarkan tingkat kelayakan, kesiapan dokumen, maupun potensi keberhasilan pengajuan KPR. Akibatnya, marketing sering kali menghabiskan waktu untuk menangani calon pembeli yang sebenarnya belum siap atau berisiko tinggi mengalami penolakan dari bank, sementara calon pembeli yang lebih siap justru tertunda penanganannya.
+Selain itu, proses penentuan prioritas masih dilakukan secara manual dan sangat bergantung pada intuisi serta pengalaman marketing. Kondisi ini berpotensi menimbulkan subjektivitas dalam menilai profil calon pembeli, sehingga urutan penanganan yang dilakukan belum tentu mencerminkan tingkat prioritas yang sebenarnya. Dampaknya, proses tindak lanjut menjadi kurang efektif, waktu pelayanan menjadi lebih lama, dan peluang keberhasilan transaksi dapat menurun.
+Observasi
+Adapun teknik observasi yang dilakukan penulis adalah dengan mendatangi langsung PT Citra Pasada Properti tersebut untuk melihat dan meninjau lokasi tersebut.
+Instrumen Pengumpulan Data
+Instrumen penelitian merupakan alat yang digunakan untuk mengumpulkan data yang diperlukan dalam proses analisis kebutuhan dan perancangan Sistem
+
+
+Pendukung Keputusan Penilaian Kelayakan Calon Debitur KPR Subsidi berbasis web menggunakan metode SMART (Simple Multi Attribute Rating Technique). Instrumen penelitian disusun untuk memperoleh data mengenai proses penilaian kelayakan calon debitur yang sedang berjalan, kriteria penilaian yang digunakan, kebutuhan pengguna sistem, serta kebutuhan fungsional dan nonfungsional sistem..
+Adapun instrumen penelitian yang digunakan adalah sebagai berikut:
+Lembar Observasi
+Lembar observasi digunakan sebagai instrumen untuk melakukan pengamatan langsung terhadap kondisi nyata proses pengajuan dan penilaian kelayakan calon debitur KPR subsidi di perusahaan. Observasi dilakukan untuk memahami alur kerja, penggunaan data, serta mekanisme penilaian kelayakan yang berjalan saat ini.
+Aspek yang diamati meliputi:
+Alur proses pengajuan KPR subsidi calon debitur
+Proses pengumpulan dan pemeriksaan dokumen persyaratan KPR
+Mekanisme penilaian kelayakan calon debitur
+Cara marketing atau admin menentukan keputusan kelayakan calon debitur
+Kriteria yang digunakan dalam proses penilaian kelayakan
+Media pencatatan data calon debitur (manual, spreadsheet, atau aplikasi)
+Proses verifikasi data dengan pihak perbankan atau lembaga terkait
+Kendala dalam proses penilaian kelayakan calon debitur
+Risiko kesalahan atau ketidakkonsistenan dalam pengambilan keputusan
+Kebutuhan sistem pendukung keputusan berbasis metode SMART
+Dokumen Wawancara Terstruktur
+Pedoman wawancara terstruktur digunakan sebagai instrumen untuk memperoleh data mendalam melalui sesi tanya jawab langsung dengan pihak yang terlibat dalam proses pengajuan dan penilaian KPR subsidi. Wawancara dilakukan untuk menggali kebutuhan sistem, kriteria penilaian, serta permasalahan yang dihadapi dalam proses pengambilan keputusan. Responden wawancara meliputi:
+
+
+Staf marketing perumahan
+Admin atau pegawai bagian pengajuan KPR
+Pimpinan atau manajer perusahaan Pokok bahasan wawancara meliputi:
+Proses penilaian kelayakan calon debitur yang berjalan saat ini
+Mekanisme pengambilan keputusan kelayakan calon debitur
+Kriteria yang digunakan dalam menilai calon debitur
+Tingkat subjektivitas dalam proses penilaian
+Kendala dalam menentukan kelayakan calon debitur
+Faktor penyebab pengajuan KPR ditolak oleh pihak bank
+Data yang paling berpengaruh terhadap kelayakan KPR
+Kebutuhan sistem pendukung keputusan berbasis multikriteria
+Kebutuhan pembobotan pada setiap kriteria penilaian
+Kebutuhan tampilan hasil penilaian dan laporan
+Harapan pengguna terhadap sistem pendukung keputusan yang akan dibangun
+Dokumen Studi Literatur
+Dokumen studi literatur digunakan sebagai instrumen pendukung untuk memperoleh landasan teori, metode, dan referensi ilmiah yang relevan dengan penelitian sistem pendukung keputusan dan metode SMART.
+Teknik Analisis Data
+Teknik analisis data dalam penelitian ini dilakukan dengan menggunakan pendekatan Sistem Pendukung Keputusan (SPK) melalui penerapan metode SMART (Simple Multi Attribute Rating Technique). Analisis data bertujuan untuk mengolah data yang telah dikumpulkan sehingga dapat menghasilkan informasi yang mendukung proses pengambilan keputusan dalam menentukan kelayakan calon debitur KPR Subsidi di PT Citra Pasada Properti. Metode SMART digunakan karena mampu memberikan penilaian berdasarkan banyak kriteria dengan proses perhitungan yang sederhana, fleksibel, dan mudah dipahami.
+Adapun tahapan analisis data yang dilakukan adalah sebagai berikut:
+
+
+Menentukan Kriteria dan Bobot
+Tahap pertama adalah menentukan kriteria yang digunakan dalam proses pengambilan keputusan. Adapun kriteria yang digunakan yaitu:
+Tabel 3. 2 Bobot dan Kriteria
+
+Kode
+Kriteria
+Jenis
+Bobot
+C1
+Riwayat SLIK OJK
+Benefit
+35
+C2
+Usia
+Benefit
+15
+C3
+Penghasilan Bersih
+Benefit
+25
+C4
+Status dan Lama Pekerjaan
+Benefit
+15
+C5
+Jumlah Tanggungan
+Cost
+10
+Kriteria benefit merupakan kriteria yang semakin besar nilainya maka semakin baik, sedangkan cost merupakan kriteria yang semakin kecil nilainya maka semakin baik.
+Menentukan Nilai Bobot dan Normalisasi Bobot
+Setelah menentukan bobot masing-masing kriteria, langkah berikutnya adalah melakukan normalisasi bobot agar total bobot menjadi 1.
+Rumus normalisasi bobot:
+𝑤𝑗
+4164329549554367529152881𝑗𝑗𝑊𝑗 = ∑𝑤
+𝑗
+𝑗
+Keterangan:
+Wj = bobot normalisasi
+wj = bobot setiap kriteria
+∑wj = total seluruh bobot
+Total bobot: 35+15+25+15+10=100 Maka hasil normalisasi bobot:
+Tabel 3. 3 Hasil Normalisasi Bobot
+
+Kriteria
+Perhitungan
+Hasil
+C1
+35/100
+0,35
+C2
+15/100
+0,15
+C3
+25/100
+0,25
+C4
+15/100
+0,15
+
+
+C5
+10/100
+0,10
+Konversi Nilai Kriteria
+Beberapa kriteria berbentuk kualitatif sehingga harus dikonversi menjadi nilai numerik.
+Tabel 3. 4 Riwayat Slik OJK
+
+Sub Kriteria
+Nilai
+Lancar
+5
+Dalam Perhatian Khusus
+4
+Kurang Lancar
+3
+Diragukan
+2
+Macet
+1
+
+Tabel 3. 5 Status dan Lama Pekerjaan
+
+Sub Kriteria
+Nilai
+Tetap > 5 Tahun
+5
+Tetap 3–5 Tahun
+4
+Kontrak
+3
+Freelance
+2
+Tidak Bekerja
+1
+Menghitung Nilai Utility
+Nilai utility digunakan untuk mengubah nilai kriteria menjadi nilai standar dengan rentang 0 sampai 1.
+Rumus Benefit
+Digunakan untuk kriteria yang semakin besar nilainya semakin baik.
+ 𝐶𝑜𝑢𝑡 − 𝐶𝑚𝑖𝑛 
+417195085269𝐶− 𝐶𝐶− 𝐶𝑢_𝑖(𝑎_𝑖) =
+𝐶− 𝐶
+𝐶− 𝐶
+𝑚𝑎𝑥𝑚𝑖𝑛
+Rumus Cost
+Digunakan untuk kriteria yang semakin kecil nilainya semakin baik.
+
+
+
+
+Keterangan:
+ui(ai) = nilai utility
+
+𝑢𝑖(𝑎𝑖)
+ 𝐶𝑚𝑎𝑥 − 𝐶𝑜𝑢𝑡
+407289085734𝐶− 𝐶𝐶− 𝐶=
+𝐶− 𝐶
+𝐶− 𝐶
+𝑚𝑎𝑥𝑚𝑖𝑛
+
+
+Cmax = nilai maksimum Cmin = nilai minimum Cout = nilai data alternatif
+Contoh Perhitungan Nilai Utility Contoh perhitungan pada alternatif A1. Kriteria C3 (Penghasilan Bersih) Diketahui:
+𝐶_𝑜𝑢𝑡 = 5.000.000
+𝐶_𝑚𝑎𝑥 = 10.000.000
+𝐶_𝑚𝑖𝑛 = 2.000.000
+Karena termasuk benefit maka:
+5.000.000 − 2.000.000
+
+𝑢_𝑖(𝑎_𝑖) =
+
+
+10.000.000 − 2.000.000
+
+3.000.000
+224091461816𝑢𝑖(𝑎𝑖) = 8.000.000
+𝑢𝑖(𝑎𝑖) = 0,375
+Kriteria C5 (Jumlah Tanggungan) Diketahui:
+𝐶_𝑜𝑢𝑡 = 4
+𝐶_𝑚𝑎𝑥 = 6
+𝐶_𝑚𝑖𝑛 = 1
+Karena termasuk cost maka:
+6 − 4
+224091462892𝑢𝑖(𝑎𝑖) = 6 − 1
+2
+224091462742𝑢𝑖(𝑎𝑖) = 5
+𝑢𝑖(𝑎𝑖) = 0,4
+Perhitungan dilakukan pada seluruh alternatif dan seluruh kriteria hingga diperoleh tabel nilai utility.
+Menghitung Nilai Akhir
+Nilai akhir diperoleh dari hasil perkalian nilai utility dengan bobot normalisasi masing-masing kriteria kemudian dijumlahkan.
+
+
+
+Rumus nilai akhir:
+
+
+
+Keterangan:
+
+
+𝑚
+𝑢(𝑎𝑖) = ∑ 𝑤𝑗 × 𝑢𝑗(𝑎𝑖)
+𝑗=1
+
+u(ai) = nilai akhir alternatif wi = bobot normalisasi uj(ai) = nilai utility
+Contoh Perhitungan Nilai Akhir Contoh perhitungan alternatif A2:
+Diketahui nilai utility:
+
+𝐶1
+=
+1
+𝐶2
+=
+0,75
+𝐶3
+=
+0,80
+𝐶4
+=
+1
+𝐶5
+=
+0,40
+Bobot normalisasi:
+
+𝐶1
+=
+0,35
+𝐶2
+=
+0,15
+𝐶3
+=
+0,25
+𝐶4
+=
+0,15
+𝐶5
+=
+0,10
+Maka:
+𝐴2 = (1 × 0,35) + (0,75 × 0,15) + (0,80 × 0,25) + (1 × 0,15)
++ (0,40 × 0,10)
+𝐴2 = 0,35 + 0,11 + 0,20 + 0,15 + 0,04
+𝐴2 = 0,85
+Hasil nilai akhir alternatif A2 adalah 0,85.
+Penentuan Hasil Keputusan
+Tahap terakhir adalah menentukan hasil keputusan berdasarkan nilai akhir yang diperoleh setiap calon debitur.
+
+
+Kriteria penilaian:
+Nilai ≥ 0,80 : Layak
+Nilai 0,60 – 0,79 : Dipertimbangkan
+Nilai ≤ 0,59 : Tidak Layak
+Semakin tinggi nilai akhir yang diperoleh, maka semakin besar tingkat kelayakan calon debitur untuk mendapatkan persetujuan KPR subsidi.
+Rancangan Analisis Data dan Sistem
+Rancangan Analisis Data dan Atribut
+Rancangan analisis data dan atribut dalam penelitian ini disusun sebagai dasar awal dalam penerapan Sistem Pendukung Keputusan (SPK) menggunakan metode SMART (Simple Multi Attribute Rating Technique). Rancangan ini bertujuan untuk menggambarkan secara konseptual jenis data, atribut, kriteria, serta alternatif yang akan digunakan dalam proses analisis sehingga metode yang diterapkan dapat berjalan secara terstruktur dan sesuai dengan kebutuhan permasalahan.
+Data yang digunakan dalam penelitian ini merupakan data calon debitur Kredit Pemilikan Rumah (KPR) subsidi yang diperoleh dari PT Citra Pasada Properti. Data tersebut mencerminkan kondisi dan karakteristik calon debitur yang menjadi bahan pertimbangan dalam proses penilaian kelayakan pengajuan KPR subsidi. Setiap calon debitur diperlakukan sebagai alternatif dalam sistem pendukung keputusan yang selanjutnya akan dievaluasi berdasarkan sejumlah kriteria yang telah ditentukan.
+Berikut adalah atribut data yang digunakan:
+ID Pengajuan
+Kode unik yang digunakan untuk membedakan setiap pengajuan KPR subsidi calon debitur.
+Nama Calon Debitur
+Nama lengkap calon debitur yang mengajukan pembiayaan rumah KPR subsidi.
+Tanggal Pengajuan
+Tanggal saat calon debitur melakukan pengajuan KPR subsidi.
+
+
+Riwayat SLIK OJK
+Data hasil pemeriksaan riwayat kredit calon debitur berdasarkan SLIK OJK yang digunakan sebagai indikator kemampuan dan kedisiplinan pembayaran kredit sebelumnya.
+Usia Calon Debitur
+Informasi usia calon debitur yang digunakan sebagai salah satu faktor penilaian kemampuan pembayaran kredit jangka panjang.
+Penghasilan Bersih
+Jumlah penghasilan bersih yang diterima calon debitur setiap bulan dan digunakan untuk menilai kemampuan finansial dalam membayar cicilan KPR.
+Status Pekerjaan
+Jenis pekerjaan calon debitur, seperti pegawai tetap, kontrak, wiraswasta, atau pekerjaan lainnya.
+Lama Pekerjaan
+Informasi mengenai lamanya calon debitur bekerja pada pekerjaan saat ini yang digunakan untuk menilai stabilitas pekerjaan.
+Jumlah Tanggungan
+Jumlah anggota keluarga yang menjadi tanggungan calon debitur dan digunakan untuk menilai kondisi finansial calon debitur.
+Kriteria penilaian disusun berdasarkan hasil observasi, wawancara, serta studi dokumentasi yang dilakukan bersama pihak perusahaan. Kriteria tersebut merepresentasikan faktor-faktor penting yang digunakan dalam menilai kelayakan calon debitur KPR subsidi.
+Kriteria yang digunakan dalam penelitian ini adalah sebagai berikut:
+Riwayat SLIK OJK
+Digunakan untuk menilai kondisi riwayat kredit calon debitur berdasarkan hasil pengecekan SLIK OJK. Kriteria ini menjadi indikator penting dalam melihat tingkat kedisiplinan pembayaran kredit sebelumnya.
+Usia
+Digunakan untuk menilai usia produktif calon debitur yang berkaitan dengan kemampuan pembayaran kredit dalam jangka waktu tertentu.
+
+
+Penghasilan Bersih
+Digunakan untuk menilai kemampuan finansial calon debitur dalam memenuhi kewajiban pembayaran cicilan KPR setiap bulan.
+Status dan Lama Pekerjaan
+Digunakan untuk menilai stabilitas pekerjaan calon debitur berdasarkan status pekerjaan dan lama bekerja.
+Jumlah Tanggungan
+Digunakan untuk menilai beban finansial calon debitur berdasarkan jumlah anggota keluarga yang menjadi tanggungan.
+Setiap kriteria memiliki atribut penilaian yang digunakan untuk menggambarkan kondisi masing-masing alternatif secara lebih rinci dan terukur.
+Alternatif yang digunakan dalam penelitian ini merupakan calon debitur KPR subsidi di PT Citra Pasada Properti yang telah melakukan pengajuan pembiayaan rumah. Setiap calon debitur diperlakukan sebagai satu alternatif dalam Sistem Pendukung Keputusan dan akan dinilai menggunakan metode SMART berdasarkan kriteria yang telah ditentukan.
+Metode SMART dalam penelitian ini digunakan untuk membantu proses penilaian kelayakan calon debitur KPR subsidi secara objektif dan sistematis. Output sistem berupa hasil rekomendasi kelayakan calon debitur dengan kategori layak, dipertimbangkan, atau tidak layak berdasarkan nilai akhir yang diperoleh dari proses perhitungan SMART.
+Rancangan Analisis Sistem
+Rancangan analisis sistem merupakan tahapan untuk mengkaji kondisi sistem yang sedang berjalan serta merumuskan sistem yang diusulkan sebagai solusi atas permasalahan yang ditemukan. Analisis ini dilakukan untuk memahami alur proses penilaian kelayakan calon debitur KPR subsidi, mekanisme pengolahan data, serta proses pengambilan keputusan yang digunakan oleh PT Citra Pasada Properti.
+Melalui analisis sistem, dapat diidentifikasi kelemahan pada proses yang berjalan saat ini, seperti proses penilaian yang masih dilakukan secara manual, kurang objektif, dan berpotensi menimbulkan ketidakkonsistenan dalam pengambilan keputusan. Oleh karena itu, dirancang sebuah Sistem Pendukung
+
+
+Keputusan berbasis metode SMART (Simple Multi Attribute Rating Technique) yang mampu membantu proses penilaian kelayakan calon debitur secara objektif, sistematis, dan terukur berdasarkan kriteria yang telah ditentukan.
+Analisis Sistem Berjalan
+
+2299646183481
+Gambar 3. 1 Sistem yang Sdeang Berjalan
+Berdasarkan hasil observasi, proses penilaian kelayakan calon debitur KPR subsidi di PT Citra Pasada Properti saat ini masih dilakukan secara manual melalui interaksi antara calon debitur, marketing, dan pihak perusahaan. Proses dimulai ketika calon debitur melakukan pengajuan KPR subsidi dengan melengkapi data identitas serta dokumen persyaratan yang dibutuhkan. Selanjutnya marketing melakukan pemeriksaan awal terhadap kelengkapan data dan dokumen calon debitur sebelum dilakukan proses analisis kelayakan.
+Dalam proses berjalan, penilaian kelayakan calon debitur dilakukan berdasarkan pertimbangan data seperti riwayat SLIK OJK, penghasilan, status pekerjaan, usia, dan jumlah tanggungan. Namun proses penilaian tersebut belum menggunakan metode perhitungan berbasis kriteria yang terstruktur sehingga keputusan yang dihasilkan masih bergantung pada penilaian subjektif pihak marketing atau perusahaan.
+
+
+Kondisi tersebut berpotensi menimbulkan ketidakkonsistenan dalam pengambilan keputusan dan meningkatkan risiko kesalahan dalam menentukan kelayakan calon debitur KPR subsidi. Selain itu, proses analisis membutuhkan waktu yang cukup lama karena seluruh data masih diperiksa dan dihitung secara manual. Oleh karena itu, diperlukan sistem pendukung keputusan yang mampu membantu proses penilaian kelayakan calon debitur secara objektif, sistematis, dan terukur menggunakan metode SMART (Simple Multi Attribute Rating Technique).
+Analisis Sistem Yang Diusulkan
+1156335200025
+
+Gambar 3. 2 Sistem yang diusulkan
+Sistem yang diusulkan merupakan Sistem Pendukung Keputusan berbasis web untuk menentukan kelayakan calon debitur KPR subsidi menggunakan metode SMART (Simple Multi Attribute Rating Technique). Dalam sistem ini, debitur melakukan penginputan data pengajuan KPR subsidi melalui sistem, kemudian marketing melakukan verifikasi terhadap data dan dokumen yang telah diinput. Seluruh data yang telah diverifikasi akan disimpan ke dalam database sehingga dapat dikelola dan digunakan dalam proses penilaian kelayakan.
+Admin bertugas mengelola data sistem, seperti data pengguna, data kriteria, bobot SMART, serta nilai subkriteria yang digunakan dalam proses perhitungan. Sistem kemudian melakukan proses perhitungan SMART secara otomatis, mulai dari normalisasi bobot kriteria, perhitungan nilai utility setiap kriteria, hingga
+
+
+perhitungan nilai akhir calon debitur. Hasil perhitungan tersebut digunakan untuk menentukan status kelayakan calon debitur secara objektif dan terukur.
+Output sistem berupa laporan hasil penilaian kelayakan calon debitur yang dapat diakses oleh pihak marketing maupun owner perusahaan. Laporan ditampilkan dalam bentuk hasil nilai akhir dan status kelayakan calon debitur, kemudian disimpan ke dalam database sebagai arsip data penilaian. Dengan sistem yang diusulkan ini, proses penentuan kelayakan calon debitur tidak lagi dilakukan secara manual dan subjektif, tetapi didukung oleh perhitungan metode SMART sehingga keputusan yang dihasilkan menjadi lebih objektif, konsisten, dan mudah dipertanggungjawabkan.
+Rencana Analisis Data
+Rencana analisis data dalam penelitian ini disusun untuk menjelaskan tahapan penerapan metode SMART (Simple Multi Attribute Rating Technique) dalam Sistem Pendukung Keputusan (SPK) penentuan kelayakan calon debitur Kredit Pemilikan Rumah (KPR) subsidi. Analisis dilakukan secara terstruktur mulai dari pengolahan data awal hingga evaluasi hasil keputusan, tanpa menyajikan perhitungan atau hasil analisis secara rinci pada tahap ini.
+Tahapan analisis data yang direncanakan dalam penelitian ini adalah sebagai berikut:
+Pengumpulan dan Identifikasi Data
+Data yang digunakan berasal dari data calon debitur KPR subsidi di PT Citra Pasada Properti. Data tersebut diidentifikasi dan diklasifikasikan sesuai dengan atribut dan kriteria yang telah ditentukan sehingga dapat digunakan sebagai dasar dalam proses pengambilan keputusan.
+Penentuan Kriteria dan Alternatif
+Pada tahap ini ditentukan kriteria penilaian yang digunakan dalam sistem, yaitu Riwayat SLIK OJK, Usia, Penghasilan Bersih, Status dan Lama Pekerjaan, serta Jumlah Tanggungan. Selain itu, ditentukan pula alternatif keputusan yang akan dihasilkan oleh sistem, yaitu status kelayakan calon debitur berupa layak, dipertimbangkan, atau tidak layak.
+
+
+Penentuan Bobot Kriteria
+Setiap kriteria diberikan bobot sesuai tingkat kepentingannya dalam menentukan kelayakan calon debitur KPR subsidi. Pemberian bobot dilakukan berdasarkan kebutuhan dan pertimbangan pihak perusahaan sehingga dapat mencerminkan tingkat pengaruh masing-masing kriteria terhadap hasil keputusan.
+Normalisasi Bobot Kriteria
+Bobot kriteria yang telah ditentukan kemudian dinormalisasi agar total seluruh bobot bernilai 1. Tahap ini dilakukan untuk mempermudah proses perhitungan nilai akhir menggunakan metode SMART.
+Penentuan Nilai Utility
+Setiap alternatif calon debitur diberikan nilai utility berdasarkan nilai pada masing-masing kriteria. Nilai utility digunakan untuk mengubah nilai kriteria ke dalam bentuk skala yang seragam sehingga dapat dilakukan proses perhitungan secara objektif.
+Perhitungan Nilai Akhir
+Nilai akhir diperoleh dari hasil perkalian antara bobot normalisasi dengan nilai utility pada setiap kriteria. Seluruh hasil perkalian kemudian dijumlahkan untuk memperoleh nilai akhir masing-masing calon debitur.
+Penentuan Hasil Keputusan
+Nilai akhir yang diperoleh digunakan untuk menentukan status kelayakan calon debitur. Berdasarkan hasil penilaian tersebut, sistem memberikan rekomendasi keputusan berupa layak, dipertimbangkan, atau tidak layak terhadap pengajuan KPR subsidi.
+Evaluasi Hasil Keputusan
+Tahap akhir dilakukan evaluasi terhadap hasil keputusan yang dihasilkan oleh sistem dengan membandingkannya terhadap kebijakan dan pertimbangan pihak perusahaan. Evaluasi ini bertujuan untuk menilai kesesuaian dan kelayakan penerapan metode SMART dalam proses pengambilan keputusan. Melalui rencana analisis data ini, diharapkan penerapan metode SMART dalam
+Sistem Pendukung Keputusan dapat menghasilkan rekomendasi yang objektif,
+
+
+konsisten, dan membantu pihak perusahaan dalam menentukan kelayakan calon debitur KPR subsidi secara lebih efektif.
+Rancangan Perancangan Sistem
+Perancangan sistem adalah tahap penyusunan gambaran awal solusi yang diusulkan berdasarkan hasil analisis kebutuhan dan permasalahan yang telah diidentifikasi sebelumnya. Pada tahap ini ditentukan struktur, komponen, alur proses, serta interaksi antar bagian sistem yang akan dibangun agar mampu memenuhi kebutuhan pengguna dan tujuan penelitian. Perancangan sistem berfungsi sebagai blueprint atau rancangan konseptual sebelum sistem diimplementasikan ke dalam bentuk aplikasi.
+Perancangan sistem umumnya divisualisasikan menggunakan alat pemodelan seperti Use Case Diagram, Activity Diagram, Class Diagram, atau Data Flow Diagram (DFD) untuk menggambarkan fungsi sistem, aliran data, serta hubungan antara aktor dan proses. Dengan adanya perancangan sistem, pengembangan solusi dapat dilakukan secara lebih terarah, terstruktur, dan sesuai dengan kebutuhan operasional.
+Use Case
+Use Case Diagram digunakan untuk menggambarkan interaksi antara aktor dengan sistem yang akan dikembangkan. Diagram ini menunjukkan fungsi-fungsi utama yang dapat dilakukan oleh setiap aktor sesuai dengan hak aksesnya masing-masing.
+
+
+
+Gambar 3. 3 Use Case Diagram
+Class Diagram
+Pada Sistem Pendukung Keputusan penentuan kelayakan calon debitur KPR subsidi, class diagram dirancang untuk mendukung proses pengelolaan pengguna, pengelolaan data calon debitur, pengelolaan kriteria dan subkriteria SMART, proses perhitungan metode SMART (Simple Multi Attribute Rating Technique), serta penyajian hasil penilaian kelayakan dan laporan analisis.
+Class diagram menggambarkan struktur kelas yang terlibat dalam sistem beserta atribut, metode, dan hubungan antar kelas. Struktur ini mencakup komponen utama seperti kelas pengguna (admin, marketing, dan owner), data calon debitur sebagai alternatif, data kriteria dan subkriteria, proses perhitungan normalisasi bobot, perhitungan nilai utility, perhitungan nilai akhir SMART, serta kelas hasil penilaian kelayakan. Dengan perancangan ini, sistem dapat mengelola proses perhitungan SMART secara terstruktur dan menghasilkan output berupa status kelayakan calon debitur sebagai dasar pengambilan keputusan dalam proses pengajuan KPR subsidi.
+
+
+
+
+
+
+
+Gambar 3. 4 Class Diagranm
+Activity Diagram
+Pada Sistem Penunjang Keputusan penentuan prioritas penanganan KPR, activity diagram digunakan untuk memodelkan proses utama seperti login pengguna, pengelolaan kriteria dan bobot SMART, input data pembeli, perhitungan SMART, serta pencetakan laporan. Dengan adanya activity diagram, alur kerja sistem dapat dipahami secara lebih jelas dan sistematis, sehingga memudahkan dalam proses analisis dan perancangan sistem.
+
+
+
+
+
+Activity login
+245300589535
+Gambar 3. 5 Activity Login
+Activity kelola kriteria dan bobot
+236728089535
+
+
+Activity input data pembeli
+271970590170
+Gambar 3. 7 Activity Input data pembeli
+Activity perhitungan SMART
+304355587630
+
+
+Activity Verifikasi Berkas
+293878090170
+Gambar 3. 9 Activity Verifikasi Berkas
+Activity cetak laporan
+284670590170
+
+
+Sequence Diagram
+Sequence diagram digunakan untuk memodelkan proses-proses utama seperti login pengguna, pengelolaan kriteria dan bobot SMART, input data calon debitur, proses perhitungan metode SMART, penentuan status kelayakan calon debitur, serta pembuatan laporan hasil penilaian. Diagram ini membantu menggambarkan alur komunikasi antar komponen sistem secara rinci dan terstruktur sehingga proses yang terjadi pada sistem dapat dipahami dengan lebih jelas.
+Sequence Diagram Login
+2339340117505
+Gambar 3. 11 Sequence Diagram Login
+Sequence Diagram Kelola Kriteria
+2342515118110
+Gambar 3. 12 Sequence Diagram Kelola Kriteria
+
+
+Sequence Diagram Input Data Pembeli
+1973580126365
+Gambar 3. 13 Sequence Diagram Input Data Pembeli
+Sequence Diagram Perthitungan SMART
+1903730110490
+Gambar 3. 14 Sequence Diagram Perhitungan SMART
+
+
+Sequence Diagram Verifikasi Berkas
+1737441116951
+Gambar 3. 15 Sequence Diagram Verifikasi Berkas
+Sequence Diagram Cetak Laporan
+2117725116205
+Gambar 3. 16 Sequence Diagram Cetak Laporan
+
+
+Use Case Scenario
+Use Case Scenario digunakan untuk menjelaskan alur interaksi antara aktor dan sistem secara lebih detail. Skenario ini menggambarkan langkah-langkah yang dilakukan oleh aktor dan respon sistem dalam menjalankan suatu fungsi.
+Skenario Login
+Tabel 3. 6 Scenario Login
+
+Identifikasi
+
+Nama Use Case
+Login Pengguna
+Tujuan
+Pengguna dapat masuk ke dalam sistem
+sesuai dengan hak akses masing-masing.
+Prioritas
+Primary
+Aktor
+Admin, Marketing, Owner
+Skenario
+Precondition
+Pengguna membuka website sistem untuk
+melakukan login.
+Aksi Aktor
+Reaksi Sistem
+1. Pengguna membuka halaman
+login
+2. Sistem menampilkan form login
+3. Pengguna memasukkan
+username dan password
+4. Sistem melakukan validasi data
+
+5. Sistem mengidentifikasi peran
+pengguna
+
+6. Sistem memverifikasi hak akses
+
+7. Sistem menampilkan dashboard sesuai
+peran
+
+8. Sistem menampilkan pesan kesalahan
+jika login gagal
+Post Condition
+Pengguna berhasil masuk ke dalam sistem sesuai peran masing-masing atau sistem menampilkan pesan kesalahan apabila
+data login tidak valid.
+
+Skenario Kelola Kriteria dan Bobot SMART
+Tabel 3. 7 Skenario Kelola Kriteria dan Bobot SMART
+
+Nama Use Case
+Kelola Kriteria dan Bobot SMART
+Tujuan
+Admin dapat mengelola kriteria penilaian serta bobot kriteria menggunakan metode
+SMART.
+
+
+Prioritas
+Primary
+Aktor
+Admin
+Skenario
+Precondition
+Admin telah berhasil login ke dalam
+sistem.
+Aksi Aktor
+Reaksi Sistem
+1. Admin membuka menu
+kriteria dan bobot SMART
+2. Sistem menampilkan daftar kriteria
+3. Admin menambah atau
+mengubah data kriteria
+4. Sistem menyimpan perubahan data
+kriteria
+5. Admin membuka menu bobot
+SMART
+6. Sistem menampilkan matriks
+perbandingan kriteria
+7. Admin menginput nilai
+perbandingan kriteria
+8. Sistem memvalidasi dan menghitung
+bobot SMART
+
+9. Sistem menyimpan bobot kriteria
+Post Condition
+Data kriteria dan bobot SMART berhasil disimpan dan digunakan dalam proses
+perhitungan prioritas penanganan KPR
+
+Skenario Input Data Pembeli
+Tabel 3. 8 Skenario Input Data Pembeli
+
+Nama Use Case
+Input Data Pembeli
+Tujuan
+Marketing dapat memasukkan data calon
+pembeli KPR ke dalam sistem.
+Prioritas
+Primary
+Aktor
+Marketing
+Skenario
+Precondition
+Marketing telah berhasil login ke dalam
+sistem.
+Aksi Aktor
+Reaksi Sistem
+1. Marketing membuka menu
+data pembeli
+2. Sistem menampilkan daftar data pembeli
+3. Marketing memilih tambah
+data pembeli
+4. Sistem menampilkan form input data
+5. Marketing mengisi data
+pembeli
+6. Sistem memvalidasi kelengkapan data
+
+7. Sistem menyimpan data pembeli
+
+8. Sistem menampilkan pesan berhasil
+Post Condition
+Data pembeli berhasil disimpan dan dapat
+digunakan untuk proses perhitungan prioritas penanganan KPR
+
+Skenario Perhitungan SMART
+Tabel 3. 9 Skenario Perhitungan SMART
+
+Nama Use Case
+Perhitungan SMART
+Tujuan
+Menghitung nilai kelayakan calon pembeli KPR berdasarkan kriteria dan bobot
+SMART.
+Prioritas
+Primary
+Aktor
+Marketing
+Skenario
+Precondition
+Data pembeli dan bobot SMART telah
+tersedia di dalam sistem.
+Aksi Aktor
+Reaksi Sistem
+1. Marketing memilih data
+pembeli
+2. Sistem menampilkan detail data pembeli
+3. Marketing memilih menu
+perhitungan SMART
+4. Sistem memeriksa ketersediaan bobot
+SMART
+
+5. Sistem melakukan proses perhitungan
+SMART
+
+6. Sistem menghitung nilai akhir kelayakan
+
+7. Sistem memanggil use case Hasil
+Rekomendasi KPR
+Post Condition
+Sistem menghasilkan nilai akhir perhitungan
+SMART yang akan digunakan untuk penentuan prioritas penanganan KPR
+
+Skenario Hasil Rekomendasi KPR
+Tabel 3. 10 Skenario Hasil Rekomendasi KPR
+
+Nama Use Case
+Hasil Rekomendasi KPR
+Tujuan
+Menampilkan hasil rekomendasi penentuan
+prioritas penanganan KPR
+Prioritas
+Primary
+Aktor
+Marketing
+Skenario
+Precondition
+Proses perhitungan SMART telah selesai
+dilakukan.
+Aksi Aktor
+Reaksi Sistem
+
+1. Sistem menerima hasil perhitungan
+SMART
+
+2. Sistem menentukan status kelayakan KPR
+
+
+
+3. Sistem menyimpan hasil rekomendasi
+
+4. Sistem menampilkan hasil rekomendasi
+KPR
+Post Condition
+Hasil rekomendasi prioritas penanganan KPR tersimpan di sistem dan dapat
+digunakan untuk proses selanjutnya.
+
+Skenario Cetak Laporan
+Tabel 3. 11 Skenario Cetak Laporan
+
+Nama Use Case
+Cetak Laporan
+Tujuan
+Mencetak laporan hasil rekomendasi
+penentuan prioritas penanganan KPR.
+Prioritas
+Secondary
+Aktor
+Marketing, Owner
+Skenario
+Precondition
+Data hasil rekomendasi KPR telah tersedia
+di sistem.
+Aksi Aktor
+Reaksi Sistem
+1. Aktor membuka menu
+laporan
+2. Sistem menampilkan data rekomendasi
+3. Aktor memilih cetak laporan
+4. Sistem menampilkan preview laporan
+
+5. Sistem menghasilkan laporan cetak
+Post Condition
+Laporan hasil rekomendasi penentuan
+prioritas penanganan KPR berhasil dicetak atau disimpan oleh pengguna.
+
+Perncangan Antarmuka
+Perancangan antar muka dilakukan agar model yang telah diterapkan dalam sebuah sistem, mampu memenuhi standar Antar Muka Pengguna (User Interface/UI) dan Pengalaman Pengguna dalam penggunaan teknologi (User Experience/UX).
+
+
+Perancangan Antarmuka Login User
+
+Gambar 3. 17 Perancangan Antarmuka Login Users
+Keterangan :
+Text 1: Nama
+
+Text Field 1: Input Username
+
+Text 2: Password
+
+Text Field 2: Input Password
+
+Text 3: notifikasi gagal login
+
+Button 1: Akses Login
+
+
+Perancangan Antarmuka Registrasi
+1440180288192
+Gambar 3. 18 Perancangan Antarmuka Registrasi Users
+Keterangan :
+Text 1: Nama
+
+Text Field 1: Input Username
+
+Text 2: Password
+
+Text Field 2: Input Password
+
+Text 3: Input Email
+
+Text Field 3: Email
+
+Dropbar: Role
+
+Text 4: Login dan Notifikasi Berhasil atau gagal
+
+Button 1: Akses Login
+
+
+Perancangan Antarmuka Input Data Marketing
+1440180288192
+Gambar 3. 19 Perancangan Antarmuka Input Data Marketing
+Keterangan :
+Text 1: PT Citra Pasada Properti
+
+Button 1-4: Navbar
+
+Button 5: Logout
+
+Table 1: Tabel input data calon pembeli
+
+
+Perancangan Antarmuka Analisis SMART
+1440180288192
+Gambar 3. 20 Perancangan Antarmuka Analisis SMART Marketing
+Keterangan :
+Text 1: PT Citra Pasada Properti
+
+Button 1-4: Navbar
+
+Button 5: Logout
+
+Table 1: Tabel data calon pembeli
+
+Button 6: Proses Perhitungan
+
+
+Perancangan Antarmuka Laporan Rekomendasi Marketing
+1440180288192
+Gambar 3. 21 Perancangan Antarmuka Laporan Rekomendasi Marketing
+Keterangan :
+Text 1: PT Citra Pasada Properti
+
+Button 1-4: Navbar
+
+Button 5: Logout
+
+Table 1: Tabel hasil perhitungan calon pembeli
+
+Button 6: Cetak laporan
+
+
+Perancangan Antarmuka Kelola User Admin
+1440180288192
+Gambar 3. 22 Perancangan Antarmuka Kelola User Admin
+Keterangan :
+Text 1: PT Citra Pasada Properti
+
+Button 1-5: Navbar
+
+Button 6: Logout
+
+Button 7: Tambah User
+
+Text 2: Informasi User
+
+Button 8: Action user seperti edit dan hapus
+
+
+Perancangan Antarmuka Kelola Kriteria
+1440180288192
+Gambar 3. 23 Perancangan Antarmuka Kelola Kriteria Admin
+
+
+Keterangan :
+Text 1: PT Citra Pasada Properti
+
+Button 1-5: Navbar
+
+Button 6: Logout
+
+Button 7: Tambahkan Kriteria
+
+Table 1: Informasi Kriteria
+
+Button 8: Action Kriteria seperti edit dan hapus
+
+
+Perancangan Antarmuka Kelola Bobot Admin
+1440180288192
+Gambar 3. 24 Perancangan Antarmuka Kelola Bobot Admin
+Keterangan :
+Text 1: PT Citra Pasada Properti
+
+Button 1-5: Navbar
+
+Button 6: Logout
+
+Button 7: Tambahkan Bobot
+
+Table 1: Informasi Bobot
+
+Button 8: Action Bobot seperti edit dan hapus
+
+
+Perancangan Antarmuka Analisis SMART Admin
+1440180288192
+Gambar 3. 25 Perancangan Antarmuka Analisis SMART Admin
+Keterangan :
+Text 1: PT Citra Pasada Properti
+
+Button 1-5: Navbar
+
+Button 6: Logout
+
+Table 1: Tabel data calon pembeli
+
+Button 7: Proses Perhitungan
+
+
+Perancangan Antarmuka Laporan Rekomendasi Admin
+1440180288192
+Gambar 3. 26 Perancangan Antarmuka Laporan Rekomendasi Admin
+Keterangan :
+Text 1: PT Citra Pasada Properti
+
+Button 1-4: Navbar
+
+Button 5: Logout
+
+Table 1: Tabel hasil perhitungan calon pembeli
+
+Button 6: Cetak laporan
+
+
+Perancangan Antarmuka Laporan Rekomendasi Owner
+1440180288192
+Gambar 3. 27 Perancangan Antarmuka Laporan Rekomendasi Owner
+Keterangan :
+Text 1: PT Citra Pasada Properti
+
+Button 1-4: Navbar
+
+Button 5: Logout
+
+Table 1: Tabel hasil perhitungan calon pembeli
+
+Button 6: Cetak laporan
+
+Rencana Evaluasi dan Pengujian
+Rencana Evaluasi Hasil
+Rencana evaluasi hasil dalam penelitian ini disusun untuk menilai sejauh mana penerapan Sistem Pendukung Keputusan (SPK) menggunakan metode SMART (Simple Multi Attribute Rating Technique) mampu menghasilkan rekomendasi keputusan yang sesuai dengan kebutuhan dan kebijakan PT Citra
+
+
+Pasada Properti. Evaluasi dilakukan secara konseptual dengan menekankan pada proses dan kesesuaian metode, bukan pada hasil perhitungan atau nilai numerik yang dihasilkan.
+Tahapan evaluasi hasil yang direncanakan dalam penelitian ini meliputi:
+Evaluasi Kesesuaian Metode dengan Permasalahan
+Evaluasi dilakukan dengan meninjau kesesuaian metode SMART dalam menyelesaikan permasalahan penentuan kelayakan calon debitur KPR subsidi. Penilaian difokuskan pada kemampuan metode dalam mengakomodasi berbagai kriteria penilaian seperti riwayat SLIK OJK, usia, penghasilan bersih, status dan lama pekerjaan, serta jumlah tanggungan, dan kemampuannya menghasilkan keputusan kelayakan secara sistematis dan objektif.
+Evaluasi Ketepatan Pembobotan Kriteria
+Hasil pembobotan kriteria akan dievaluasi untuk memastikan bahwa bobot yang diberikan telah sesuai dengan tingkat kepentingan masing-masing kriteria dalam proses penilaian kelayakan calon debitur. Evaluasi ini bertujuan agar proses pengambilan keputusan dapat dilakukan secara logis dan sesuai kebutuhan perusahaan.
+Evaluasi Hasil Rekomendasi Keputusan
+Hasil sistem berupa status kelayakan calon debitur akan dievaluasi dengan membandingkannya terhadap proses penilaian yang selama ini dilakukan oleh pihak perusahaan. Evaluasi ini bertujuan untuk melihat apakah hasil keputusan yang dihasilkan sistem telah sesuai dengan pertimbangan operasional dan kebijakan perusahaan dalam proses pengajuan KPR subsidi.
+Validasi dengan Pihak Terkait
+Hasil evaluasi sistem direncanakan untuk dikonsultasikan kepada pihak yang berwenang, seperti staf marketing, admin, maupun manajemen perusahaan guna memperoleh masukan mengenai tingkat keakuratan dan keterterimaan hasil keputusan yang dihasilkan oleh sistem.
+Evaluasi Kelayakan Penerapan Sistem
+Tahap akhir evaluasi dilakukan untuk menilai kelayakan sistem pendukung keputusan dalam mendukung proses penilaian kelayakan calon debitur KPR
+
+
+subsidi secara berkelanjutan. Evaluasi ini mencakup kemudahan penggunaan sistem, kejelasan hasil rekomendasi, serta potensi sistem untuk diterapkan dalam operasional perusahaan.
+Melalui rencana evaluasi hasil ini, diharapkan sistem pendukung keputusan yang dikembangkan mampu menghasilkan keputusan kelayakan calon debitur yang objektif, konsisten, dan sesuai dengan kebutuhan operasional PT Citra Pasada Properti.
+Rencana Pengujian Sistem
+Rencana pengujian sistem disusun untuk memastikan bahwa Sistem Pendukung Keputusan Prioritas Tindak Lanjut Calon Pembeli Perumahan Subsidi berbasis web dapat berjalan sesuai dengan kebutuhan fungsional dan logika perhitungan metode Simple Multi Attribute Rating Technique (SMART). Pengujian dilakukan untuk menilai ketepatan fungsi, alur proses, serta keakuratan hasil perhitungan dan laporan yang dihasilkan sistem.
+Dalam penelitian ini, pengujian sistem direncanakan menggunakan dua pendekatan, yaitu Black Box Testing dan White Box Testing.
+Rencana Pengujian Blackbox
+Black box testing direncanakan untuk menguji fungsi sistem berdasarkan masukan (input) dan keluaran (output) tanpa melihat struktur kode program di dalamnya. Pengujian difokuskan pada kesesuaian fungsi setiap fitur utama Sistem Pendukung Keputusan prioritas calon pembeli berbasis metode SMART.
+Pengujian black box dilakukan dengan cara memberikan berbagai variasi input pada setiap fitur, kemudian memeriksa apakah output yang dihasilkan telah sesuai dengan proses dan kebutuhan sistem. Fokus pengujian meliputi validasi form, proses penyimpanan data, proses perhitungan, dan tampilan hasil.
+Tabel 3. 12 Rencana Pengujian Blackbox
+
+No
+Fitur yang Diuji
+Skenario Pengujian
+1
+Login
+Pengguna memasukkan username dan password yang
+valid
+2
+Login
+Pengguna memasukkan username atau password yang
+tidak valid
+
+
+3
+Login
+Pengguna tidak mengisi username dan/atau password
+4
+Kelola Data Nasabah
+Admin menambahkan data nasabah dengan data lengkap
+5
+Kelola Data Nasabah
+Admin mengubah data nasabah
+6
+Kelola Data Nasabah
+Admin menghapus data nasabah
+7
+Kelola Data Nasabah
+Admin menginput data dengan field wajib kosong
+8
+Kuesioner Penilaian
+Admin menambahkan data pertanyaan kuesioner
+9
+Kuesioner Penilaian
+Admin mengubah dan menghapus data pertanyaan
+kuesioner
+10
+InputJawaban
+Kuesioner
+Pengguna  menginput  jawaban  kuesioner  kepuasan
+nasabah
+11
+InputJawaban
+Kuesioner
+Pengguna menginput data jawaban yang tidak lengkap
+12
+PengolahanData
+Penelitian
+Sistem mengolah data hasil kuesioner
+13
+PengolahanData
+Penelitian
+Sistem menampilkan hasil pengolahan data penelitian
+14
+Perhitungan PLS-SEM
+Pengguna menjalankan proses analisis PLS-SEM
+15
+Hasil Analisis
+Sistem menampilkan hasil pengujian validitas dan
+reliabilitas
+16
+Hasil Analisis
+Sistem menampilkan hasil pengujian hipotesis
+17
+Dashboard
+Sistem menampilkan ringkasan jumlah responden dan
+hasil penelitian
+18
+Laporan Penelitian
+Pengguna menampilkan laporan hasil penelitian
+19
+Laporan Penelitian
+Pengguna mencetak / ekspor laporan penelitian
+20
+Hak Akses
+Pengguna selain admin mencoba mengakses menu
+admin
+21
+Logout
+Pengguna melakukan logout dari sistem
+
+Rencana Pengujian Whitebox
+White box testing direncanakan untuk menguji struktur logika program dan alur proses internal pada kode sumber sistem. Pengujian difokuskan pada bagian logika inti yang berhubungan langsung dengan proses perhitungan metode SMART dan pengolahan data penilaian calon pembeli.
+
+
+Pengujian white box dilakukan dengan menelusuri jalur logika program, percabangan, perulangan, dan rumus perhitungan untuk memastikan setiap proses berjalan benar dan konsisten. Pengujian ini bertujuan untuk meminimalkan kesalahan logika perhitungan serta memastikan akurasi hasil analisis.
+Tabel 3. 13 Rencana Pengujian Whitebox
+
+Line/ Node
+Source Code
+1
+Script codingan bagian perhitungan diuji di white box testing
+
+BAB IVIMPLEMENTASI & PENGUJIAN
+
+Persiapan Data
+Dalam penelitian ini, data yang digunakan merupakan data pemohon Kredit Pemilikan Rumah (KPR) yang telah dikumpulkan dari Bank Tabungan Negara. Data ini menjadi dasar untuk melakukan implementasi perhitungan SMART (Simple Multi Attribute Rating Technique). Terdapat lima variabel utama, yaitu:
+Riwayat SLIK OJK
+Penghasilan Bersih
+Status dan Lama Pekerjaan
+Usia
+Jumlah Tanggungan
+Penentuan Alternatif 
+Data Sampel yang di pergunakan dan langsung di tentukan untuk alternatif :
+Tabel 4.  SEQ Tabel_4. \* ARABIC 1 Alternatif
+Kode
+Kelompok Tani
+A1
+Achmad fauzi
+A2
+Aldi saputra
+A3
+Johan setiawan
+A4
+Asep afriana
+A5
+Syahrul gunawan
+......
+.........................
+......
+.........................
+A33
+Eka oktavia
+
+PENENTUAN KRITERIA 
+Tabel 4.  SEQ Tabel_4. \* ARABIC 2 Penentuan Kriteria
+Kode
+Kriteria
+Subkriteria
+C1
+Riwayat SLIK OJK
+Kolektibilitas 1 (Lancar), Kolektibilitas 2 (Dalam Perhatian Khusus), Kolektibilitas 3 (Kurang Lancar), Kolektibilitas 4 & 5 (Diragukan/Macet)
+C2
+Penghasilan Bersih
+Rp 6.000.000 – Rp 8.000.000 (Maks. Subsidi), Rp 4.000.000 – Rp 5.999.999, Rp 2.500.000 – Rp 3.999.999, < Rp 2.500.000
+C3
+Status dan Lama Pekerjaan
+Pegawai Tetap (Masa kerja ≥ 2 Tahun), Pegawai Tetap (Masa kerja < 2 Tahun), Pegawai Kontrak / Wiraswasta (≥ 2 Tahun), Pegawai Kontrak / Wiraswasta (< 2 Tahun)
+C4
+Usia
+21 – 30 Tahun, 31 – 40 Tahun, 41 – 50 Tahun, > 50 Tahun
+C5
+Jumlah Tanggungan
+0 – 1 Orang, 2 – 3 Orang, 4 – 5 Orang, > 5 Orang 
+
+Tabel 4.  SEQ Tabel_4. \* ARABIC 3 Definisi Variabel
+No
+Kriteria
+Himpunan (Sub-Kriteria)
+Rentang Nilai (Domain)
+Semesta Pembicara
+1
+Riwayat SLIK OJK (C1)
+Kolektibilitas 1 (Lancar)
+80 - 100
+[0 - 100]
+
+
+Kolektibilitas 2 (Dalam Perhatian Khusus)
+60 - 80
+
+
+
+Kolektibilitas 3 (Kurang Lancar)
+20 - 60
+
+
+
+Kolektibilitas 4 & 5 (Diragukan/Macet)
+0 - 20
+
+2
+Penghasilan Bersih (C2)
+Rp 6.000.000 – Rp 8.000.000 (Maks. Subsidi)
+80 - 100
+[0 - 100]
+
+
+Rp 4.000.000 – Rp 5.999.999
+60 - 80
+
+
+
+Rp 2.500.000 – Rp 3.999.999
+40 - 60
+
+
+
+< Rp 2.500.000
+0 - 40
+
+3
+Status dan Lama Pekerjaan (C3)
+Pegawai Tetap (Masa kerja ≥ 2 Tahun)
+80 - 100
+[0 - 100]
+
+
+Pegawai Tetap (Masa kerja < 2 Tahun)
+60 - 80
+
+
+
+Pegawai Kontrak / Wiraswasta (≥ 2 Tahun)
+40 - 60
+
+
+
+Pegawai Kontrak / Wiraswasta (< 2 Tahun)
+0 - 40
+
+4
+Usia (C4)
+21 – 30 Tahun
+80 - 100
+[0 - 100]
+
+
+31 – 40 Tahun
+60 - 80
+
+
+
+41 – 50 Tahun
+40 - 60
+
+
+
+> 50 Tahun
+0 - 40
+
+5
+Jumlah Tanggungan (C5)
+0 – 1 Orang
+80 - 100
+[0 - 100]
+
+
+2 – 3 Orang
+60 - 80
+
+
+
+4 – 5 Orang
+40 - 60
+
+
+
+> 5 Orang
+0 - 40
+
+
+Implementasi Perhitungan
+
+
+Gambaran Umum Sistem
+Gambaran Umum Sistem Pendukung Keputusan (SPK) Kelayakan KPR Sistem yang diusulkan adalah SPK berbasis web menggunakan metode SMART (Simple Multi Attribute Rating Technique). Sistem ini mengubah proses penilaian manual yang subjektif menjadi perhitungan otomatis yang objektif, konsisten, dan terukur.
+Peran Aktor dalam Sistem:
+Debitur (Calon Pembeli): Bertindak sebagai pihak pemohon. Debitur melakukan registrasi dan login ke sistem, menginput data pengajuan KPR subsidi, melengkapi dokumen persyaratan, serta melihat status hasil penilaian pengajuan mereka.
+Admin (Administrator): Bertugas mengelola fondasi atau data master sistem. Admin mengelola hak akses pengguna, menetapkan data kriteria penilaian, mengatur bobot SMART, memelihara data sistem, serta memantau berjalannya proses perhitungan.
+Marketing (Pengelola Operasional): Bertugas sebagai pihak yang berinteraksi langsung dengan debitur. Marketing memverifikasi berkas, memperbarui data debitur, menginput data kriteria spesifik (seperti riwayat SLIK OJK, penghasilan, dll.), menjalankan perhitungan SMART, serta mencetak laporan hasil rekomendasi.
+Owner (Pimpinan): Bertindak sebagai pihak pengambil kebijakan yang login untuk memantau, melihat nilai akhir, serta menerima laporan hasil penilaian kelayakan pengajuan KPR.
+Alur Kerja Sistem:
+Pengaturan Parameter Dasar: Admin mengatur seluruh kriteria dan bobot perhitungan metode SMART di dalam sistem.
+Pengajuan & Penginputan Data: Debitur mendaftarkan diri dan menginput data awal beserta dokumen pengajuan ke sistem. Kemudian, Marketing memverifikasi data tersebut dan melengkapi nilai kriteria teknis calon debitur. Seluruh data ini tersimpan di database.
+Proses Perhitungan Otomatis: Setelah data lengkap, sistem atau Marketing akan menjalankan kalkulasi menggunakan algoritma SMART (mulai dari normalisasi bobot, perhitungan nilai utility, hingga nilai akhir).
+Output (Hasil Keputusan): Sistem menghasilkan laporan penilaian berupa nilai akhir dan status (layak/tidak layak). Laporan ini tersimpan sebagai arsip yang dapat diakses oleh Marketing maupun Owner untuk keputusan final, dan status akhirnya dapat dilihat langsung oleh Debitur.
+Implementasi Sistem
+Implementasi sistem merupakan tahap penerapan hasil perancangan ke dalam bentuk aplikasi yang dapat digunakan oleh pengguna. Pada bagian ini dijelaskan antarmuka dari setiap fitur yang terdapat dalam sistem. 
+Implementasi Halaman Admin Dinas
+Implementasi Halaman Login
+
+Gambar 4.  SEQ Gambar_4. \* ARABIC 6 Halaman Login Verifikator
+Halaman login merupakan halaman yang digunakan oleh semua aktor untuk masuk ke dalam sistem dengan memasukkan username dan password yang telah terdaftar. Pada halaman ini terdapat form input username dan password serta tombol masuk yang digunakan untuk mengakses sistem. Jika data yang dimasukkan benar, maka pengguna akan diarahkan ke halaman dashboard.
+Implementasi Halaman Dashboard
+
+Gambar 4.  SEQ Gambar_4. \* ARABIC 7 Halaman Dashboard Admin
+Implementasi Halaman Data Pendaftar
+
+Gambar 4.  SEQ Gambar_4. \* ARABIC 8 Halaman Data Pendaftar Admin.
+
+Gambar 4.  SEQ Gambar_4. \* ARABIC 9 Halaman formulir pendaftaran
+
+Gambar 4.  SEQ Gambar_4. \* ARABIC 10 Halaman Lanjutan Pendaftaran
+Implementasi Halaman Data Pengguna
+
+Gambar 4.  SEQ Gambar_4. \* ARABIC 11 Halaman Data Pengguna Admin
+
+Gambar 4.  SEQ Gambar_4. \* ARABIC 12 Halaman Form untuk Tambah User
+Implementasi Halaman Data Kriteria
+
+Gambar 4.  SEQ Gambar_4. \* ARABIC 13 Halaman Data Kriteria Admin
+
+Gambar 4.  SEQ Gambar_4. \* ARABIC 14 Halaman Form untuk tambah kriteria
+Implementasi Halaman Data SubKriteria
+
+Gambar 4.  SEQ Gambar_4. \* ARABIC 15 Halaman Data Subkriteria Admin
+
+Gambar 4.  SEQ Gambar_4. \* ARABIC 16 Halaman Tambah Sub-Kriteria (Himpunan Fuzzy)
+Implementasi Halaman Riwayat Perhitungan
+
+Gambar 4.  SEQ Gambar_4. \* ARABIC 17 Halaman Riwayat Perhitungan
+
+Gambar 4.  SEQ Gambar_4. \* ARABIC 18 Halaman Review Perhitungan Fuzzy Sugeno
+
+Gambar 4.  SEQ Gambar_4. \* ARABIC 19 Halaman Review Rule
+
+Gambar 4.  SEQ Gambar_4. \* ARABIC 20 Halaman Review Perhitungan Fuzzy Sugeno
+
+Gambar 4.  SEQ Gambar_4. \* ARABIC 21 Halaman Print Hasil Perhitungan Arsip
+Implementasi Halaman Laporan Akhir
+
+Gambar 4.  SEQ Gambar_4. \* ARABIC 22 Halaman Laporan Akhir Verifikator
+Gambar 4.  SEQ Gambar_4. \* ARABIC 23 Halaman Print Arsip Laporan Akhir
+Implementasi Halaman Verifikator Bidang
+Implementasi Halaman Login
+
+Gambar 4.  SEQ Gambar_4. \* ARABIC 24 Halaman Login
+Implementasi Halaman Dashboard
+
+Gambar 4.  SEQ Gambar_4. \* ARABIC 25 Halaman Dashboard Verifikator Bidang
+Implementasi Halaman Data Pendaftar
+
+Gambar 4.  SEQ Gambar_4. \* ARABIC 26 Halaman Data Pendaftar
+Implementasi Halaman Perhitungan
+
+Gambar 4.  SEQ Gambar_4. \* ARABIC 27 Halaman Perhitungan
+
+
+Gambar 4.  SEQ Gambar_4. \* ARABIC 28 Halaman Perhitungan detail
+
+Gambar 4.  SEQ Gambar_4. \* ARABIC 29 Halaman Perhitungan view rule
+
+Gambar 4.  SEQ Gambar_4. \* ARABIC 30 Halaman Perhitungan view hasil detail
+
+Implementasi Halaman Laporan
+
+Gambar 4.  SEQ Gambar_4. \* ARABIC 31 Halaman Laporan Verifikator Bidang
+Implementasi Halaman UPTD (Penyuluh)
+Implementasi Halaman Login
+
+Gambar 4.  SEQ Gambar_4. \* ARABIC 32 Halaman Login UPTD (Penyuluh)
+Implementasi Halaman Dashboard
+
+Gambar 4.  SEQ Gambar_4. \* ARABIC 33 Halaman Dashboard UPTD (Penyuluh)
+Implementasi Halaman Data Pendaftar
+
+Gambar 4.  SEQ Gambar_4. \* ARABIC 34 Halaman Data Pendaftar UPTD (Penyuluh)
+Gambar 4.  SEQ Gambar_4. \* ARABIC 35 Halaman Formulir CPCL
+Implementasi Halaman Laporan Akhir
+
+Gambar 4.  SEQ Gambar_4. \* ARABIC 36 Halaman Laporan Akhir UPTD (Penyuluh)
+Pengujian Sistem
+Pengujian sistem dilakukan untuk memastikan seluruh fungsi pada sistem peramalan penjualan berjalan sesuai dengan kebutuhan dan tujuan perancangan. Metode pengujian yang digunakan terdiri dari White Box Testing untuk menguji struktur dan logika internal program, serta Black Box Testing untuk menguji fungsionalitas sistem berdasarkan sudut pandang pengguna tanpa melihat kode program.
+White Box Testing
+Pengujian White Box merupakan salah satu pendekatan pengujian yang bertujuan untuk memeriksa secara mendalam alur logika dan struktur internal kode program. Metode yang digunakan dalam pengujian White Box ini adalah metode Basis Path. Metode ini berbasis pada perhitungan Cyclomatic Complexity (V(G)) untuk menentukan jumlah jalur independen minimal (basis path).
+Berikut merupakan tahapan dari pengujian White Box.
+Kode Program
+Tabel 4.  SEQ Tabel_4. \* ARABIC 15 Pengujian White Box 
+Node
+Proses
+Source Code
+Keterangan
+
+
+
+
+
+
+
+
+
+
+Flowgraph
+
+Gambar 4. SEQ Gambar_4. \* ARABIC 37 Flowgraph
+Cyclomatic Complexity
+Untuk mengetahui Cyclomatic Complexity menggunakan rumus:
+VG=E-N+2P atau VG=P+1
+E = Jumlah edge atau busur pada flowgraph
+N = Jumlah node atau simpul pada flowgraph
+P = Jumlah predikat node pada flowgraph
+Sehingga diperoleh nilai sebagai berikut:
+VG=21-19+2
+VG=4
+atau VG=3+1
+VG=4
+Independent Path
+Berdasarkan Cyclomatic Complexity tersebut, terdapat 4 jalur (path) yang terdiri dari:
+Jalur 1 (Eror)  = 1 → 2 → 3 → 4 → 5
+Jalur 2 (Normal Flow)
+1→2→3→4→5→6→7→8→9→10→11→12→13→14→15→16→17→18→19
+Jalur 3 (Fallback Loop)
+1→2→3→4→5→6→7→8→9→10→11→10→11→12→13→14→15→16→17→18→19
+Jalur 4 (Rule Loop)
+1→2→3→4→5→6→7→8→9→10→11→12→13→14→13→14→15→16→17→18→19
+Blackbox Testing
+Pengujian Black Box adalah teknik untuk menguji fungsionalitas perangkat lunak tanpa mengetahui struktur internal atau kode program. Tujuan dari pengujian ini adalah untuk memastikan bahwa fungsi-fungsi sistem, termasuk masukan (input) dan keluaran (output), telah berjalan sesuai dengan spesifikasi dan kebutuhan yang ditetapkan.
+Berikut merupakan skenario pengujian black box untuk fitur proses perangkingan dan skala prioritas pada sistem fuzzy sugeno web DISKATAN yang disajikan dalam bentuk tabel.
+Tabel 4.  SEQ Tabel_4. \* ARABIC 16 Pengujian Blackbox login user
+No.
+Fungsi Yang Di Uji
+Cara Menguji
+Hasil yang Diharapkan
+Hasil Pengujian
+Validasi
+1.
+Login
+Memasukan Username dan Password dengan benar
+Memasuki Ke Sistem dan Load Data
+Berhasil Login masuk ke dashboard dan load data
+Valid
+
+
+Memasukan Username dan pasword dengan salah
+
+
+Menampilkan pesan username dan password tidak sesuai
+
+Login gagal! Cek username, password, atau status akun.
+Valid
+
+
+Menginputkan username benar dan Password salah
+Menampilkan pesan password salah
+Login gagal! Cek username, password, atau status akun.
+Valid
+
+
+Menginputkan username salah dan Password benar
+Menampilkan pesan username Salah
+Login gagal! Cek username, password, atau status akun.
+Valid
+
+Tabel 4.  SEQ Tabel_4. \* ARABIC 17 Pengujian Blackbox Logout User
+No.
+Fungsi Yang Di Uji
+Cara Menguji
+Hasil yang Diharapkan
+Hasil Pengujian
+Validasi
+1.
+Logout
+Klik pada tombol logout di sistem
+Keluar dari sistem kembali ke halaman login
+Berhasil keluar dari sistem dan kembali ke halaman login
+Valid
+
+Tabel 4.  SEQ Tabel_4. \* ARABIC 18 Pengujian Blackbox Admin
+No.
+Fungsi Yang Di Uji
+Cara Menguji
+Hasil yang Diharapkan
+Hasil Pengujian
+Validasi
+1.
+Dashboard
+Klik tombol menu Dashboard
+Berhasil masuk ke halaman dashboard
+Sesuai harapan
+Valid
+2
+Data CPCL
+Klik tombol menu Dashboard
+
+Berhasil masuk ke halaman dashboard
+
+Sesuai harapan
+Valid
+
+Data kelompok tani
+Klik tombol tambah data kelompok tani
+Berhasil tersimpan di database dan tampil di view
+Sesuai harapan
+Valid
+
+Belum terverifikasi
+Klik sub halaman belum terverifikasi
+Berhasil masuk ke sub halaman
+Sesuai Harapan
+Valid
+
+Sudah terverifikasi
+Klik sub halaman sudah terverifikasi
+Berhasil masuk ke sub halaman
+Sesuai harapan
+Valid
+3
+Data Pengguna
+Klik tombol menu Dashboard
+Berhasil masuk ke halaman dashboard
+Sesuai harapan
+Valid
+
+pengguna
+Klik tombol tambah data pengguna
+Berhasil tersimpan di database sesuai role dan tampil di view
+Sesuai harapan
+Valid
+4
+Data Kriteria
+Klik tombol menu Dashboard
+Berhasil masuk ke halaman dashboard
+Sesuai harapan
+Valid
+
+Kriteria
+Klik Tombol tambah kriteria
+Berhasil tersimpan di database dan view
+Sesuai harapan
+Valid
+5
+Data Subkriteria
+Klik tombol menu Dashboard
+Berhasil masuk ke halaman dashboard
+Sesuai harapan
+Valid
+
+subkriteria
+Klik tambah data subkriteria dan submit
+Berhasil tersimpan di view dan di database
+
+
+6
+Perhitungan dan Ranking
+Klik tombol menu Dashboard
+Berhasil masuk ke halaman dashboard
+Sesuai harapan
+Valid
+
+Perhitungan
+Klik Tombol perhitungan
+Berhasil menghitung sesuai dengan metode dan periode tahunan
+Sesuai harapan
+Valid
+7
+Laporan Akhir
+Klik tombol menu Dashboard
+Berhasil masuk ke halaman dashboard
+Sesuai harapan
+Valid
+
+Tabel 4.  SEQ Tabel_4. \* ARABIC 19 Pengujian Blaxkbox Verifikator
+No.
+Fungsi Yang Di Uji
+Cara Menguji
+Hasil yang Diharapkan
+Hasil Pengujian
+Validasi
+1.
+Dashboard
+Klik tombol menu Dashboard
+Berhasil masuk ke halaman dashboard
+Sesuai harapan
+Valid
+2
+Data CPCL
+Klik tombol menu Dashboard
+
+Berhasil masuk ke halaman dashboard
+
+Sesuai harapan
+Valid
+
+Data kelompok tani
+Klik tombol tambah data kelompok tani
+Berhasil tersimpan di database dan tampil di view
+Sesuai harapan
+Valid
+
+Belum terverifikasi
+Klik sub halaman belum terverifikasi
+Berhasil masuk ke sub halaman
+Sesuai Harapan
+Valid
+
+Sudah terverifikasi
+Klik sub halaman sudah terverifikasi
+Berhasil masuk ke sub halaman
+Sesuai harapan
+Valid
+4
+Data Kriteria
+Klik tombol menu Dashboard
+Berhasil masuk ke halaman dashboard
+Sesuai harapan
+Valid
+
+Kriteria
+Klik Tombol tambah kriteria
+Berhasil tersimpan di database dan view
+Sesuai harapan
+Valid
+5
+Data Subkriteria
+Klik tombol menu Dashboard
+Berhasil masuk ke halaman dashboard
+Sesuai harapan
+Valid
+
+subkriteria
+Klik tambah data subkriteria dan submit
+Berhasil tersimpan di view dan di database
+
+
+6
+Perhitungan dan Ranking
+Klik tombol menu Dashboard
+Berhasil masuk ke halaman dashboard
+Sesuai harapan
+Valid
+
+Perhitungan
+Klik Tombol perhitungan
+Berhasil menghitung sesuai dengan metode dan periode tahunan
+Sesuai harapan
+Valid
+7
+Laporan Akhir
+Klik tombol menu Dashboard
+Berhasil masuk ke halaman dashboard
+Sesuai harapan
+Valid
+
+Tabel 4.  SEQ Tabel_4. \* ARABIC 20 Pengujian Black Box UPTD (penyuluh lapangan)
+No.
+Fungsi Yang Di Uji
+Cara Menguji
+Hasil yang Diharapkan
+Hasil Pengujian
+Validasi
+1.
+Dashboard
+Klik tombol menu Dashboard
+Berhasil masuk ke halaman dashboard
+Sesuai Harapan
+Valid
+2
+Data CPCL
+Klik tombol menu Dashboard 
+
+Berhasil masuk ke halaman dashboard
+
+Sesuai Harapan
+Valid
+3
+Laporan Akhir
+Klik tombol menu Dashboard 
+Berhasil masuk ke halaman dashboard
+Sesuai Harapan
+Valid
+
+UAT (User Acceptance Testing)
+Pengujian User Acceptance Test (UAT) dilakukan untuk mengetahui tingkat penerimaan pengguna terhadap Sistem Pendukung Keputusan (SPK) Seleksi Calon Petani dan Calon Lokasi (CPCL) Berbasis Web yang telah dikembangkan. Pengujian ini dilakukan dengan menyebarkan kuesioner kepada 4 responden yang terdiri dari pengguna sistem di Dinas Ketahanan Pangan dan Pertanian Kabupaten Kuningan pada aktor sistem (UPTD, verifikator bidang, dan admin). Metode UAT menggunakan skala Likert dengan rentang nilai 1 sampai 5, yaitu Sangat Tidak Baik (STB), Kurang Baik (KB), Netral/Cukup (N), Baik (B), Sangat Baik (SB). Hasil pengujian kemudian dianalisis untuk mengukur tingkat kepuasan pengguna terhadap aspek fungsionalitas sistem, pengalaman dan tampilan antarmuka, kinerja sistem, serta kelayakan implementasi sistem.
+Tabel 4.  SEQ Tabel_4. \* ARABIC 21 Penilaian Skala Likert
+No
+Keterangan
+Nilai
+1
+Sangat Tidak Baik (STB)
+1
+2
+Kurang Baik (KB)
+2
+3
+Netral/Cukup (N)
+3
+4
+Baik (B)
+4
+5
+Sangat Baik (SB)
+5
+
+Untuk pertanyaan Kuesioner dibuat berdasarkan aspek kegunaan yang terdiri dari empat komponen kualitas :
+Tabel 4.  SEQ Tabel_4. \* ARABIC 22 Variable dan Pertanyaan UAT
+No
+Variabel
+Pertanyaan
+Kode
+1
+Fungsionalitas Sistem
+Sistem SPK CPCL dapat membantu mempercepat proses seleksi Calon Petani dan Calon Lokasi dibandingkan metode manual.
+A1
+2
+
+Sistem SPK CPCL mempermudah pengguna dalam melakukan proses perhitungan dan penentuan penerima CPCL.
+A2
+3
+Pengalaman dan Tampilan Antarmuka
+Navigasi pada sistem mudah digunakan dan tidak membingungkan pengguna.
+B1
+4
+
+Pengguna dapat dengan mudah menemukan menu atau fitur yang dibutuhkan.
+B2
+5
+Kinerja Sistem
+Sistem mampu memproses data CPCL dengan cepat dan efisien.
+C1
+6
+
+Sistem jarang mengalami kesalahan (error) selama digunakan.
+C2
+7
+Kelayakan Implementasi
+Sistem SPK CPCL telah memenuhi kebutuhan pengguna dalam proses seleksi CPCL.
+D1
+8
+
+Sistem membantu meningkatkan efektivitas pekerjaan dalam proses penentuan CPCL.
+D2
+
+Tabel 4.  SEQ Tabel_4. \* ARABIC 23 Hasil jawaban responden
+No
+Kode
+Pertanyaan
+SB
+B
+N
+KB
+STB
+Jumlah Bobot
+1
+A1
+Sistem SPK CPCL dapat membantu mempercepat proses seleksi CPCL dibandingkan metode manual.
+3
+1
+0
+0
+0
+19
+2
+A2
+Sistem SPK CPCL mempermudah pengguna dalam melakukan proses perhitungan dan penentuan penerima CPCL.
+3
+1
+0
+0
+0
+19
+3
+B1
+Navigasi pada sistem mudah digunakan dan tidak membingungkan pengguna.
+1
+2
+1
+0
+0
+16
+4
+B2
+Pengguna dapat dengan mudah menemukan menu atau fitur yang dibutuhkan.
+1
+2
+1
+0
+0
+16
+5
+C1
+Sistem mampu memproses data CPCL dengan cepat dan efisien.
+2
+2
+0
+0
+0
+18
+6
+C2
+Sistem jarang mengalami kesalahan (error) selama digunakan.
+3
+1
+0
+0
+0
+19
+7
+D1
+Sistem SPK CPCL telah memenuhi kebutuhan pengguna dalam proses seleksi CPCL.
+2
+2
+0
+0
+0
+18
+8
+D2
+Sistem membantu meningkatkan efektivitas pekerjaan dalam menentukan CPCL.
+2
+2
+0
+0
+0
+18
+
+1. Menghitung Jumlah Bobot
+Jumlah Bobot=(SS×5)+(S×4)+(N×3)+(TS×2)+(STS×1)     (1)
+A. Fungsionalitas Sistem
+Tabel 4.  SEQ Tabel_4. \* ARABIC 24 Variable Fungsionalitas
+Kode
+SB×5
+B×4
+N×3
+KB×2
+STB×1
+Jumlah
+A1
+3×5=15
+1×4=4
+0
+0
+0
+19
+A2
+3×5=15
+1×4=4
+0
+0
+0
+19
+B. Pengalaman dan Tampilan Antarmuka
+Tabel 4.  SEQ Tabel_4. \* ARABIC 25 Variabel Pengalaman dan UI
+Kode
+SB×5
+B×4
+N×3
+KB×2
+STB×1
+Jumlah
+B1
+1×5=5
+2×4=8
+1×3=3
+0
+0
+16
+B2
+1×5=5
+2×4=8
+1×3=3
+0
+0
+16
+
+C. Kinerja Sistem
+Tabel 4.  SEQ Tabel_4. \* ARABIC 26 Variabel Kinerja Sistem
+Kode
+SB×5
+B×4
+N×3
+KB×2
+STB×1
+Jumlah
+C1
+2×5=10
+2×4=8
+0
+0
+0
+18
+C2
+3×5=15
+1×4=4
+0
+0
+0
+19
+D. Kelayakan Implementasi
+Tabel 4.  SEQ Tabel_4. \* ARABIC 27 Variabel Kelayakan Implementasi
+Kode
+SB×5
+B×4
+N×3
+KB×2
+STB×1
+Jumlah
+D1
+2×5=10
+2×4=8
+0
+0
+0
+18
+D2
+2×5=10
+2×4=8
+0
+0
+0
+18
+
+Tabel 4.  SEQ Tabel_4. \* ARABIC 28 Interpretasi Persentase Penilaian
+Keterangan
+Persentase
+Sangat Tidak Baik 
+0% – 20%
+Kurang Baik 
+21% – 40%
+Cukup 
+41% – 60%
+Baik 
+61% – 80%
+Sangat Baik 
+81% – 100,00%
+
+2. Menghitung Mean
+X=ΣXN, N=4      (2)
+Keterangan:
+X= Mean 
+ΣX= Jumlah Bobot 
+N= Jumlah Responden (30) 
+3. Menghitung Persentase
+Persentase=Mean5×100%      (3)
+Keterangan:
+Mean = nilai rata-rata jawaban responden
+5 = nilai maksimal skala Likert
+
+Tabel 4.  SEQ Tabel_4. \* ARABIC 29 Mean Fungsionalitas Sistem
+Kode
+Nilai Mean
+Persentase (%)
+Rata-rata Variabel (%)
+A1
+19/4 = 4,75
+4,75/5x100 = 95,00%
+95,00%
+A2
+19/4 = 4,75
+4,75/5x100 = 95,00%
+
+
+Tabel 4.  SEQ Tabel_4. \* ARABIC 30 Mean Pengalaman dan Tampilan Antarmuka
+Kode
+Nilai Mean
+Persentase (%)
+Rata-rata Variabel (%)
+B1
+16/4 = 4,00
+4,00/5x100 = 80,00%
+80,00%
+B2
+16/4 = 4,00
+4,00/5x100 = 80,00%
+
+
+Tabel 4.  SEQ Tabel_4. \* ARABIC 31 Mean Kinerja Sistem
+Kode
+Nilai Mean
+Persentase (%)
+Rata-rata Variabel (%)
+C1
+18/4 = 4,50
+4,50/5 × 100 = 90,00%
+92,50%
+C2
+19/4 = 4,75
+4,75/5 × 100 = 95,00%
+
+
+Tabel 4.  SEQ Tabel_4. \* ARABIC 32 Mean Kelayakan Implementasi
+Kode
+Nilai Mean
+Persentase (%)
+Rata-rata Variabel (%)
+D1
+18/4 = 4,50
+4,50/5 × 100 = 90,00%
+90,00%
+D2
+18/4 = 4,50
+4,50/5 × 100 = 90,00%
+
+4. Hasil Akhir UAT
+Rumus:
+NA=PVA+PVB+PVC+PVD4      (4)
+Keterangan:
+NA = Nilai Akhir UAT
+Tabel 4.  SEQ Tabel_4. \* ARABIC 33 Hasil Pengujian UAT
+No
+Variabel
+Nilai Bobot (%)
+Keterangan
+1
+Fungsionalitas Sistem
+95,00%
+Sangat Baik
+2
+Pengalaman dan Tampilan Antarmuka Sistem
+80,00%
+Baik
+3
+Kinerja Sistem
+92,50%
+Sangat Baik
+4
+Kelayakan Implementasi
+90,00%
+Sangat Baik
+
+Rata-rata Total
+89,38%
+Sangat Baik
+Perhitungan Rata-rata Total
+NA=95+80+92,50+90,004 =89,38% 
+Sehingga:
+89,38%≥80%
+Maka hasil pengujian User Acceptance Testing (UAT) berada pada kategori Sangat Baik.
+E. Interpretasi
+Berdasarkan hasil pengujian User Acceptance Testing (UAT) terhadap 4 responden, Sistem Pendukung Keputusan (SPK) CPCL memperoleh nilai rata-rata sebesar 89,38%. Nilai tersebut berada pada rentang 81%–100%, sehingga termasuk dalam kategori Sangat Baik. Dengan demikian, sistem dinyatakan dapat diterima oleh pengguna dan layak untuk diimplementasikan.
+Kesimpulan Pengujian
+Berdasarkan hasil keseluruhan pengujian blackbox pada sistem fuzzy Sugeno berbasis web SPK Dinas Ketahanan Pangan dan Pertanian, dapat disimpulkan bahwa seluruh fitur yang diuji, meliputi autentikasi pengguna (login dan logout), pengelolaan data oleh admin dan verifikator (CPCL, kelompok tani, pengguna, kriteria, dan subkriteria), proses perhitungan dan perangkingan, serta akses laporan oleh UPTD, telah berjalan sesuai dengan spesifikasi dan kebutuhan sistem yang ditetapkan. Setiap skenario pengujian menunjukkan hasil yang valid, baik dalam menangani input yang benar maupun salah, serta mampu menghasilkan output yang sesuai harapan. Dengan demikian, sistem dinilai telah memenuhi aspek fungsionalitas dan layak untuk diimplementasikan dalam mendukung proses penentuan skala prioritas secara efektif. hasil pengujian User Acceptance Test (UAT) terhadap 30 responden, Sistem Pendukung Keputusan (SPK) CPCL memperoleh nilai rata-rata sebesar 88,70%. Nilai tersebut berada pada rentang 81%–100%, sehingga termasuk dalam kategori Sangat Baik. Dengan demikian, sistem dinyatakan dapat diterima oleh pengguna dan layak untuk diimplementasikan.
+Pembahasan
+Berdasarkan hasil implementasi dan pengujian yang telah dilakukan, sistem pendukung keputusan (SPK) CPCL yang dibangun berhasil mengatasi permasalahan dalam proses penentuan prioritas kelompok tani yang sebelumnya dilakukan secara manual dan cenderung subjektif. Dengan menerapkan metode Fuzzy Sugeno Orde Nol, sistem mampu mengolah data kualitatif menjadi nilai kuantitatif secara sistematis melalui tahapan fuzzifikasi, inferensi, dan defuzzifikasi.
+Hasil yang diperoleh menunjukkan bahwa sistem dapat menghasilkan perangkingan alternatif secara objektif dan konsisten. Kelompok Harapan Wangi memperoleh nilai tertinggi sebesar 83,33% sehingga menempati prioritas utama dalam rekomendasi CPCL, sedangkan Kelompok Sehati memperoleh nilai terendah sebesar 25,00%. Perbedaan nilai tersebut menunjukkan bahwa metode Fuzzy Sugeno dapat membedakan tingkat kelayakan setiap kelompok tani berdasarkan kombinasi nilai kriteria seperti luas lahan, status kepemilikan lahan, pengalaman kelompok tani, produktivitas, dan kelengkapan dokumen. yang telah ditentukan. Selain itu, fitur pengelompokan skala prioritas semakin memudahkan pengambil keputusan dalam menentukan kelompok tani yang layak diprioritaskan.
+Dari sisi implementasi, seluruh fungsi sistem berjalan dengan baik sesuai hasil pengujian, sehingga dapat disimpulkan bahwa sistem ini telah mampu meningkatkan efisiensi, akurasi, dan transparansi dalam proses pengambilan keputusan. Meskipun masih terdapat keterbatasan, secara keseluruhan sistem yang dibangun telah berhasil menjawab dan menyelesaikan permasalahan yang dihadapi.  hasil pengujian User Acceptance Test (UAT) terhadap 30 responden, Sistem Pendukung Keputusan (SPK) CPCL memperoleh nilai rata-rata sebesar 88,70%. Nilai tersebut berada pada rentang 81%–100%, sehingga termasuk dalam kategori Sangat Baik. Dengan demikian, sistem dinyatakan dapat diterima oleh pengguna dan layak untuk diimplementasikan.
+BAB VPENUTUP
+
+
+Simpulan (Conclusion)
+Berdasarkan hasil penelitian yang telah dilakukan mengenai Sistem Pendukung Keputusan Penentuan Penerima Bantuan Calon Petani Calon Lokasi (CPCL) menggunakan metode Fuzzy Sugeno pada Dinas Ketahanan Pangan dan Pertanian Kabupaten Kuningan, maka dapat diambil beberapa kesimpulan sebagai berikut:
+Penelitian ini berhasil merancang dan membangun Sistem Pendukung Keputusan berbasis web yang dapat membantu proses pengelolaan data calon penerima bantuan CPCL mulai dari pendaftaran, verifikasi, penilaian kriteria, hingga penentuan prioritas penerima bantuan secara terstruktur dan terintegrasi.
+Metode Fuzzy Sugeno dapat diimplementasikan dalam sistem pendukung keputusan untuk menentukan prioritas kelayakan penerima bantuan CPCL berdasarkan beberapa kriteria yaitu luas lahan, kepemilikan lahan, pengalaman kelompok tani, produktivitas kelompok tani, dan kelengkapan dokumen. Metode ini mampu mengolah data yang bersifat linguistik dan tidak pasti menjadi nilai tegas (crisp) sehingga menghasilkan skala prioritas calon penerima bantuan.
+Sistem yang dibangun mampu membantu pihak Dinas Ketahanan Pangan dan Pertanian Kabupaten Kuningan dalam proses pengambilan keputusan secara lebih objektif, sistematis, dan mengurangi subjektivitas dalam penentuan penerima bantuan CPCL dibandingkan dengan proses manual sebelumnya.
+Berdasarkan hasil pengujian sistem menggunakan metode black box dan white box, sistem pendukung keputusan yang dibangun telah berjalan sesuai dengan fungsi yang diharapkan, baik dari sisi pengelolaan data, proses perhitungan Fuzzy Sugeno, maupun penyajian hasil laporan dan perankingan penerima bantuan. Berdasarkan hasil pengujian User Acceptance Test (UAT) terhadap 30 responden, Sistem Pendukung Keputusan (SPK) CPCL memperoleh nilai rata-rata sebesar 88,70%. Nilai tersebut berada pada rentang 81%–100%, sehingga termasuk dalam kategori Sangat Baik. Dengan demikian, sistem dinyatakan dapat diterima oleh pengguna dan layak untuk diimplementasikan.
+Hasil perhitungan menggunakan metode Fuzzy Sugeno menunjukkan bahwa sistem mampu menghasilkan nilai akhir dan perangkingan Calon Petani Calon Lokasi (CPCL) secara objektif berdasarkan kriteria yang telah ditentukan. Berdasarkan hasil pengolahan data dengan akurasi 97%, Kelompok Harapan Wangi memperoleh nilai tertinggi sebesar 83,33% sehingga menempati prioritas utama dalam rekomendasi CPCL, sedangkan Kelompok Sehati memperoleh nilai terendah sebesar 25,00%. Perbedaan nilai tersebut menunjukkan bahwa metode Fuzzy Sugeno dapat membedakan tingkat prioritas setiap kelompok tani berdasarkan kombinasi nilai kriteria seperti luas lahan, status kepemilikan lahan, pengalaman kelompok tani, produktivitas, dan kelengkapan dokumen. Dengan demikian, sistem yang dibangun mampu membantu proses pengambilan keputusan menjadi lebih cepat, konsisten, dan mengurangi subjektivitas dalam penentuan prioritas penerima CPCL.
+Penulis menyampaikan bahwa keterbatasan dalam penelitian yaitu dalam penggunaan data kriteria, dalam artian data administrasi asli dari SIMLUHTAN tahun periode 2024 (update real time), untuk kriteria yang digunakan luas lahan, kepemilikan lahan, produktivitas kelompok tani, pengalaman kelompok tani, dan kelengkapan dokumen, menggunakan data simulasi yang di berikan pihak Dinas setelah menguji Sistem, dikarenakan data berkaitan dengan pemerintahan dan hukum, namun peneliti memastikan kembali turun ke lapangan dan data yang di simulasikan bukan data sungguhan tetapi sangat mirip dengan rata rata luas lahan daerah kelompok tani Kecamatan Cigugur Kabupaten Kuningan.
+Peneliti menjustifikasi bahwa simulasi data untuk proses seleksi kelayakan disedemikian rupakan dengan mekanisme berjalan guna memfasilitasi dan mewakili se-Kabupaten Kuningan dalam penyeleksian, tetapi data yang di gunakan yaitu kelompok tani pada Kecamatan Cigugur, Kabupaten Kuningan
+Saran (Suggestion)
+Berdasarkan hasil penelitian yang telah dilakukan, terdapat beberapa saran yang dapat diberikan untuk pengembangan penelitian selanjutnya maupun pengembangan sistem, yaitu sebagai berikut:
+Untuk Peneliti Selanjutnya :
+Sistem pendukung keputusan yang telah dibangun dapat dikembangkan lebih lanjut dengan menambahkan lebih banyak kriteria dan subkriteria agar hasil penilaian lebih akurat dan sesuai dengan kondisi di lapangan.
+Penelitian selanjutnya dapat membandingkan metode Fuzzy Sugeno dengan metode pengambilan keputusan lainnya seperti Fuzzy Mamdani, AHP, SAW, atau TOPSIS untuk mengetahui metode yang paling optimal dalam penentuan penerima bantuan CPCL.
+Penelitian selanjutnya diharapkan menggunakan jumlah data yang lebih banyak dan mencakup lebih banyak wilayah UPTD sehingga hasil penelitian menjadi lebih representatif.
+Untuk Instansi :
+Dinas Ketahanan Pangan dan Pertanian Kabupaten Kuningan disarankan untuk menerapkan sistem pendukung keputusan yang telah dibangun sebagai alat bantu dalam proses verifikasi dan penentuan prioritas Calon Petani Calon Lokasi (CPCL) sehingga proses seleksi dapat dilakukan secara lebih cepat, objektif, dan terstruktur.
+Untuk mendukung pemanfaatan sistem secara optimal, perlu dilakukan sosialisasi dan pelatihan kepada pengguna sistem agar seluruh fitur yang tersedia dapat digunakan secara efektif dalam kegiatan operasional sehari-hari.
+Sistem yang telah dibangun dapat dikembangkan secara bertahap dengan menambahkan fitur integrasi data dan akses bagi kelompok tani guna mempermudah proses pengajuan serta pengelolaan data CPCL secara lebih efisien.
+DAFTAR PUSTAKA
+
+
+Amatik, N. (2023). Decision Making and the Analytic Hierarchy Process (SMART): A Complete Tutorial Nasser. March, 1–19.
+Andriyani, Y., & Oktaviani, C. (2022). Penerapan Metode SMART untuk Rekomendasi Pencari Kerja Terbaik. 6(April), 1224–1233. https://doi.org/10.30865/mib.v6i2.3988
+Arfan, M., Takdir, R., Dai, R. H., Ramdhan, M., & Kaluku, A. (2023). Sistem Penunjang Keputusan Penentuan Prioritas Pembangunan Desa Dengan Metode SMART-TOPSIS. 3(1).
+Ati, D. S., Dr.Nurdien, Kistanto, H., & Taufik, A. (2014). Pengantar Konsep Informasi, Data, dan Pengetahuan. 1–32.
+Azis, M., & Mariskha, G. N. (2023). Pembiayaan Kredit Pemilikan Rumah ( KPR
+) Subsidi Untuk Meningkatkan Kesejahteraan Masyarakat Berpenghasilan Rendah. 3(1), 1–16. https://doi.org/10.21154/niqosiya.v3i1.1717
+Binangkit, C. A., Voutama, A., Heryana, N., Komputer, F. I., Karawang, U. S., & Musik, A. (2023). PEMANFAATAN UML ( UNIFIED MODELING LANGUAGE ) DALAM PERENCANAAN SISTEM PENGELOLAAN SEWA ALAT MUSIK BERBASIS. 7(2), 1429–1436.
+Gaspar, N. A., Waworundeng, W., & Kumayas, N. (2023). Efektivitas Pelayanan Publik Berbasis Aplikasi Bitung Digital City (DC) Di Kecamatan Madidir Kota Bitung. 3(1), 1–9.
+Hadi, A. (2022). Sistem Penunjang Keputusan Penilaian Kinerja Karyawan Menggunakan Metode 360 Derajat di Politeknik Lp3i Kampus Padang Berbasis Web. 1(1).
+Iraza, K., & Irwan, M. N. P. (2023). MENINGKATKAN DAYA SAING BISNIS : PERAN DATA DALAM PENGAMBILAN KEPUTUSAN. 1(2), 888–894.
+Juliana, Tongam E Panggabean, I. J. T. (2023). Penerapan Metode Saw Untuk Sistem Penunjang Keputusan Pemilihan Guru Terbaik Pada PKMI Binjai. 7(2), 151–158.
+
+
+Kusrini, M. (2007). Kom. Konsep dan Aplikasi Sistem Pendukung Keputusan.
+Penerbit ANDI, Yogyakarta, Ed, 1.
+Lestari, C. D., Resmi, M. G., Ramadhan, Y. R., Studi, P., Informatika, T., Tinggi, S., & Wastukancana, T. (2022). DECISION SUPPORT SYSTEM FOR SELECTION OF HOME OWNERSHIP LOANS ( KPR ) USING THE SMART. 3(2), 201–212.
+Mishra, D. M. (2024). A Study on Decision Support Systems Concepts and Resources for Understanding and Managing Organization. 1, 39–43. https://doi.org/10.5281/zenodo.10723556
+Pangestu, P. R., Voutama, A., Informasi, S., & Karawang, U. S. (2024). PEMANFAATAN UML ( UNIFIED MODELLING LANGUAGE ) PADA SISTEM. 8(6), 11846–11851.
+Pengambilan, M., Pemilihan, K., Kpr, R., Hierarchy, A., SMART, P., Danu, M., Patradhiani, R., Putri, A. R., & Histiarini, A. R. (2025). Metode Analytical Hierarchy Process ( SMART ) Decision-Making Model for Mortgage House Selection with the. 11(2), 356–365.
+Praniffa, A. C., Syahri, A., Sandes, F., Fariha, U., & Giansyah, Q. A. (2023). Jurnal Testing dan Implementasi Sistem Informasi PARKIR BERBASIS WEB BLACK BOX AND WHITE BOX TESTING OF WEB-BASED PARKING. 1(1), 1–16.
+Prehanto, D. R., Kom, S., & Kom, M. (2020). Buku ajar konsep sistem informasi.
+Scopindo Media Pustaka.
+Rakhmawati, S. S. (2025). Implementasi Metode Analytical Hierarchy Process ( SMART ) Dalam Sistem Pendukung Keputusan Kelayakan Pengajuan KPR Subsidi Di PT . Indragriya Putera. 4(3), 4797–4803.
+Ratulangi, U. S. (2022). Jurusan Ekonomi Pembangunan , Fakultas Ekonomi Dan Bisnis ,. 22(7), 25–36.
+Sari, A., Noor, R., & Zhafira, H. (n.d.). Analisis hukum pemakaian transaksi kredit kepemilikan rumah (kpr) perbankan syariah melalui sistem pembiayaan murabahah. 1(2023), 644–653.
+Senapaty, M. K., Ray, A., & Padhy, N. (2024). A Decision Support System for Crop Recommendation Using Machine Learning Classification Algorithms.
+
+
+Shadiq, J., Safei, A., Wahyudin, R., & Loly, R. (2021). Pengujian Aplikasi Peminjaman Kendaraan Operasional Kantor Menggunakan BlackBox Testing. 5(2), 97–110.
+Sinta, M., & Efendi, J. (2021). Perancangan sistem informasi pelayanan di kantor desa ranah baru berbasis web. 5(2).
+Syahroni, & Irfan, M. (2022). PROSEDUR PENELITIAN KUANTITATIF. 2(3), 43–56.
+Vadreas, A. K., Turaina, R., & Ardiansyah, S. (2018). SISTEM PENUNJANG KEPUTUSAN PENENTUAN ( SPK ) BANTUAN DANA PEMBANGUNAN RUMAH TIDAK LAYAK HUNI ( RTLH ) DENGAN METODE MULTI FACTOR  EVOLUATION  PROCESS  (  MFEP  ).  6(1),  18–23.
+https://doi.org/10.21063/JTIF.2018.V6.1.18-23
+Wayahdi, M. R., & Ruziq, F. (2023). Pemodelan Sistem Penerimaan Anggota Baru dengan Unified Modeling Language ( UML ) ( Studi Kasus : Programmer Association of Battuta ). 12, 1514–1521.
+Wintana, D., Pribadi, D., & Nurhadi, M. Y. (2022). Analisis Perbandingan Efektifitas White-Box Testing dan Black-Box Testing. 2(1), 8–16.
+Zhang, J., & Pu, P. (2006). Performance Evaluation of Consumer Decision Support Systems. 2(September), 28–45.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Lampiran (Appendices)
+
+
+1. Curiculume Vitae CV
+1672859219063
+
+
+
+
+
+
+V;
+
+Lampiran SK Judul dan Pembimbing;
+
+
+
+
+
+
+1.Lampiran Kartu Bimbingan;
+189737991484
+
+
+
+
+
+

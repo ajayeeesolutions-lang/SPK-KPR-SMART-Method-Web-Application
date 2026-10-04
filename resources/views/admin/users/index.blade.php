@@ -32,10 +32,12 @@
                                 <td>
                                     @if($u->role === 'admin')
                                         <span class="badge bg-primary text-uppercase">Admin</span>
-                                    @elseif($u->role === 'manager')
-                                        <span class="badge bg-success text-uppercase">Manager</span>
+                                    @elseif($u->role === 'marketing')
+                                        <span class="badge bg-info text-uppercase">Marketing</span>
+                                    @elseif($u->role === 'pimpinan')
+                                        <span class="badge bg-success text-uppercase">Pimpinan</span>
                                     @else
-                                        <span class="badge bg-secondary text-uppercase">Nasabah</span>
+                                        <span class="badge bg-secondary text-uppercase">Debitur</span>
                                     @endif
                                 </td>
                                 <td class="text-center">
@@ -79,8 +81,9 @@
                     <label class="form-label fw-semibold">Role Hak Akses</label>
                     <select name="role" class="form-select" required>
                         <option value="admin">Admin</option>
-                        <option value="manager">Manager Analis</option>
-                        <option value="nasabah">Calon Nasabah</option>
+                        <option value="marketing">Marketing</option>
+                        <option value="pimpinan">Pimpinan</option>
+                        <option value="debitur">Calon Debitur</option>
                     </select>
                 </div>
                 <div class="mb-3">

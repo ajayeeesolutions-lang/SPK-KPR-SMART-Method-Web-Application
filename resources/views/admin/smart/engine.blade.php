@@ -67,15 +67,16 @@
     <!-- Step 1 & 2: Weights -->
     <div class="col-12 col-lg-5">
         <div class="card-custom p-4 h-100">
-            <h6 class="fw-bold text-dark mb-3"><span class="badge bg-primary me-2">Tahap 1 & 2</span> Bobot Awal & Normalisasi Bobot</h6>
+            <h6 class="fw-bold text-dark mb-1"><span class="badge bg-primary me-2">Tahap 1 & 2</span> Bobot Awal & Normalisasi Bobot</h6>
+            <p class="text-muted small mb-3">Setiap bobot awal dibagi dengan total bobot agar jumlahnya = 1</p>
             <div class="table-responsive">
                 <table class="table table-bordered table-sm align-middle small">
                     <thead class="table-light text-center">
                         <tr>
                             <th>Kode</th>
-                            <th>Kriteria</th>
-                            <th>Bobot Awal (W)</th>
-                            <th>Bobot Normalisasi (w_j)</th>
+                            <th>Nama Kriteria</th>
+                            <th>Bobot Awal<br><small class="fw-normal text-muted">(skala 0–100)</small></th>
+                            <th>Bobot Normalisasi<br><small class="fw-normal text-muted">Wj = wj ÷ Σwj</small></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -101,49 +102,60 @@
                     </tfoot>
                 </table>
             </div>
-            <div class="small text-muted fst-italic">Formula Normalisasi: w_j = W_j / Total_W</div>
+            <div class="small text-muted fst-italic mt-1">
+                <i class="fa-solid fa-circle-info text-primary me-1"></i>
+                Rumus: Bobot Normalisasi (Wj) = Bobot Awal Kriteria (wj) ÷ Total Semua Bobot (Σwj)
+            </div>
         </div>
     </div>
 
     <!-- Step 3 & 4: Utility & Calculation -->
     <div class="col-12 col-lg-7">
         <div class="card-custom p-4 h-100">
-            <h6 class="fw-bold text-dark mb-3"><span class="badge bg-primary me-2">Tahap 3 & 4</span> Nilai Utility & Perkalian (w_j × u_j)</h6>
+            <h6 class="fw-bold text-dark mb-1"><span class="badge bg-primary me-2">Tahap 3 & 4</span> Nilai Utility & Skor Terbobot</h6>
+            <p class="text-muted small mb-3">Nilai utility tiap kriteria dikalikan bobot normalisasi, lalu dijumlahkan</p>
             <div class="table-responsive">
                 <table class="table table-bordered table-sm align-middle small">
                     <thead class="table-light text-center">
                         <tr>
                             <th>Kode</th>
-                            <th>Nilai Nasabah</th>
-                            <th>Sub Kriteria Terpenuhi</th>
-                            <th>Utility (u_j)</th>
-                            <th>Skor Terbobot (w_j × u_j)</th>
+                            <th>Data Nasabah & Subkriteria Terpenuhi</th>
+                            <th>Nilai Utility<br><small class="fw-normal text-muted">ui(ai) = 0.0–1.0</small></th>
+                            <th>Bobot Normalisasi<br><small class="fw-normal text-muted">(Wj)</small></th>
+                            <th>Skor Terbobot<br><small class="fw-normal text-muted">Wj × ui(ai)</small></th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($criteria as $c)
                             @php
-                                $u = $smartResult->utilities[$c->code] ?? 0;
+                                $u     = $smartResult->utilities[$c->code] ?? 0;
                                 $wNorm = $smartResult->normalized_weights[$c->code] ?? 0;
                                 $score = $smartResult->weighted_scores[$c->code] ?? 0;
-                                $reason = $smartResult->explanations[$c->code] ?? '';
+                                $reason = $smartResult->explanations[$c->code] ?? '-';
+                                $uColor = $u >= 0.8 ? 'text-success' : ($u >= 0.6 ? 'text-warning' : 'text-danger');
                             @endphp
                             <tr>
                                 <td class="text-center font-monospace fw-bold">{{ $c->code }}</td>
-                                <td class="text-muted">{{ $reason }}</td>
-                                <td><span class="badge bg-light text-dark border">Matched Rule</span></td>
-                                <td class="text-center fw-bold">{{ number_format($u, 2) }}</td>
-                                <td class="text-center fw-bold text-success fs-6">{{ number_format($score, 2) }}</td>
+                                <td class="text-muted small">{{ $reason }}</td>
+                                <td class="text-center fw-bold {{ $uColor }}">{{ number_format($u, 2) }}</td>
+                                <td class="text-center text-primary fw-semibold">{{ number_format($wNorm, 4) }}</td>
+                                <td class="text-center fw-bold text-success fs-6">{{ number_format($score, 4) }}</td>
                             </tr>
                         @endforeach
                     </tbody>
                     <tfoot class="table-light fw-bold text-center">
                         <tr>
-                            <td colspan="4" class="text-end">TOTAL SKOR SMART:</td>
-                            <td class="text-primary fs-5">{{ number_format($smartResult->total_score, 2) }}</td>
+                            <td colspan="4" class="text-end">
+                                Total Skor SMART — u(ai) = Σ Wj × ui(ai) :
+                            </td>
+                            <td class="text-primary fs-5">{{ number_format($smartResult->total_score, 4) }}</td>
                         </tr>
                     </tfoot>
                 </table>
+            </div>
+            <div class="small text-muted fst-italic mt-1">
+                <i class="fa-solid fa-circle-info text-primary me-1"></i>
+                Rumus Skor Akhir: u(ai) = Σ [ Bobot Normalisasi (Wj) × Nilai Utility ui(ai) ]
             </div>
         </div>
     </div>
@@ -180,10 +192,12 @@
                                 <td>{{ $rnk->user?->name ?? 'Nasabah' }}</td>
                                 <td class="text-center fw-bold text-primary">{{ number_format($rnk->final_smart_score, 2) }}</td>
                                 <td class="text-center">
-                                    @if($rnk->status_keputusan === 'DITERIMA')
-                                        <span class="badge-success-custom text-nowrap">DITERIMA</span>
+                                    @if($rnk->status_keputusan === 'LAYAK')
+                                        <span class="badge-success-custom text-nowrap">LAYAK</span>
+                                    @elseif($rnk->status_keputusan === 'DIPERTIMBANGKAN')
+                                        <span class="badge bg-warning text-dark text-nowrap">DIPERTIMBANGKAN</span>
                                     @else
-                                        <span class="badge-danger-custom text-nowrap">TIDAK DITERIMA</span>
+                                        <span class="badge-danger-custom text-nowrap">TIDAK LAYAK</span>
                                     @endif
                                 </td>
                             </tr>
@@ -199,13 +213,17 @@
         <div class="card-custom p-4 h-100">
             <h6 class="fw-bold text-dark mb-3"><span class="badge bg-primary me-2">Tahap 6</span> Hasil Keputusan SMART System</h6>
 
-            <div class="p-3 mb-3 text-center rounded-4 border {{ $smartResult->decision === 'DITERIMA' ? 'bg-success bg-opacity-10 border-success' : 'bg-danger bg-opacity-10 border-danger' }}">
+            @php
+                $bgClass = $smartResult->decision === 'LAYAK' ? 'bg-success border-success' : ($smartResult->decision === 'DIPERTIMBANGKAN' ? 'bg-warning border-warning' : 'bg-danger border-danger');
+                $textClass = $smartResult->decision === 'LAYAK' ? 'text-success' : ($smartResult->decision === 'DIPERTIMBANGKAN' ? 'text-warning' : 'text-danger');
+            @endphp
+            <div class="p-3 mb-3 text-center rounded-4 border bg-opacity-10 {{ $bgClass }}">
                 <small class="text-muted fw-bold d-block text-uppercase">Status Rekomendasi</small>
-                <h2 class="fw-bold {{ $smartResult->decision === 'DITERIMA' ? 'text-success' : 'text-danger' }} mb-1">
+                <h2 class="fw-bold {{ $textClass }} mb-1">
                     {{ $smartResult->decision }}
                 </h2>
                 <div class="fs-5 fw-bold text-dark">Skor: {{ number_format($smartResult->total_score, 2) }}</div>
-                <small class="text-muted">Ambang Batas Threshold System: {{ number_format($threshold, 2) }}</small>
+                <small class="text-muted">Ambang Batas Kelayakan: 0.80</small>
             </div>
 
             <div class="small">

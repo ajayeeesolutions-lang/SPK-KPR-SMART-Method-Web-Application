@@ -23,14 +23,22 @@ class KprSubmission extends Model
         'manager_notes',
         'approved_by',
         'approved_at',
+        // 5 Kriteria SMART
+        'c1_riwayat_kredit',
+        'c2_penghasilan_bersih',
+        'c3_status_pekerjaan',
+        'c3_lama_bekerja_bulan',
+        'c4_usia',
+        'c5_jumlah_tanggungan',
     ];
 
     protected $casts = [
-        'harga_rumah' => 'decimal:2',
-        'uang_muka_dp' => 'decimal:2',
-        'nilai_pinjaman' => 'decimal:2',
-        'final_smart_score' => 'decimal:2',
-        'approved_at' => 'datetime',
+        'harga_rumah'           => 'decimal:2',
+        'uang_muka_dp'          => 'decimal:2',
+        'nilai_pinjaman'        => 'decimal:2',
+        'c2_penghasilan_bersih' => 'decimal:2',
+        'final_smart_score'     => 'decimal:2',
+        'approved_at'           => 'datetime',
     ];
 
     public function user()

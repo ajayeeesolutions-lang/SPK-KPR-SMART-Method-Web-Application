@@ -46,11 +46,11 @@ class LoginController extends Controller
 
     protected function redirectUser($user)
     {
-        if ($user->role === 'admin') {
-            return redirect()->route('admin.dashboard');
-        } elseif ($user->role === 'manager') {
-            return redirect()->route('manager.dashboard');
-        }
-        return redirect()->route('nasabah.dashboard');
+        return match ($user->role) {
+            'admin'      => redirect()->route('admin.dashboard'),
+            'marketing'  => redirect()->route('admin.dashboard'),
+            'pimpinan'   => redirect()->route('manager.dashboard'),
+            default      => redirect()->route('nasabah.dashboard'),
+        };
     }
 }

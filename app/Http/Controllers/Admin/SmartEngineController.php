@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 
 class SmartEngineController extends Controller
 {
-    public function index(Request $request, SmartService $smartService)
+    public function index(Request $request)
     {
         $criteria = Criterion::with('subCriteria')->where('is_active', true)->orderBy('code')->get();
         $threshold = (float) Setting::getByKey('smart_threshold', 80.00);
@@ -29,15 +29,12 @@ class SmartEngineController extends Controller
         if ($selectedSubmissionId) {
             $activeSubmission = KprSubmission::with(['user.profile', 'documents', 'smartResult'])->find($selectedSubmissionId);
         } elseif ($submissions->count() > 0) {
-            $activeSubmission = $submissions->first();
+            $activeSubmission = KprSubmission::with(['user.profile', 'documents', 'smartResult'])->find($submissions->first()->id);
         }
 
+        // Only get existing smart result, do NOT auto-run analysis
         if ($activeSubmission) {
-            try {
-                $smartResult = $smartService->analyzeSubmission($activeSubmission);
-            } catch (\Exception $e) {
-                // handle case where profile is not complete
-            }
+            $smartResult = $activeSubmission->smartResult;
         }
 
         // System Rankings of all analyzed submissions

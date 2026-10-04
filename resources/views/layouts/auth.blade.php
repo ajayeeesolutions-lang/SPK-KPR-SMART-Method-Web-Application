@@ -15,6 +15,11 @@
     <!-- FontAwesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
+    <!-- PWA Settings -->
+    <link rel="manifest" href="{{ asset('manifest.json') }}">
+    <meta name="theme-color" content="#0F172A">
+    <link rel="apple-touch-icon" href="{{ asset('pwa-icon-192.png') }}">
+
     <style>
         :root {
             --primary-blue: #2563EB;
@@ -173,8 +178,8 @@
 <div class="auth-container">
     <div class="auth-card">
         <div class="auth-header">
-            <div class="auth-logo-icon">
-                <i class="fa-solid fa-building-columns fs-3"></i>
+            <div class="auth-logo-icon" style="background: white; padding: 5px;">
+                <img src="{{ asset('pwa-icon-192.png') }}" alt="Logo App" style="width: 100%; height: 100%; object-fit: contain;">
             </div>
             <h4 class="fw-extrabold text-dark mb-1" style="letter-spacing: -0.5px;">SPK Kelayakan KPR</h4>
             <div class="text-secondary small fw-medium">Metode SMART (Simple Multi Attribute Rating Technique)</div>
@@ -192,6 +197,18 @@
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // PWA Service Worker Registration
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+            navigator.serviceWorker.register('/sw.js').then(function(registration) {
+                console.log('ServiceWorker registration successful with scope: ', registration.scope);
+            }, function(err) {
+                console.log('ServiceWorker registration failed: ', err);
+            });
+        });
+    }
+</script>
 @yield('scripts')
 </body>
 </html>

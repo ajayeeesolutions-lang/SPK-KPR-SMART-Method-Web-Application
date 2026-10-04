@@ -11,8 +11,9 @@ class ManagerDashboardController extends Controller
     public function index()
     {
         $totalPengajuan = KprSubmission::count();
-        $totalDiterima = KprSubmission::where('status_keputusan', 'DITERIMA')->count();
-        $totalDitolak = KprSubmission::where('status_keputusan', 'TIDAK DITERIMA')->count();
+        $totalDiterima = KprSubmission::where('status_keputusan', 'LAYAK')->count();
+        $totalDitolak = KprSubmission::where('status_keputusan', 'TIDAK LAYAK')->count();
+        $totalDipertimbangkan = KprSubmission::where('status_keputusan', 'DIPERTIMBANGKAN')->count();
         $totalPendingApproval = KprSubmission::where('status_pengajuan', 'analyzed')->count();
 
         $recentSubmissions = KprSubmission::with(['user.profile', 'smartResult'])
@@ -37,6 +38,7 @@ class ManagerDashboardController extends Controller
         return view('manager.dashboard', compact(
             'totalPengajuan',
             'totalDiterima',
+            'totalDipertimbangkan',
             'totalDitolak',
             'totalPendingApproval',
             'recentSubmissions',

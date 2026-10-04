@@ -34,7 +34,6 @@ class ManagerApprovalController extends Controller
 
         $submission->update([
             'status_pengajuan' => 'approved',
-            'status_keputusan' => 'DITERIMA',
             'manager_notes' => $request->manager_notes,
             'approved_by' => auth()->id(),
             'approved_at' => now(),
@@ -52,7 +51,6 @@ class ManagerApprovalController extends Controller
 
         $submission->update([
             'status_pengajuan' => 'rejected',
-            'status_keputusan' => 'TIDAK DITERIMA',
             'manager_notes' => $request->manager_notes,
             'approved_by' => auth()->id(),
             'approved_at' => now(),

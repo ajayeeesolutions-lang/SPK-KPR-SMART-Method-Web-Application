@@ -22,7 +22,14 @@ class ProfileController extends Controller
         $validated = $request->validated();
 
         if ($request->hasFile('foto')) {
-            $validated['foto_path'] = $uploadService->uploadPhoto($request->file('foto'));
+            $user->avatar = $request->file('foto')->store('avatars', 'public');
+            $user->save();
+        }
+
+        // Update user name as well
+        if (isset($validated['nama_lengkap'])) {
+            $user->name = $validated['nama_lengkap'];
+            $user->save();
         }
 
         $profile = NasabahProfile::updateOrCreate(

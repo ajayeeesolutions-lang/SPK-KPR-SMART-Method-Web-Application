@@ -27,8 +27,9 @@
         <div class="col-12 col-md-4">
             <select name="status" class="form-select">
                 <option value="">-- All Status Keputusan --</option>
-                <option value="DITERIMA" {{ request('status') === 'DITERIMA' ? 'selected' : '' }}>DITERIMA</option>
-                <option value="TIDAK DITERIMA" {{ request('status') === 'TIDAK DITERIMA' ? 'selected' : '' }}>TIDAK DITERIMA</option>
+                <option value="LAYAK" {{ request('status') === 'LAYAK' ? 'selected' : '' }}>LAYAK</option>
+                <option value="DIPERTIMBANGKAN" {{ request('status') === 'DIPERTIMBANGKAN' ? 'selected' : '' }}>DIPERTIMBANGKAN</option>
+                <option value="TIDAK LAYAK" {{ request('status') === 'TIDAK LAYAK' ? 'selected' : '' }}>TIDAK LAYAK</option>
             </select>
         </div>
         <div class="col-12 col-md-2">
@@ -47,7 +48,8 @@
                     <th>Pekerjaan & Penghasilan</th>
                     <th>Nilai Pinjaman</th>
                     <th>Skor SMART</th>
-                    <th>Status Keputusan</th>
+                    <th>Hasil SMART</th>
+                    <th>Status ACC Manager</th>
                     <th class="text-center">Aksi</th>
                 </tr>
             </thead>
@@ -81,12 +83,23 @@
                             @endif
                         </td>
                         <td>
-                            @if($sub->status_keputusan === 'DITERIMA')
-                                <span class="badge-success-custom text-nowrap"><i class="fa-solid fa-circle-check me-1"></i> DITERIMA</span>
-                            @elseif($sub->status_keputusan === 'TIDAK DITERIMA')
-                                <span class="badge-danger-custom text-nowrap"><i class="fa-solid fa-circle-xmark me-1"></i> TIDAK DITERIMA</span>
+                            @if($sub->status_keputusan === 'LAYAK')
+                                <span class="badge-success-custom text-nowrap"><i class="fa-solid fa-circle-check me-1"></i> LAYAK</span>
+                            @elseif($sub->status_keputusan === 'DIPERTIMBANGKAN')
+                                <span class="badge bg-warning text-dark text-nowrap"><i class="fa-solid fa-triangle-exclamation me-1"></i> DIPERTIMBANGKAN</span>
+                            @elseif($sub->status_keputusan === 'TIDAK LAYAK')
+                                <span class="badge-danger-custom text-nowrap"><i class="fa-solid fa-circle-xmark me-1"></i> TIDAK LAYAK</span>
                             @else
                                 <span class="badge-warning-custom text-nowrap"><i class="fa-solid fa-clock me-1"></i> Menunggu</span>
+                            @endif
+                        </td>
+                        <td>
+                            @if($sub->status_pengajuan === 'approved')
+                                <span class="badge bg-success text-nowrap"><i class="fa-solid fa-check-double me-1"></i> ACC Manager</span>
+                            @elseif($sub->status_pengajuan === 'rejected')
+                                <span class="badge bg-danger text-nowrap"><i class="fa-solid fa-xmark me-1"></i> Ditolak Manager</span>
+                            @else
+                                <span class="badge bg-warning text-dark text-nowrap"><i class="fa-solid fa-clock me-1"></i> Menunggu ACC</span>
                             @endif
                         </td>
                         <td class="text-center">

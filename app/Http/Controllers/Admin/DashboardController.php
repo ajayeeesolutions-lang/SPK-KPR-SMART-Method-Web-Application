@@ -12,16 +12,17 @@ class DashboardController extends Controller
     public function index()
     {
         $totalPengajuan = KprSubmission::count();
-        $totalDiterima = KprSubmission::where('status_keputusan', 'DITERIMA')->count();
-        $totalDitolak = KprSubmission::where('status_keputusan', 'TIDAK DITERIMA')->count();
+        $totalDiterima = KprSubmission::where('status_keputusan', 'LAYAK')->count();
+        $totalDitolak = KprSubmission::where('status_keputusan', 'TIDAK LAYAK')->count();
+        $totalDipertimbangkan = KprSubmission::where('status_keputusan', 'DIPERTIMBANGKAN')->count();
         $totalMenunggu = KprSubmission::whereIn('status_pengajuan', ['pending', 'analyzed'])->count();
-        $totalNasabah = User::where('role', 'nasabah')->count();
+        $totalNasabah = User::where('role', 'debitur')->count();
 
         // Monthly trends data for Chart.js (Database-Agnostic for SQLite & MySQL)
         $monthlySubmissions = KprSubmission::oldest()
             ->get()
             ->groupBy(function ($item) {
-                return $item->created_at->format('b Y');
+                return $item->created_at->format('M Y');
             })
             ->map(function ($items, $month) {
                 return (object) [
@@ -40,6 +41,7 @@ class DashboardController extends Controller
         return view('admin.dashboard', compact(
             'totalPengajuan',
             'totalDiterima',
+            'totalDipertimbangkan',
             'totalDitolak',
             'totalMenunggu',
             'totalNasabah',

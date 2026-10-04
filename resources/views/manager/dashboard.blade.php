@@ -5,46 +5,55 @@
 
 @section('content')
 <div class="row g-3 mb-4">
-    <div class="col-12 col-sm-6 col-xl-3">
+    <div class="col-12 col-sm-4 col-xl">
         <div class="card-custom p-3 d-flex align-items-center flex-row gap-3">
-            <div class="rounded-3 bg-warning bg-opacity-10 text-warning p-3 d-flex align-items-center justify-content-center" style="width: 54px; height: 54px;">
+            <div class="rounded-3 bg-secondary bg-opacity-10 text-secondary p-3 d-flex align-items-center justify-content-center" style="width: 54px; height: 54px;">
                 <i class="fa-solid fa-clipboard-check fs-3"></i>
             </div>
             <div>
                 <div class="text-muted small fw-semibold">Butuh Persetujuan</div>
-                <h3 class="fw-bold mb-0 text-warning">{{ $totalPendingApproval }}</h3>
-                <small class="text-muted">Siap Diteken</small>
+                <h3 class="fw-bold mb-0 text-secondary">{{ $totalPendingApproval }}</h3>
             </div>
         </div>
     </div>
 
-    <div class="col-12 col-sm-6 col-xl-3">
+    <div class="col-12 col-sm-4 col-xl">
         <div class="card-custom p-3 d-flex align-items-center flex-row gap-3">
             <div class="rounded-3 bg-success bg-opacity-10 text-success p-3 d-flex align-items-center justify-content-center" style="width: 54px; height: 54px;">
                 <i class="fa-solid fa-circle-check fs-3"></i>
             </div>
             <div>
-                <div class="text-muted small fw-semibold">Disetujui (Approved)</div>
+                <div class="text-muted small fw-semibold">Layak</div>
                 <h3 class="fw-bold mb-0 text-success">{{ $totalDiterima }}</h3>
-                <small class="text-muted">Rekomendasi Diterima</small>
             </div>
         </div>
     </div>
 
-    <div class="col-12 col-sm-6 col-xl-3">
+    <div class="col-12 col-sm-4 col-xl">
+        <div class="card-custom p-3 d-flex align-items-center flex-row gap-3">
+            <div class="rounded-3 bg-warning bg-opacity-10 text-warning p-3 d-flex align-items-center justify-content-center" style="width: 54px; height: 54px;">
+                <i class="fa-solid fa-triangle-exclamation fs-3"></i>
+            </div>
+            <div>
+                <div class="text-muted small fw-semibold">Dipertimbangkan</div>
+                <h3 class="fw-bold mb-0 text-warning">{{ $totalDipertimbangkan }}</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-sm-4 col-xl">
         <div class="card-custom p-3 d-flex align-items-center flex-row gap-3">
             <div class="rounded-3 bg-danger bg-opacity-10 text-danger p-3 d-flex align-items-center justify-content-center" style="width: 54px; height: 54px;">
                 <i class="fa-solid fa-circle-xmark fs-3"></i>
             </div>
             <div>
-                <div class="text-muted small fw-semibold">Ditolak (Rejected)</div>
+                <div class="text-muted small fw-semibold">Tidak Layak</div>
                 <h3 class="fw-bold mb-0 text-danger">{{ $totalDitolak }}</h3>
-                <small class="text-muted">Rekomendasi Ditolak</small>
             </div>
         </div>
     </div>
 
-    <div class="col-12 col-sm-6 col-xl-3">
+    <div class="col-12 col-sm-4 col-xl">
         <div class="card-custom p-3 d-flex align-items-center flex-row gap-3">
             <div class="rounded-3 bg-primary bg-opacity-10 text-primary p-3 d-flex align-items-center justify-content-center" style="width: 54px; height: 54px;">
                 <i class="fa-solid fa-folder-open fs-3"></i>
@@ -52,7 +61,6 @@
             <div>
                 <div class="text-muted small fw-semibold">Total Pengajuan</div>
                 <h3 class="fw-bold mb-0 text-primary">{{ $totalPengajuan }}</h3>
-                <small class="text-muted">Seluruh Portofolio</small>
             </div>
         </div>
     </div>

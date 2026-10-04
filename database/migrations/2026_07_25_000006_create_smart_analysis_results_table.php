@@ -16,7 +16,7 @@ return new class extends Migration
             $table->json('utilities');
             $table->json('weighted_scores');
             $table->decimal('total_score', 8, 2);
-            $table->enum('decision', ['DITERIMA', 'TIDAK DITERIMA']);
+            $table->enum('decision', ['LAYAK', 'DIPERTIMBANGKAN', 'TIDAK LAYAK']);
             $table->json('explanations');
             $table->timestamp('analyzed_at');
             $table->timestamps();

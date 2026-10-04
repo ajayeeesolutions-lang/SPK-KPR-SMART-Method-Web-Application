@@ -21,12 +21,19 @@ class ReportService
         $bankAddress = Setting::getByKey('bank_address', 'Jl. Jenderal Sudirman No. 88, Jakarta Selatan');
         $bankPhone = Setting::getByKey('bank_phone', '(021) 555-8888');
 
+        $jabatanTtd = Setting::getByKey('jabatan_ttd', 'Manager Analis Kredit KPR');
+        $namaTtd = Setting::getByKey('nama_ttd', 'Anisa Kencana, SE, MM');
+        $nipTtd = Setting::getByKey('nip_ttd', '19880415 201201 2 004');
+
         $pdf = Pdf::loadView('reports.submission_pdf', [
             'submission' => $submission,
             'criteria' => $criteria,
             'bankName' => $bankName,
             'bankAddress' => $bankAddress,
             'bankPhone' => $bankPhone,
+            'jabatanTtd' => $jabatanTtd,
+            'namaTtd' => $namaTtd,
+            'nipTtd' => $nipTtd,
             'generatedAt' => now()->translatedFormat('d F Y H:i'),
         ]);
 

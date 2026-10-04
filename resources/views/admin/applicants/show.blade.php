@@ -60,11 +60,14 @@
             <div class="row align-items-center mb-4">
                 <div class="col-12 col-md-7">
                     <span class="text-muted small fw-bold text-uppercase d-block mb-1">Keputusan Akhir Mesin SMART</span>
-                    @if($submission->status_keputusan === 'DITERIMA')
-                        <h2 class="fw-bold text-success mb-1"><i class="fa-solid fa-circle-check me-2"></i> DITERIMA</h2>
+                    @if($submission->status_keputusan === 'LAYAK')
+                        <h2 class="fw-bold text-success mb-1"><i class="fa-solid fa-circle-check me-2"></i> LAYAK</h2>
                         <p class="text-muted small mb-0">Nasabah dinyatakan <strong>LAYAK</strong> memperoleh fasilitas KPR.</p>
-                    @elseif($submission->status_keputusan === 'TIDAK DITERIMA')
-                        <h2 class="fw-bold text-danger mb-1"><i class="fa-solid fa-circle-xmark me-2"></i> TIDAK DITERIMA</h2>
+                    @elseif($submission->status_keputusan === 'DIPERTIMBANGKAN')
+                        <h2 class="fw-bold text-warning mb-1"><i class="fa-solid fa-triangle-exclamation me-2"></i> DIPERTIMBANGKAN</h2>
+                        <p class="text-muted small mb-0">Nasabah <strong>DIPERTIMBANGKAN</strong> untuk memperoleh fasilitas KPR.</p>
+                    @elseif($submission->status_keputusan === 'TIDAK LAYAK')
+                        <h2 class="fw-bold text-danger mb-1"><i class="fa-solid fa-circle-xmark me-2"></i> TIDAK LAYAK</h2>
                         <p class="text-muted small mb-0">Nasabah <strong>BELUM MEMENUHI</strong> standar kelayakan KPR.</p>
                     @else
                         <h2 class="fw-bold text-warning mb-1"><i class="fa-solid fa-clock me-2"></i> MENUNGGU ANALISIS</h2>
@@ -75,7 +78,7 @@
                     <div class="p-3 bg-light rounded-4 border text-center d-inline-block" style="min-width: 180px;">
                         <small class="text-muted fw-bold d-block">SKOR SMART AKHIR</small>
                         <span class="display-5 fw-bold text-primary">{{ number_format($submission->final_smart_score ?? 0, 2) }}</span>
-                        <small class="text-muted d-block">/ 100.00 (Threshold 80)</small>
+                        <small class="text-muted d-block">/ 1.00 (Threshold 0.80)</small>
                     </div>
                 </div>
             </div>

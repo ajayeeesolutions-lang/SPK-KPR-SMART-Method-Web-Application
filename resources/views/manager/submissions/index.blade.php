@@ -36,10 +36,12 @@
                         <td>Rp {{ number_format($sub->nilai_pinjaman, 0, ',', '.') }}</td>
                         <td><span class="fw-bold text-primary fs-6">{{ number_format($sub->final_smart_score ?? 0, 2) }}</span></td>
                         <td>
-                            @if($sub->status_keputusan === 'DITERIMA')
-                                <span class="badge-success-custom text-nowrap">DITERIMA</span>
+                            @if($sub->status_keputusan === 'LAYAK')
+                                <span class="badge-success-custom text-nowrap">LAYAK</span>
+                            @elseif($sub->status_keputusan === 'DIPERTIMBANGKAN')
+                                <span class="badge bg-warning text-dark text-nowrap">DIPERTIMBANGKAN</span>
                             @else
-                                <span class="badge-danger-custom text-nowrap">TIDAK DITERIMA</span>
+                                <span class="badge-danger-custom text-nowrap">TIDAK LAYAK</span>
                             @endif
                         </td>
                         <td>

@@ -21,13 +21,13 @@ return new class extends Migration
             $table->enum('status_pernikahan', ['Belum Menikah', 'Menikah', 'Cerai']);
             $table->integer('jumlah_tanggungan')->default(0);
             $table->string('pekerjaan');
-            $table->enum('status_pekerjaan', ['PNS/BUMN', 'Pegawai Tetap Swasta', 'Wirausaha', 'Pegawai Kontrak', 'Lainnya']);
+            $table->string('status_pekerjaan');
             $table->integer('lama_bekerja_bulan')->comment('Lama bekerja dalam bulan');
             $table->decimal('penghasilan_bulanan', 15, 2);
             $table->decimal('penghasilan_pasangan', 15, 2)->default(0);
             $table->decimal('pengeluaran_bulanan', 15, 2);
             $table->decimal('cicilan_lain', 15, 2)->default(0);
-            $table->enum('riwayat_kredit', ['Lancar', 'Dalam Perhatian', 'Tidak Lancar'])->default('Lancar');
+            $table->string('riwayat_kredit')->default('Lancar');
             $table->string('foto_path')->nullable();
             $table->timestamps();
             $table->softDeletes();

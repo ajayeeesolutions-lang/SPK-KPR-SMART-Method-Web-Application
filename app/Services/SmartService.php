@@ -7,11 +7,175 @@ use App\Models\KprSubmission;
 use App\Models\NasabahProfile;
 use App\Models\Setting;
 use App\Models\SmartAnalysisResult;
+use Carbon\Carbon;
 
 class SmartService
 {
     /**
-     * Run SMART Method calculation on a given KPR Submission.
+     * TAHAP 1 — Normalisasi Bobot Kriteria
+     * Wj = wj / Σwj
+     */
+    private function normalizeWeights(iterable $criteria): array
+    {
+        $totalWeight = collect($criteria)->sum('weight');
+        if ($totalWeight <= 0) $totalWeight = 100;
+
+        $normalized = [];
+        foreach ($criteria as $criterion) {
+            $normalized[$criterion->code] = round((float) $criterion->weight / $totalWeight, 6);
+        }
+        return $normalized;
+    }
+
+    /**
+     * TAHAP 2 — Ambil nilai mentah (raw) dari submission (input langsung Debitur).
+     * Mapping DINAMIS: baca kode kriteria dari DB, cocokkan dengan kolom submission/profil.
+     * Fallback ke profil nasabah jika kolom submission NULL (submission lama).
+     */
+    private function extractRawValues(KprSubmission $submission, iterable $criteria): array
+    {
+        $profile = $submission->user->profile;
+
+        // Hitung lama bekerja dalam tahun dari bulan (untuk C4 subkriteria "Tetap > 5 Tahun" dll)
+        $lamaBekerjabulan = (int) ($submission->c3_lama_bekerja_bulan ?? $profile?->lama_bekerja_bulan ?? 0);
+        $statusPekerjaan  = (string) ($submission->c3_status_pekerjaan ?? $profile?->status_pekerjaan ?? '');
+        $statusLama = $this->mapStatusLamaPekerjaan($statusPekerjaan, $lamaBekerjabulan);
+
+        $usia = (int) ($submission->c4_usia
+            ?? ($profile?->tanggal_lahir ? \Carbon\Carbon::parse($profile->tanggal_lahir)->age : 0));
+
+        $penghasilanBersih = (float) ($submission->c2_penghasilan_bersih
+            ?? $profile?->penghasilan_bulanan
+            ?? 0);
+
+        $rawValues = [];
+        foreach ($criteria as $criterion) {
+            $code = $criterion->code;
+            $name = strtolower($criterion->name);
+
+            if (str_contains($name, 'slik') || str_contains($name, 'kredit')) {
+                $rawValues[$code] = (string) ($submission->c1_riwayat_kredit ?? $profile?->riwayat_kredit ?? 'Tidak Lancar');
+            } elseif (str_contains($name, 'penghasilan')) {
+                $rawValues[$code] = $penghasilanBersih;
+            } elseif (str_contains($name, 'pekerjaan') || str_contains($name, 'kerja')) {
+                $rawValues[$code] = $statusLama;
+            } elseif (str_contains($name, 'usia') || str_contains($name, 'umur')) {
+                $rawValues[$code] = $usia;
+            } elseif (str_contains($name, 'tanggungan')) {
+                $rawValues[$code] = (int) ($submission->c5_jumlah_tanggungan ?? $profile?->jumlah_tanggungan ?? 0);
+            } else {
+                $rawValues[$code] = null;
+            }
+        }
+
+        return $rawValues;
+    }
+
+    /**
+     * Konversi Status Pekerjaan + Lama Bekerja (bulan) ke label subkriteria
+     * yang sesuai dengan subkriteria "Tetap > 5 Tahun", "Tetap 3-5 Tahun", dll.
+     */
+    private function mapStatusLamaPekerjaan(string $status, int $bulan): string
+    {
+        $tahun = $bulan / 12;
+
+        $isPNS      = str_contains(strtolower($status), 'pns') || str_contains(strtolower($status), 'bumn');
+        $isTetap    = str_contains(strtolower($status), 'tetap') || $isPNS || str_contains(strtolower($status), 'profesional');
+        $isKontrak  = str_contains(strtolower($status), 'kontrak');
+        $isWirausaha= str_contains(strtolower($status), 'wirausaha');
+
+        if ($isTetap && $tahun > 5) return 'Tetap > 5 Tahun';
+        if ($isTetap && $tahun >= 3) return 'Tetap 3-5 Tahun';
+        if ($isKontrak) return 'Kontrak';
+        if ($isWirausaha) return 'Freelance';
+
+        return 'Freelance'; // default
+    }
+
+    /**
+     * TAHAP 3 — Hitung nilai utility ui(ai) dari subkriteria yang sudah didefinisikan.
+     * Subkriteria = lookup table utility (0.0 – 1.0) sesuai naskah BAB III.
+     * Rumus: ui(ai) = nilai utility dari subkriteria yang cocok.
+     */
+    private function computeUtility(Criterion $criterion, mixed $rawVal): array
+    {
+        $subCriteria = $criterion->subCriteria;
+
+        // Cari subkriteria yang cocok (lookup table)
+        if ($subCriteria->count() > 0) {
+            foreach ($subCriteria as $sub) {
+                if ($this->matchSubCriterion($sub, $rawVal)) {
+                    return [
+                        'utility' => (float) $sub->utility_value,
+                        'reason'  => "Masuk kategori '{$sub->name}' → utility = {$sub->utility_value}.",
+                    ];
+                }
+            }
+            // Jika tidak ada yang cocok, ambil utility terendah sebagai default
+            $minUtility = $subCriteria->min('utility_value');
+            return [
+                'utility' => (float) $minUtility,
+                'reason'  => "Nilai '{$rawVal}' tidak cocok dengan subkriteria apapun. Utility minimum ({$minUtility}) diterapkan.",
+            ];
+        }
+
+        // Fallback jika belum ada subkriteria: gunakan rumus normalisasi SMART
+        // ui(ai) = (Cout - Cmin) / (Cmax - Cmin) untuk BENEFIT
+        // ui(ai) = (Cmax - Cout) / (Cmax - Cmin) untuk COST
+        if (is_numeric($rawVal)) {
+            $val = (float) $rawVal;
+            $utility = ($criterion->type === 'cost')
+                ? max(0.0, min(1.0, 1 - ($val / 10)))
+                : max(0.0, min(1.0, $val / 10));
+            return [
+                'utility' => round($utility, 4),
+                'reason'  => "Subkriteria belum dikonfigurasi. Fallback normalisasi linear untuk nilai {$val}.",
+            ];
+        }
+
+        return [
+            'utility' => 0.5,
+            'reason'  => "Nilai '{$rawVal}' tidak dapat dievaluasi. Utility default 0.5 diberikan.",
+        ];
+    }
+
+    /**
+     * TAHAP 4 — Hitung total skor SMART.
+     * u(ai) = Σ Wj × ui(ai)
+     */
+    private function computeTotalScore(array $normalizedWeights, array $utilities): float
+    {
+        $total = 0.0;
+        foreach ($normalizedWeights as $code => $weight) {
+            $total += $weight * ($utilities[$code] ?? 0);
+        }
+        return round($total, 4);
+    }
+
+    /**
+     * TAHAP 5 — Tentukan keputusan berdasarkan threshold.
+     * ≥ 0.80 → LAYAK | 0.60 – 0.79 → DIPERTIMBANGKAN | < 0.60 → TIDAK LAYAK
+     */
+    private function determineDecision(float $totalScore): string
+    {
+        $threshold = (float) Setting::getByKey('smart_threshold', 0.80);
+
+        if ($totalScore >= $threshold) {
+            return 'LAYAK';
+        } elseif ($totalScore >= 0.60) {
+            return 'DIPERTIMBANGKAN';
+        }
+        return 'TIDAK LAYAK';
+    }
+
+    /**
+     * Analisis satu submission. Entry point utama dari controller.
+     * Mengimplementasikan 5 tahap metode SMART:
+     *   1. Normalisasi bobot Wj = wj / Σwj
+     *   2. Ekstraksi nilai mentah dari profil nasabah
+     *   3. Konversi ke nilai utility ui(ai) via subkriteria lookup
+     *   4. Perhitungan total skor: u(ai) = Σ Wj × ui(ai)
+     *   5. Keputusan berdasarkan threshold
      */
     public function analyzeSubmission(KprSubmission $submission): SmartAnalysisResult
     {
@@ -27,96 +191,87 @@ class SmartService
             throw new \Exception("Kriteria SMART belum dikonfigurasi.");
         }
 
-        // 1. Initial Weights & Normalization
-        $totalWeight = $criteria->sum('weight');
-        if ($totalWeight <= 0) {
-            $totalWeight = 100;
-        }
+        // TAHAP 1: Normalisasi Bobot
+        $initialWeights    = [];
+        foreach ($criteria as $c) $initialWeights[$c->code] = (float) $c->weight;
+        $normalizedWeights = $this->normalizeWeights($criteria);
 
-        $initialWeights = [];
-        $normalizedWeights = [];
+        // TAHAP 2: Nilai Mentah dari input submission langsung (dinamis berdasarkan nama kriteria di DB)
+        $rawValues = $this->extractRawValues($submission, $criteria);
 
-        foreach ($criteria as $criterion) {
-            $initialWeights[$criterion->code] = (float) $criterion->weight;
-            $normalizedWeights[$criterion->code] = round((float) $criterion->weight / $totalWeight, 4);
-        }
-
-        // 2. Map Profile Metrics to Criteria Values
-        $rawValues = [
-            'C1' => (float) ($profile->penghasilan_bulanan + $profile->penghasilan_pasangan),
-            'C2' => (float) round($profile->lama_bekerja_bulan / 12, 1), // Lama bekerja dalam tahun
-            'C3' => (float) $profile->dti_ratio, // Rasio cicilan (%)
-            'C4' => (string) $profile->status_pekerjaan,
-            'C5' => (string) $profile->riwayat_kredit,
-        ];
-
-        // 3. Utility Values Calculation
-        $utilities = [];
+        // TAHAP 3: Nilai Utility ui(ai)
+        $utilities    = [];
         $explanations = [];
-
         foreach ($criteria as $criterion) {
-            $code = $criterion->code;
-            $val = $rawValues[$code] ?? null;
-
-            $matchedUtility = $this->evaluateUtility($criterion, $val);
-            $utilities[$code] = $matchedUtility['utility'];
-            $explanations[$code] = $matchedUtility['reason'];
+            $code  = $criterion->code;
+            $result = $this->computeUtility($criterion, $rawValues[$code] ?? null);
+            $utilities[$code]    = $result['utility'];
+            $explanations[$code] = $result['reason'];
         }
 
-        // 4. Weighted Multiplication & Total SMART Score
+        // TAHAP 4: Weighted Score & Total u(ai)
         $weightedScores = [];
-        $totalScore = 0.0;
-
         foreach ($criteria as $criterion) {
             $code = $criterion->code;
-            $w = $normalizedWeights[$code] ?? 0;
-            $u = $utilities[$code] ?? 0;
-            $weightedVal = round($w * $u, 2);
-
-            $weightedScores[$code] = $weightedVal;
-            $totalScore += $weightedVal;
+            $ws   = round($normalizedWeights[$code] * $utilities[$code], 4);
+            $weightedScores[$code] = $ws;
         }
+        $totalScore = $this->computeTotalScore($normalizedWeights, $utilities);
 
-        $totalScore = round($totalScore, 2);
+        // TAHAP 5: Keputusan
+        $decision = $this->determineDecision($totalScore);
 
-        // 5. Decision Threshold Check
-        $threshold = (float) Setting::getByKey('smart_threshold', 80.00);
-        $decision = ($totalScore >= $threshold) ? 'DITERIMA' : 'TIDAK DITERIMA';
-
-        // 6. Generate Master Analysis Explanation Summary
-        $summaryReasons = [];
-        if ($decision === 'DITERIMA') {
-            $summaryReasons[] = "Total skor SMART sebesar {$totalScore} telah memenuhi/melebihi ambang batas kelayakan ({$threshold}).";
+        // Buat ringkasan penjelasan (Untuk Orang Awam)
+        $threshold     = (float) Setting::getByKey('smart_threshold', 0.80);
+        $summaryLines  = [];
+        
+        $summaryLines[] = "Berdasarkan penilaian sistem, nasabah ini mendapatkan skor akhir " . $totalScore . " dari maksimal 1.00.";
+        
+        if ($decision === 'LAYAK') {
+            $summaryLines[] = "Skor ini memenuhi batas minimum kelayakan bank (skor " . $threshold . "), sehingga nasabah direkomendasikan LAYAK untuk menerima KPR.";
+        } elseif ($decision === 'DIPERTIMBANGKAN') {
+            $summaryLines[] = "Skor ini berada sedikit di bawah standar ideal kelayakan (skor " . $threshold . "), namun masih cukup baik sehingga nasabah dapat DIPERTIMBANGKAN dengan syarat tambahan.";
         } else {
-            $summaryReasons[] = "Total skor SMART sebesar {$totalScore} masih berada di bawah standar ambang batas kelayakan ({$threshold}).";
+            $summaryLines[] = "Skor ini jauh di bawah standar kelayakan bank (skor " . $threshold . "), sehingga nasabah dinyatakan TIDAK LAYAK untuk menerima KPR saat ini.";
         }
 
+        $summaryLines[] = "Faktor utama yang memengaruhi hasil ini adalah:";
+        
         foreach ($criteria as $criterion) {
-            $code = $criterion->code;
-            $u = $utilities[$code] ?? 0;
-            $reason = $explanations[$code] ?? '';
-            $statusStr = ($u >= 80) ? '[POSITIF]' : (($u >= 70) ? '[CUKUP]' : '[PERHATIAN/RISIKO]');
-            $summaryReasons[] = "{$statusStr} {$criterion->name}: {$reason} (Utility: {$u})";
+            $code  = $criterion->code;
+            $ui    = $utilities[$code];
+            $raw   = $rawValues[$code] ?? '-';
+            
+            // Konversi kategori utility ke bahasa awam
+            if ($ui >= 0.8) {
+                $status = "Sangat Baik";
+            } elseif ($ui >= 0.6) {
+                $status = "Cukup Baik";
+            } else {
+                $status = "Perlu Perhatian Khusus";
+            }
+            
+            $summaryLines[] = "• " . $criterion->name . ": " . $status . " (" . $raw . ")";
         }
 
-        $explanations['summary'] = $summaryReasons;
+        $explanations['summary'] = $summaryLines;
+        $explanations['raw_values'] = $rawValues;
 
-        // 7. Save Analysis Result
+        // Simpan hasil
         $result = SmartAnalysisResult::updateOrCreate(
             ['submission_id' => $submission->id],
             [
-                'initial_weights' => $initialWeights,
+                'initial_weights'    => $initialWeights,
                 'normalized_weights' => $normalizedWeights,
-                'utilities' => $utilities,
-                'weighted_scores' => $weightedScores,
-                'total_score' => $totalScore,
-                'decision' => $decision,
-                'explanations' => $explanations,
-                'analyzed_at' => now(),
+                'utilities'          => $utilities,
+                'weighted_scores'    => $weightedScores,
+                'total_score'        => $totalScore,
+                'decision'           => $decision,
+                'explanations'       => $explanations,
+                'analyzed_at'        => now(),
             ]
         );
 
-        // Update Submission Record Status
         $submission->update([
             'status_pengajuan' => 'analyzed',
             'status_keputusan' => $decision,
@@ -127,69 +282,49 @@ class SmartService
     }
 
     /**
-     * Evaluate utility value based on SubCriterion rules or fallback formulas.
+     * Analisis SEMUA submission sekaligus.
+     * Digunakan di SmartEngineController (halaman mesin SMART).
      */
-    private function evaluateUtility(Criterion $criterion, mixed $rawVal): array
+    public function analyzeAllSubmissions(): array
     {
-        $subCriteria = $criterion->subCriteria;
+        $submissions = KprSubmission::with(['user.profile'])->get();
+        $results = [];
 
-        if ($subCriteria->count() > 0) {
-            foreach ($subCriteria as $sub) {
-                if ($this->matchSubCriterion($sub, $rawVal)) {
-                    return [
-                        'utility' => (float) $sub->utility_value,
-                        'reason' => "Kategori '{$sub->name}' terpenuhi.",
-                    ];
-                }
+        foreach ($submissions as $submission) {
+            try {
+                $results[] = $this->analyzeSubmission($submission);
+            } catch (\Exception $e) {
+                // skip submission yang profilnya belum lengkap
             }
         }
 
-        // Fallback default ratings if sub-criteria array is non-matching or continuous numeric
-        if (is_numeric($rawVal)) {
-            $val = (float) $rawVal;
-            if ($criterion->type === 'cost') {
-                // Cost criterion: Lower value -> higher utility
-                $utility = max(0, min(100, 100 - ($val * 1.5)));
-                return [
-                    'utility' => round($utility, 2),
-                    'reason' => "Nilai rasio/biaya {$val} dikonversi ke nilai utility.",
-                ];
-            } else {
-                // Benefit criterion
-                $utility = min(100, max(50, $val * 5));
-                return [
-                    'utility' => round($utility, 2),
-                    'reason' => "Nilai {$val} dikonversi ke nilai utility.",
-                ];
-            }
-        }
-
-        return [
-            'utility' => 70.0,
-            'reason' => "Nilai default diberikan ({$rawVal}).",
-        ];
+        return $results;
     }
 
+    /**
+     * Cocokkan nilai dengan aturan subkriteria.
+     */
     private function matchSubCriterion(mixed $sub, mixed $val): bool
     {
         $op = $sub->operator;
 
+        // Untuk operator teks (kategori)
         if ($op === 'equals_text' || !is_numeric($val)) {
             return strcasecmp(trim((string)$sub->text_value), trim((string)$val)) === 0;
         }
 
         $num = (float) $val;
         $min = (float) $sub->min_val;
-        $max = (float) $sub->max_val;
+        $max = isset($sub->max_val) ? (float) $sub->max_val : PHP_FLOAT_MAX;
 
         return match ($op) {
-            '>' => $num > $min,
-            '>=' => $num >= $min,
-            '<' => $num < $min,
-            '<=' => $num <= $min,
-            '=' => abs($num - $min) < 0.0001,
+            '>'       => $num > $min,
+            '>='      => $num >= $min,
+            '<'       => $num < $min,
+            '<='      => $num <= $min,
+            '='       => abs($num - $min) < 0.0001,
             'between' => ($num >= $min && $num <= $max),
-            default => false,
+            default   => false,
         };
     }
 }

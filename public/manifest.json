@@ -1,0 +1,23 @@
+{
+    "name": "SPK KPR SMART",
+    "short_name": "KPR SMART",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#F1F5F9",
+    "theme_color": "#0F172A",
+    "orientation": "any",
+    "icons": [
+        {
+            "src": "/pwa-icon-192.png",
+            "type": "image/png",
+            "sizes": "192x192",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/pwa-icon-512.png",
+            "type": "image/png",
+            "sizes": "512x512",
+            "purpose": "any maskable"
+        }
+    ]
+}

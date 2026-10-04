@@ -37,12 +37,12 @@
                             <small class="text-muted d-block">Harga Rumah: Rp {{ number_format($activeSubmission->harga_rumah, 0, ',', '.') }} | Tenor: {{ $activeSubmission->tenor_tahun }} Thn</small>
                         </div>
                         <div class="col-12 col-md-5 text-md-end mt-3 mt-md-0">
-                            @if($activeSubmission->status_keputusan === 'DITERIMA')
+                            @if($activeSubmission->status_pengajuan === 'approved')
                                 <span class="badge-success-custom fs-5 d-inline-block"><i class="fa-solid fa-circle-check me-1"></i> DITERIMA</span>
-                            @elseif($activeSubmission->status_keputusan === 'TIDAK DITERIMA')
-                                <span class="badge-danger-custom fs-5 d-inline-block"><i class="fa-solid fa-circle-xmark me-1"></i> TIDAK DITERIMA</span>
+                            @elseif($activeSubmission->status_pengajuan === 'rejected')
+                                <span class="badge-danger-custom fs-5 d-inline-block"><i class="fa-solid fa-circle-xmark me-1"></i> DITOLAK</span>
                             @else
-                                <span class="badge-warning-custom fs-6 d-inline-block"><i class="fa-solid fa-clock me-1"></i> Dalam Process Evaluation</span>
+                                <span class="badge-warning-custom fs-6 d-inline-block"><i class="fa-solid fa-clock me-1"></i> Dalam Proses Verifikasi</span>
                             @endif
                         </div>
                     </div>
@@ -60,11 +60,11 @@
                         <div class="fw-bold text-dark">SMART Engine</div>
                     </div>
                     <div class="w-25">
-                        <div class="rounded-circle {{ $activeSubmission->approved_at ? 'bg-success text-white' : 'bg-secondary text-white' }} d-inline-flex align-items-center justify-content-center mb-1" style="width: 32px; height: 32px;"><i class="fa-solid fa-user-check"></i></div>
+                        <div class="rounded-circle {{ in_array($activeSubmission->status_pengajuan, ['approved', 'rejected']) ? 'bg-success text-white' : ($activeSubmission->smartResult ? 'bg-primary text-white' : 'bg-secondary text-white') }} d-inline-flex align-items-center justify-content-center mb-1" style="width: 32px; height: 32px;"><i class="fa-solid fa-user-check"></i></div>
                         <div class="fw-bold text-dark">Verifikasi Manager</div>
                     </div>
                     <div class="w-25">
-                        <div class="rounded-circle {{ $activeSubmission->status_keputusan ? 'bg-primary text-white' : 'bg-secondary text-white' }} d-inline-flex align-items-center justify-content-center mb-1" style="width: 32px; height: 32px;"><i class="fa-solid fa-award"></i></div>
+                        <div class="rounded-circle {{ in_array($activeSubmission->status_pengajuan, ['approved', 'rejected']) ? 'bg-primary text-white' : 'bg-secondary text-white' }} d-inline-flex align-items-center justify-content-center mb-1" style="width: 32px; height: 32px;"><i class="fa-solid fa-award"></i></div>
                         <div class="fw-bold text-dark">Hasil Akhir</div>
                     </div>
                 </div>

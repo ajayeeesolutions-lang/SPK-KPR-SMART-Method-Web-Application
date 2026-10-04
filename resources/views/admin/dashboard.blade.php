@@ -6,7 +6,7 @@
 @section('content')
 <!-- Metric Cards Grid -->
 <div class="row g-3 mb-4">
-    <div class="col-12 col-sm-6 col-xl-3">
+    <div class="col-12 col-sm-4 col-xl">
         <div class="card-custom p-3 d-flex align-items-center flex-row gap-3">
             <div class="rounded-3 bg-primary bg-opacity-10 text-primary p-3 d-flex align-items-center justify-content-center" style="width: 54px; height: 54px;">
                 <i class="fa-solid fa-file-invoice fs-3"></i>
@@ -14,46 +14,54 @@
             <div>
                 <div class="text-muted small fw-semibold">Total Pengajuan</div>
                 <h3 class="fw-bold mb-0 text-dark">{{ $totalPengajuan }}</h3>
-                <small class="text-success fw-bold"><i class="fa-solid fa-arrow-trend-up"></i> +12% bln lalu</small>
             </div>
         </div>
     </div>
 
-    <div class="col-12 col-sm-6 col-xl-3">
+    <div class="col-12 col-sm-4 col-xl">
         <div class="card-custom p-3 d-flex align-items-center flex-row gap-3">
             <div class="rounded-3 bg-success bg-opacity-10 text-success p-3 d-flex align-items-center justify-content-center" style="width: 54px; height: 54px;">
                 <i class="fa-solid fa-circle-check fs-3"></i>
             </div>
             <div>
-                <div class="text-muted small fw-semibold">Total Diterima</div>
+                <div class="text-muted small fw-semibold">Layak</div>
                 <h3 class="fw-bold mb-0 text-success">{{ $totalDiterima }}</h3>
-                <small class="text-muted">Skor SMART ≥ 80</small>
             </div>
         </div>
     </div>
 
-    <div class="col-12 col-sm-6 col-xl-3">
+    <div class="col-12 col-sm-4 col-xl">
+        <div class="card-custom p-3 d-flex align-items-center flex-row gap-3">
+            <div class="rounded-3 bg-warning bg-opacity-10 text-warning p-3 d-flex align-items-center justify-content-center" style="width: 54px; height: 54px;">
+                <i class="fa-solid fa-triangle-exclamation fs-3"></i>
+            </div>
+            <div>
+                <div class="text-muted small fw-semibold">Dipertimbangkan</div>
+                <h3 class="fw-bold mb-0 text-warning">{{ $totalDipertimbangkan }}</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-sm-4 col-xl">
         <div class="card-custom p-3 d-flex align-items-center flex-row gap-3">
             <div class="rounded-3 bg-danger bg-opacity-10 text-danger p-3 d-flex align-items-center justify-content-center" style="width: 54px; height: 54px;">
                 <i class="fa-solid fa-circle-xmark fs-3"></i>
             </div>
             <div>
-                <div class="text-muted small fw-semibold">Total Ditolak</div>
+                <div class="text-muted small fw-semibold">Tidak Layak</div>
                 <h3 class="fw-bold mb-0 text-danger">{{ $totalDitolak }}</h3>
-                <small class="text-muted">Skor SMART < 80</small>
             </div>
         </div>
     </div>
 
-    <div class="col-12 col-sm-6 col-xl-3">
+    <div class="col-12 col-sm-4 col-xl">
         <div class="card-custom p-3 d-flex align-items-center flex-row gap-3">
-            <div class="rounded-3 bg-warning bg-opacity-10 text-warning p-3 d-flex align-items-center justify-content-center" style="width: 54px; height: 54px;">
+            <div class="rounded-3 bg-secondary bg-opacity-10 text-secondary p-3 d-flex align-items-center justify-content-center" style="width: 54px; height: 54px;">
                 <i class="fa-solid fa-hourglass-half fs-3"></i>
             </div>
             <div>
-                <div class="text-muted small fw-semibold">Menunggu Verifikasi</div>
-                <h3 class="fw-bold mb-0 text-warning">{{ $totalMenunggu }}</h3>
-                <small class="text-muted">Pending/Analyzed</small>
+                <div class="text-muted small fw-semibold">Menunggu</div>
+                <h3 class="fw-bold mb-0 text-secondary">{{ $totalMenunggu }}</h3>
             </div>
         </div>
     </div>

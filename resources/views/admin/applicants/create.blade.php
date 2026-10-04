@@ -112,13 +112,13 @@
                     </div>
 
                     <div class="col-12 col-md-6">
-                        <label class="form-label fw-semibold">Status Pekerjaan (Kriteria C4) <span class="text-danger">*</span></label>
+                        <label class="form-label fw-semibold">Status & Lama Pekerjaan (Kriteria C3) <span class="text-danger">*</span></label>
                         <select name="status_pekerjaan" class="form-select" required>
-                            <option value="PNS/BUMN">PNS / BUMN (Utility Max 100)</option>
-                            <option value="Pegawai Tetap Swasta">Pegawai Tetap Swasta (Utility 90)</option>
-                            <option value="Wirausaha">Wirausaha (Utility 80)</option>
-                            <option value="Pegawai Kontrak">Pegawai Kontrak (Utility 60)</option>
-                            <option value="Lainnya">Lainnya</option>
+                            <option value="Pegawai Tetap > 2 Tahun">Pegawai Tetap > 2 Tahun</option>
+                            <option value="Pegawai Tetap < 2 Tahun">Pegawai Tetap < 2 Tahun</option>
+                            <option value="Pegawai Kontrak > 2 Tahun">Pegawai Kontrak > 2 Tahun</option>
+                            <option value="Pegawai Kontrak < 2 Tahun">Pegawai Kontrak < 2 Tahun</option>
+                            <option value="Wiraswasta / Lainnya">Wiraswasta / Lainnya</option>
                         </select>
                     </div>
 
@@ -128,7 +128,7 @@
                     </div>
 
                     <div class="col-12 col-md-4">
-                        <label class="form-label fw-semibold">Penghasilan Bulanan (Rp) (Kriteria C1) <span class="text-danger">*</span></label>
+                        <label class="form-label fw-semibold">Penghasilan Bulanan (Rp) (Kriteria C2) <span class="text-danger">*</span></label>
                         <input type="number" name="penghasilan_bulanan" value="{{ old('penghasilan_bulanan', 10000000) }}" class="form-control" required>
                     </div>
 
@@ -148,11 +148,13 @@
                     </div>
 
                     <div class="col-12 col-md-4">
-                        <label class="form-label fw-semibold">Riwayat Kredit / SLIK (Kriteria C5) <span class="text-danger">*</span></label>
+                        <label class="form-label fw-semibold">Riwayat Kredit / SLIK (Kriteria C1) <span class="text-danger">*</span></label>
                         <select name="riwayat_kredit" class="form-select" required>
-                            <option value="Lancar">Lancar (Kolektibilitas 1)</option>
-                            <option value="Dalam Perhatian">Dalam Perhatian Khusus (Kol 2)</option>
-                            <option value="Tidak Lancar">Tidak Lancar / Macet (Kol 3-5)</option>
+                            <option value="Lancar">Lancar</option>
+                            <option value="Dalam Perhatian Khusus">Dalam Perhatian Khusus</option>
+                            <option value="Kurang Lancar">Kurang Lancar</option>
+                            <option value="Diragukan">Diragukan</option>
+                            <option value="Macet">Macet</option>
                         </select>
                     </div>
                 </div>

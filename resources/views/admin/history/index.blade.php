@@ -22,6 +22,7 @@
                     <th>Tanggal Analisis</th>
                     <th>Skor SMART</th>
                     <th>Status Decision</th>
+                    <th>Status ACC Manager</th>
                     <th>Disetujui Oleh</th>
                     <th class="text-center">Aksi Laporan</th>
                 </tr>
@@ -39,10 +40,21 @@
                             <span class="fw-bold fs-6 text-primary">{{ number_format($item->final_smart_score ?? 0, 2) }}</span>
                         </td>
                         <td>
-                            @if($item->status_keputusan === 'DITERIMA')
-                                <span class="badge-success-custom">DITERIMA</span>
+                            @if($item->status_keputusan === 'LAYAK')
+                                <span class="badge-success-custom">LAYAK</span>
+                            @elseif($item->status_keputusan === 'DIPERTIMBANGKAN')
+                                <span class="badge bg-warning text-dark px-3 py-2 rounded-pill small fw-bold border">DIPERTIMBANGKAN</span>
                             @else
-                                <span class="badge-danger-custom">TIDAK DITERIMA</span>
+                                <span class="badge-danger-custom">TIDAK LAYAK</span>
+                            @endif
+                        </td>
+                        <td>
+                            @if($item->status_pengajuan === 'approved')
+                                <span class="badge bg-success text-nowrap"><i class="fa-solid fa-check-double me-1"></i> ACC Manager</span>
+                            @elseif($item->status_pengajuan === 'rejected')
+                                <span class="badge bg-danger text-nowrap"><i class="fa-solid fa-xmark me-1"></i> Ditolak Manager</span>
+                            @else
+                                <span class="badge bg-warning text-dark text-nowrap"><i class="fa-solid fa-clock me-1"></i> Menunggu ACC</span>
                             @endif
                         </td>
                         <td>

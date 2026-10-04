@@ -193,12 +193,12 @@
     <!-- Decision Box Card -->
     @php
         $decision = $submission->smartResult->decision ?? 'PENDING';
-        $isAccepted = ($decision === 'DITERIMA');
+        $isAccepted = ($decision === 'LAYAK' || $decision === 'DIPERTIMBANGKAN');
     @endphp
     <div class="decision-box {{ $isAccepted ? 'decision-accepted' : 'decision-rejected' }}">
         <div style="font-size: 10pt; text-transform: uppercase; font-weight: bold; margin-bottom: 4px;">HASIL REKOMENDASI MESIN SMART</div>
         <div class="decision-status">{{ $decision }}</div>
-        <div style="font-size: 11pt; margin-top: 4px;">Total Skor SMART: <strong>{{ number_format($submission->smartResult->total_score ?? 0, 2) }} / 100.00</strong></div>
+        <div style="font-size: 11pt; margin-top: 4px;">Total Skor SMART: <strong>{{ number_format($submission->smartResult->total_score ?? 0, 2) }} / 1.00</strong></div>
     </div>
 
     <!-- SMART Calculation Matrix -->
@@ -210,9 +210,9 @@
                 <th>Kriteria Evaluasi</th>
                 <th>Tipe</th>
                 <th>Bobot Awal</th>
-                <th>Bobot Normalisasi ($w_j$)</th>
-                <th>Nilai Utility ($u_j$)</th>
-                <th>Nilai Terbobot ($w_j \times u_j$)</th>
+                <th>Bobot Normalisasi (Wj)</th>
+                <th>Nilai Utility ui(ai)</th>
+                <th>Nilai Terbobot (Wj × ui)</th>
             </tr>
         </thead>
         <tbody>
@@ -271,20 +271,22 @@
         <tr>
             <td width="40%" style="text-align: center;">
                 <div style="font-size: 8pt; color: #64748b; margin-bottom: 5px;">QR Code Verifikasi Keaslian</div>
-                <div class="qr-placeholder">
-                    [ QR CODE ]
+                <div class="qr-placeholder" style="border: none; padding: 0;">
+                    <img src="data:image/svg+xml;base64,{{ base64_encode(\SimpleSoftwareIO\QrCode\Facades\QrCode::size(80)->generate(route('admin.history.stream', $submission->id))) }}" alt="QR Code">
                 </div>
-                <div style="font-size: 7pt; color: #94a3b8; margin-top: 4px;">Hash: {{ md5($submission->id . $submission->no_pengajuan) }}</div>
+                <div style="font-size: 7pt; color: #94a3b8; margin-top: 4px;">Hash: {{ substr(md5($submission->id . $submission->no_pengajuan), 0, 16) }}</div>
             </td>
             <td width="20%"></td>
             <td width="40%" style="text-align: center;">
                 <div style="font-size: 9pt;">Jakarta, {{ $generatedAt }}</div>
-                <div style="font-size: 9pt; font-weight: bold; margin-top: 2px;">Manager Analis Kredit KPR</div>
-                <div style="height: 50px; margin-top: 10px;">
-                    <span style="font-family: 'Courier', monospace; font-size: 16pt; color: #2563eb; font-weight: bold; font-style: italic;">[ Tanda Tangan Digital ]</span>
+                <div style="font-size: 9pt; font-weight: bold; margin-top: 2px;">{{ $jabatanTtd }}</div>
+                <div style="height: 70px; margin-top: 10px;">
+                    <!-- Ruang kosong untuk tanda tangan basah -->
                 </div>
-                <div style="font-weight: bold; font-size: 9.5pt; text-decoration: underline;">{{ $submission->approver->name ?? 'Anisa Kencana, SE, MM' }}</div>
-                <div style="font-size: 8pt; color: #64748b;">NIP: 19880415 201201 2 004</div>
+                <div style="font-weight: bold; font-size: 9.5pt; text-decoration: underline;">{{ $submission->approver->name ?? $namaTtd }}</div>
+                @if($nipTtd)
+                <div style="font-size: 8pt; color: #64748b;">NIP: {{ $nipTtd }}</div>
+                @endif
             </td>
         </tr>
     </table>

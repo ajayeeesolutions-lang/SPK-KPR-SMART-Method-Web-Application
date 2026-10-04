@@ -20,6 +20,12 @@
     <!-- DataTables CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
 
+    <!-- PWA Settings -->
+    <link rel="manifest" href="{{ asset('manifest.json') }}">
+    <meta name="theme-color" content="#0F172A">
+    <link rel="apple-touch-icon" href="{{ asset('pwa-icon-192.png') }}">
+
+
     <style>
         :root {
             --bank-primary: #0F172A;
@@ -232,17 +238,18 @@
     <!-- Sidebar -->
     <div id="sidebar-wrapper">
         <div class="sidebar-brand d-flex align-items-center gap-3">
-            <div class="rounded-3 bg-primary text-white d-flex align-items-center justify-content-center shadow" style="width: 42px; height: 42px; background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%) !important;">
-                <i class="fa-solid fa-building-columns fs-5"></i>
+            <div class="rounded-3 d-flex align-items-center justify-content-center shadow" style="width: 42px; height: 42px; overflow: hidden; background: white;">
+                <img src="{{ asset('pwa-icon-192.png') }}" alt="Logo App" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
             <div>
                 <div class="sidebar-brand-title">SPK KPR SMART</div>
-                <div class="text-secondary small fw-medium">Bank Sejahtera</div>
+                <div class="text-secondary small fw-medium">PT Citra Pasada Properti</div>
             </div>
         </div>
 
         <div class="sidebar-nav">
             @if(auth()->user()->isAdmin())
+                {{-- ====== MENU ADMIN (Akses Penuh) ====== --}}
                 <div class="nav-category">Main Menu</div>
                 <a href="{{ route('admin.dashboard') }}" class="nav-link-custom {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
                     <i class="fa-solid fa-chart-line"></i> Dashboard
@@ -274,16 +281,39 @@
                 <a href="{{ route('admin.settings.index') }}" class="nav-link-custom {{ request()->routeIs('admin.settings.*') ? 'active' : '' }}">
                     <i class="fa-solid fa-gears"></i> Threshold & System
                 </a>
+
+            @elseif(auth()->user()->isMarketing())
+                {{-- ====== MENU MARKETING (Sesuai Naskah Tabel 3.1) ====== --}}
+                {{-- Marketing: input/ubah data debitur, analisis SMART, lihat laporan --}}
+                {{-- Marketing TIDAK bisa: kelola kriteria, sub kriteria, kelola user, settings --}}
+                <div class="nav-category">Main Menu</div>
+                <a href="{{ route('admin.dashboard') }}" class="nav-link-custom {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
+                    <i class="fa-solid fa-chart-line"></i> Dashboard
+                </a>
+
+                <div class="nav-category">Data Debitur</div>
+                <a href="{{ route('admin.applicants.index') }}" class="nav-link-custom {{ request()->routeIs('admin.applicants.*') ? 'active' : '' }}">
+                    <i class="fa-solid fa-users"></i> Data Nasabah KPR
+                </a>
+
+                <div class="nav-category">Analisis SMART</div>
+                <a href="{{ route('admin.smart.engine') }}" class="nav-link-custom {{ request()->routeIs('admin.smart.*') ? 'active' : '' }}">
+                    <i class="fa-solid fa-microchip"></i> Proses Analisis SMART
+                </a>
+                <a href="{{ route('admin.history.index') }}" class="nav-link-custom {{ request()->routeIs('admin.history.*') ? 'active' : '' }}">
+                    <i class="fa-solid fa-clock-rotate-left"></i> Riwayat & Laporan
+                </a>
+
             @elseif(auth()->user()->isManager())
-                <div class="nav-category">Manager Area</div>
+                <div class="nav-category">Portal Pimpinan</div>
                 <a href="{{ route('manager.dashboard') }}" class="nav-link-custom {{ request()->routeIs('manager.dashboard') ? 'active' : '' }}">
                     <i class="fa-solid fa-chart-pie"></i> Executive Dashboard
                 </a>
                 <a href="{{ route('manager.submissions.index') }}" class="nav-link-custom {{ request()->routeIs('manager.submissions.*') ? 'active' : '' }}">
-                    <i class="fa-solid fa-clipboard-check"></i> Verifikasi & Persetujuan
+                    <i class="fa-solid fa-clipboard-check"></i> Laporan & Keputusan KPR
                 </a>
             @else
-                <div class="nav-category">Portal Nasabah</div>
+                <div class="nav-category">Portal Debitur</div>
                 <a href="{{ route('nasabah.dashboard') }}" class="nav-link-custom {{ request()->routeIs('nasabah.dashboard') ? 'active' : '' }}">
                     <i class="fa-solid fa-house-user"></i> Dashboard Pengajuan
                 </a>
@@ -313,8 +343,12 @@
                 </div>
                 
                 <div class="dropdown">
-                    <button class="btn btn-light rounded-circle shadow-sm border p-0" style="width: 42px; height: 42px;" type="button" data-bs-toggle="dropdown">
-                        <i class="fa-solid fa-user-circle fs-3 text-secondary"></i>
+                    <button class="btn btn-light rounded-circle shadow-sm border p-0 overflow-hidden" style="width: 42px; height: 42px;" type="button" data-bs-toggle="dropdown">
+                        @if(auth()->user()->avatar)
+                            <img src="{{ asset('storage/' . auth()->user()->avatar) }}" alt="Avatar" style="width: 100%; height: 100%; object-fit: cover;">
+                        @else
+                            <i class="fa-solid fa-user-circle fs-3 text-secondary" style="line-height: 40px;"></i>
+                        @endif
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end shadow-sm border mt-2">
                         <li>
@@ -324,6 +358,15 @@
                             </div>
                         </li>
                         <li><hr class="dropdown-divider"></li>
+                        
+                        @if(auth()->user()->role !== 'debitur')
+                        <li>
+                            <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#avatarModal">
+                                <i class="fa-solid fa-camera fa-fw me-2 text-secondary"></i> Ganti Foto Profil
+                            </a>
+                        </li>
+                        @endif
+
                         <li>
                             <form action="{{ route('logout') }}" method="POST">
                                 @csrf
@@ -386,7 +429,78 @@
             }
         });
     });
+
+    // PWA Service Worker Registration
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+            navigator.serviceWorker.register('/sw.js').then(function(registration) {
+                console.log('ServiceWorker registration successful with scope: ', registration.scope);
+            }, function(err) {
+                console.log('ServiceWorker registration failed: ', err);
+            });
+        });
+    }
 </script>
+
+<!-- Avatar Upload Modal (Untuk Admin/Manager/Marketing) -->
+@if(auth()->user()->role !== 'debitur')
+<div class="modal fade" id="avatarModal" tabindex="-1" aria-labelledby="avatarModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <form action="{{ route('profile.avatar.update') }}" method="POST" enctype="multipart/form-data" class="modal-content border-0 shadow">
+            @csrf
+            <div class="modal-header bg-light">
+                <h5 class="modal-title fw-bold" id="avatarModalLabel">Ganti Foto Profil</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4 text-center">
+                <div class="rounded-circle bg-light border d-inline-flex align-items-center justify-content-center overflow-hidden mb-3" style="width: 100px; height: 100px;">
+                    @if(auth()->user()->avatar)
+                        <img src="{{ asset('storage/' . auth()->user()->avatar) }}" alt="Avatar" style="width: 100%; height: 100%; object-fit: cover;">
+                    @else
+                        <i class="fa-solid fa-user text-secondary" style="font-size: 3rem;"></i>
+                    @endif
+                </div>
+                <div class="mb-3">
+                    <input class="form-control" type="file" name="avatar" accept="image/*" required>
+                    <div class="form-text small">Gunakan gambar persegi (maksimal 2MB).</div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light border" data-bs-dismiss="modal">Batal</button>
+                <button type="submit" class="btn btn-primary"><i class="fa-solid fa-save me-1"></i> Simpan Foto</button>
+            </div>
+        </form>
+    </div>
+</div>
+@endif
+
+<!-- Floating WhatsApp Button -->
+@php
+    $adminWaNumber = \App\Models\Setting::getByKey('admin_wa', '6281234567890');
+    $waText = "Halo Admin KPR SMART, ";
+    
+    if (auth()->check()) {
+        $waText .= "saya *" . auth()->user()->name . "* ";
+        
+        if (auth()->user()->role === 'debitur') {
+            $latestSubmission = \App\Models\KprSubmission::where('user_id', auth()->id())->latest()->first();
+            if ($latestSubmission) {
+                $waText .= "(No Pengajuan: " . $latestSubmission->no_pengajuan . ", diinput pada *" . $latestSubmission->created_at->translatedFormat('d F Y') . "*), ";
+            }
+        }
+        $waText .= "mohon bantuannya terkait aplikasi KPR saya.";
+    } else {
+        $waText .= "saya butuh informasi lebih lanjut terkait pengajuan KPR.";
+    }
+@endphp
+<a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $adminWaNumber) }}?text={{ urlencode($waText) }}" 
+   target="_blank" 
+   class="btn btn-success rounded-circle shadow-lg d-flex align-items-center justify-content-center" 
+   style="position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; z-index: 9999; font-size: 30px;"
+   title="Live Chat WhatsApp Admin">
+    <i class="fa-brands fa-whatsapp text-white"></i>
+</a>
+
 @yield('scripts')
 </body>
 </html>

@@ -44,28 +44,28 @@
             </div>
 
             <div class="col-12 col-md-6">
-                <label class="form-label fw-semibold">Penghasilan Bulanan (Rp) (C1)</label>
+                <label class="form-label fw-semibold">Penghasilan Bulanan (Rp) (C2)</label>
                 <input type="number" name="penghasilan_bulanan" value="{{ old('penghasilan_bulanan', $submission->user?->profile?->penghasilan_bulanan ?? 0) }}" class="form-control" required>
             </div>
 
             <div class="col-12 col-md-6">
-                <label class="form-label fw-semibold">Lama Bekerja (Bulan) (C2)</label>
+                <label class="form-label fw-semibold">Lama Bekerja (Bulan)</label>
                 <input type="number" name="lama_bekerja_bulan" value="{{ old('lama_bekerja_bulan', $submission->user?->profile?->lama_bekerja_bulan ?? 0) }}" class="form-control" required>
             </div>
 
             <div class="col-12 col-md-6">
-                <label class="form-label fw-semibold">Status Pekerjaan (C4)</label>
+                <label class="form-label fw-semibold">Status & Lama Pekerjaan (C3)</label>
                 <select name="status_pekerjaan" class="form-select" required>
-                    @foreach(['PNS/BUMN', 'Pegawai Tetap Swasta', 'Wirausaha', 'Pegawai Kontrak', 'Lainnya'] as $st)
+                    @foreach(['Pegawai Tetap > 2 Tahun', 'Pegawai Tetap < 2 Tahun', 'Pegawai Kontrak > 2 Tahun', 'Pegawai Kontrak < 2 Tahun', 'Wiraswasta / Lainnya'] as $st)
                         <option value="{{ $st }}" {{ ($submission->user?->profile?->status_pekerjaan ?? '') === $st ? 'selected' : '' }}>{{ $st }}</option>
                     @endforeach
                 </select>
             </div>
 
             <div class="col-12 col-md-6">
-                <label class="form-label fw-semibold">Riwayat Kredit / SLIK (C5)</label>
+                <label class="form-label fw-semibold">Riwayat Kredit / SLIK (C1)</label>
                 <select name="riwayat_kredit" class="form-select" required>
-                    @foreach(['Lancar', 'Dalam Perhatian', 'Tidak Lancar'] as $rk)
+                    @foreach(['Lancar', 'Dalam Perhatian Khusus', 'Kurang Lancar', 'Diragukan', 'Macet'] as $rk)
                         <option value="{{ $rk }}" {{ ($submission->user?->profile?->riwayat_kredit ?? '') === $rk ? 'selected' : '' }}>{{ $rk }}</option>
                     @endforeach
                 </select>

@@ -58,14 +58,17 @@
 <div class="mt-4 p-3 bg-light rounded-4 border text-center">
     <small class="text-muted d-block fw-bold mb-2">💡 Klik Akun Demo di Bawah Ini:</small>
     <div class="d-flex justify-content-center gap-1 flex-wrap">
-        <span class="demo-chip bg-primary text-white shadow-sm" onclick="fillDemo('admin@bank.com', 'password')">
+        <span class="demo-chip bg-primary text-white shadow-sm" onclick="fillDemo('admin@citra.com', 'password')">
             <i class="fa-solid fa-user-shield me-1"></i> Admin
         </span>
-        <span class="demo-chip bg-success text-white shadow-sm" onclick="fillDemo('manager@bank.com', 'password')">
-            <i class="fa-solid fa-user-check me-1"></i> Manager
+        <span class="demo-chip bg-info text-white shadow-sm" onclick="fillDemo('marketing@citra.com', 'password')">
+            <i class="fa-solid fa-bullhorn me-1"></i> Marketing
         </span>
-        <span class="demo-chip bg-dark text-white shadow-sm" onclick="fillDemo('nasabah@bank.com', 'password')">
-            <i class="fa-solid fa-user-tie me-1"></i> Nasabah
+        <span class="demo-chip bg-success text-white shadow-sm" onclick="fillDemo('pimpinan@citra.com', 'password')">
+            <i class="fa-solid fa-user-tie me-1"></i> Pimpinan
+        </span>
+        <span class="demo-chip bg-dark text-white shadow-sm" onclick="fillDemo('achmad@mail.com', 'password')">
+            <i class="fa-solid fa-user me-1"></i> Debitur
         </span>
     </div>
     <small class="text-muted d-block mt-2" style="font-size: 0.75rem;">Password default: <code>password</code></small>

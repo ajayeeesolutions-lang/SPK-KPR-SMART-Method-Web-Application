@@ -17,6 +17,7 @@ class User extends Authenticatable
         'role',
         'phone',
         'password',
+        'avatar',
     ];
 
     protected $hidden = [
@@ -39,12 +40,17 @@ class User extends Authenticatable
 
     public function isManager(): bool
     {
-        return $this->role === 'manager';
+        return $this->role === 'pimpinan';
+    }
+
+    public function isMarketing(): bool
+    {
+        return $this->role === 'marketing';
     }
 
     public function isNasabah(): bool
     {
-        return $this->role === 'nasabah';
+        return $this->role === 'debitur';
     }
 
     public function profile()

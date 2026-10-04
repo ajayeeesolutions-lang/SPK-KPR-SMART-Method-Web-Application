@@ -47,10 +47,12 @@
                         <small class="text-muted">/ 100.00</small>
                     </div>
                     <div>
-                        @if($submission->status_keputusan === 'DITERIMA')
-                            <span class="badge-success-custom fs-5"><i class="fa-solid fa-circle-check me-1"></i> DITERIMA</span>
+                        @if($submission->status_keputusan === 'LAYAK')
+                            <span class="badge-success-custom fs-5"><i class="fa-solid fa-circle-check me-1"></i> LAYAK</span>
+                        @elseif($submission->status_keputusan === 'DIPERTIMBANGKAN')
+                            <span class="badge bg-warning text-dark fs-5"><i class="fa-solid fa-triangle-exclamation me-1"></i> DIPERTIMBANGKAN</span>
                         @else
-                            <span class="badge-danger-custom fs-5"><i class="fa-solid fa-circle-xmark me-1"></i> TIDAK DITERIMA</span>
+                            <span class="badge-danger-custom fs-5"><i class="fa-solid fa-circle-xmark me-1"></i> TIDAK LAYAK</span>
                         @endif
                     </div>
                 </div>

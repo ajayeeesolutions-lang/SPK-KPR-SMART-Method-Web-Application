@@ -23,6 +23,21 @@
     <form action="{{ route('nasabah.profile.update') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
+        <div class="mb-4 d-flex align-items-center gap-3">
+            <div class="rounded-circle bg-light border d-flex align-items-center justify-content-center overflow-hidden" style="width: 80px; height: 80px;">
+                @if(auth()->user()->avatar)
+                    <img src="{{ asset('storage/' . auth()->user()->avatar) }}" alt="Avatar" style="width: 100%; height: 100%; object-fit: cover;">
+                @else
+                    <i class="fa-solid fa-user text-secondary fs-1"></i>
+                @endif
+            </div>
+            <div>
+                <label class="form-label fw-semibold">Foto Profil (Opsional)</label>
+                <input type="file" name="foto" class="form-control form-control-sm" accept="image/*">
+                <div class="form-text small">Upload foto diri untuk melengkapi identitas. Maks 2MB.</div>
+            </div>
+        </div>
+
         <div class="row g-3">
             <div class="col-12 col-md-6">
                 <label class="form-label fw-semibold">Nama Lengkap (Sesuai KTP) <span class="text-danger">*</span></label>

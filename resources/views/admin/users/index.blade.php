@@ -41,7 +41,7 @@
                                     @endif
                                 </td>
                                 <td class="text-center">
-                                    <form action="{{ route('admin.users.destroy', $u->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Hapus user ini?')">
+                                    <form action="{{ route('admin.users.destroy', $u->id) }}" method="POST" class="d-inline" >
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-sm btn-light border text-danger" {{ $u->id === auth()->id() ? 'disabled' : '' }}><i class="fa-solid fa-trash"></i></button>
@@ -96,3 +96,4 @@
     </div>
 </div>
 @endsection
+

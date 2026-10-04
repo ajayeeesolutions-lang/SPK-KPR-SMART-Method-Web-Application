@@ -87,32 +87,86 @@
                 @endif
             </div>
 
-            <!-- Approve Form -->
-            <form action="{{ route('manager.submissions.approve', $submission->id) }}" method="POST" class="mb-3">
+            {{-- Approve Form --}}
+            <form action="{{ route('manager.submissions.approve', $submission->id) }}" method="POST" class="mb-3" id="approveForm">
                 @csrf
                 <div class="mb-3">
                     <label class="form-label fw-semibold small">Catatan Manager (Opsional untuk Setuju)</label>
-                    <textarea name="manager_notes" class="form-control form-control-sm" rows="3" placeholder="Tambahkan catatan persetujuan...">{{ $submission->manager_notes }}</textarea>
+                    <textarea name="manager_notes" id="approveNotes" class="form-control form-control-sm" rows="3" placeholder="Tambahkan catatan persetujuan...">{{ $submission->manager_notes }}</textarea>
                 </div>
-                <button type="submit" class="btn btn-success w-100 py-2 rounded-3 shadow-sm" onclick="return confirm('Setujui pengajuan KPR ini?')">
+                <button type="button" onclick="confirmApprove()" class="btn btn-success w-100 py-2 rounded-3 shadow-sm">
                     <i class="fa-solid fa-check-circle me-1"></i> SETUJUI PENGAJUAN (APPROVE)
                 </button>
             </form>
 
             <hr>
 
-            <!-- Reject Form -->
-            <form action="{{ route('manager.submissions.reject', $submission->id) }}" method="POST">
+            {{-- Reject Form --}}
+            <form action="{{ route('manager.submissions.reject', $submission->id) }}" method="POST" id="rejectForm">
                 @csrf
                 <div class="mb-3">
                     <label class="form-label fw-semibold small text-danger">Alasan Penolakan (Wajib jika menolak)</label>
-                    <textarea name="manager_notes" class="form-control form-control-sm" rows="2" placeholder="Tuliskan alasan penolakan..." required></textarea>
+                    <textarea name="manager_notes" id="rejectNotes" class="form-control form-control-sm" rows="2" placeholder="Tuliskan alasan penolakan..." required></textarea>
                 </div>
-                <button type="submit" class="btn btn-outline-danger w-100 py-2 rounded-3" onclick="return confirm('Tolak pengajuan KPR ini?')">
+                <button type="button" onclick="confirmReject()" class="btn btn-outline-danger w-100 py-2 rounded-3">
                     <i class="fa-solid fa-times-circle me-1"></i> TOLAK PENGAJUAN (REJECT)
                 </button>
             </form>
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+<script>
+function confirmApprove() {
+    Swal.fire({
+        icon: 'question',
+        title: 'Setujui Pengajuan?',
+        html: `Anda akan <strong>menyetujui</strong> pengajuan KPR <strong>{{ $submission->no_pengajuan }}</strong> atas nama <strong>{{ $submission->user->name }}</strong>.<br><br>Tindakan ini tidak dapat dibatalkan.`,
+        showCancelButton: true,
+        confirmButtonText: '<i class="fa-solid fa-check me-1"></i> Ya, Setujui',
+        cancelButtonText: 'Batal',
+        confirmButtonColor: '#16A34A',
+        cancelButtonColor: '#94A3B8',
+        reverseButtons: true,
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Sync catatan ke form sebelum submit
+            document.querySelector('#approveForm textarea[name="manager_notes"]').value = document.getElementById('approveNotes').value;
+            document.getElementById('approveForm').submit();
+        }
+    });
+}
+
+function confirmReject() {
+    const alasan = document.getElementById('rejectNotes').value.trim();
+    if (!alasan) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Alasan Wajib Diisi',
+            text: 'Mohon tuliskan alasan penolakan sebelum menolak pengajuan.',
+            confirmButtonColor: '#2563EB',
+        });
+        document.getElementById('rejectNotes').focus();
+        return;
+    }
+
+    Swal.fire({
+        icon: 'warning',
+        title: 'Tolak Pengajuan?',
+        html: `Anda akan <strong>menolak</strong> pengajuan KPR <strong>{{ $submission->no_pengajuan }}</strong> atas nama <strong>{{ $submission->user->name }}</strong>.<br><br><em>"${alasan}"</em>`,
+        showCancelButton: true,
+        confirmButtonText: '<i class="fa-solid fa-xmark me-1"></i> Ya, Tolak',
+        cancelButtonText: 'Batal',
+        confirmButtonColor: '#DC2626',
+        cancelButtonColor: '#94A3B8',
+        reverseButtons: true,
+    }).then((result) => {
+        if (result.isConfirmed) {
+            document.getElementById('rejectForm').submit();
+        }
+    });
+}
+</script>
 @endsection

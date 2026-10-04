@@ -59,10 +59,10 @@
                                 </td>
                                 <td class="text-center">
                                     <button class="btn btn-sm btn-light border text-warning" data-bs-toggle="modal" data-bs-target="#editModal{{ $crit->id }}"><i class="fa-solid fa-pen"></i></button>
-                                    <form action="{{ route('admin.criteria.destroy', $crit->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Hapus kriteria ini?')">
+                                    <form action="{{ route('admin.criteria.destroy', $crit->id) }}" method="POST" class="d-inline" >
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-light border text-danger"><i class="fa-solid fa-trash"></i></button>
+                                        <button type="button" class="btn btn-sm btn-light border text-danger btn-swal-del" data-label="Kriteria ini"><i class="fa-solid fa-trash"></i></button>
                                     </form>
                                 </td>
                             </tr>
@@ -145,3 +145,5 @@
     </div>
 </div>
 @endsection
+
+

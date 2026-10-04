@@ -501,6 +501,150 @@
     <i class="fa-brands fa-whatsapp text-white"></i>
 </a>
 
+{{-- Global SweetAlert untuk semua tombol hapus (btn-swal-del) --}}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.btn-swal-del').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            const label = this.dataset.label || 'item ini';
+            const form  = this.closest('form');
+            Swal.fire({
+                icon: 'warning',
+                title: 'Hapus ' + label + '?',
+                html: '<strong>' + label + '</strong> akan dihapus permanen dan tidak dapat dikembalikan.',
+                showCancelButton: true,
+                confirmButtonText: '<i class="fa-solid fa-trash me-1"></i> Ya, Hapus',
+                cancelButtonText: 'Batal',
+                confirmButtonColor: '#DC2626',
+                cancelButtonColor: '#94A3B8',
+                reverseButtons: true,
+            }).then(function (result) {
+                if (result.isConfirmed) form.submit();
+            });
+        });
+    });
+});
+</script>
+
 @yield('scripts')
+
+{{-- ============================================================
+     REALTIME POLLING — Auto-refresh setiap 20 detik jika ada data baru
+     Silent refresh tanpa pop-up, per role
+     ============================================================ --}}
+<script>
+(function () {
+    'use strict';
+
+    const POLL_INTERVAL = 5000; // 5 detik
+    const ROLE      = @json(auth()->user()->role ?? '');
+    const CHECK_URL = '{{ route("realtime.check") }}';
+
+    let lastKnownState = null;
+
+    // Langsung reload halaman tanpa tanya
+    function silentReload() {
+        window.location.reload();
+    }
+
+    // Fungsi polling utama
+    async function pollUpdates() {
+        try {
+            const response = await fetch(CHECK_URL, {
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                    'Accept': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                credentials: 'same-origin'
+            });
+
+            if (!response.ok) return;
+            const data = await response.json();
+
+            // Inisialisasi state awal — jangan reload saat pertama kali
+            if (lastKnownState === null) {
+                lastKnownState = data;
+                return;
+            }
+
+            let hasUpdate = false;
+
+            if (ROLE === 'debitur') {
+                // Auto-reload jika status pengajuan berubah
+                if (data.status && lastKnownState.status && data.status !== lastKnownState.status) {
+                    hasUpdate = true;
+                } else if (data.last_updated && lastKnownState.last_updated && data.last_updated !== lastKnownState.last_updated) {
+                    hasUpdate = true;
+                }
+
+            } else if (ROLE === 'admin' || ROLE === 'marketing') {
+                // Auto-reload jika ada submission baru atau data berubah
+                if (data.total !== lastKnownState.total) {
+                    hasUpdate = true;
+                } else if (data.last_updated && lastKnownState.last_updated && data.last_updated !== lastKnownState.last_updated) {
+                    hasUpdate = true;
+                }
+
+                // Juga update badge pending count langsung di DOM tanpa reload
+                const pendingEl = document.getElementById('realtime-pending-count');
+                if (pendingEl && data.pending_count !== undefined) {
+                    pendingEl.textContent = data.pending_count;
+                    pendingEl.style.display = data.pending_count > 0 ? 'inline' : 'none';
+                }
+
+            } else if (ROLE === 'pimpinan') {
+                // Auto-reload jika jumlah yang perlu disetujui berubah
+                if (data.need_approval !== lastKnownState.need_approval) {
+                    hasUpdate = true;
+                } else if (data.last_updated && lastKnownState.last_updated && data.last_updated !== lastKnownState.last_updated) {
+                    hasUpdate = true;
+                }
+
+                // Update badge langsung
+                const approvalEl = document.getElementById('realtime-approval-count');
+                if (approvalEl && data.need_approval !== undefined) {
+                    approvalEl.textContent = data.need_approval;
+                    approvalEl.style.display = data.need_approval > 0 ? 'inline' : 'none';
+                }
+            }
+
+            if (hasUpdate) {
+                silentReload();
+                return; // stop polling setelah reload
+            }
+
+            // Simpan state terbaru
+            lastKnownState = data;
+
+        } catch (err) {
+            console.debug('[Realtime] Polling error:', err.message);
+        }
+    }
+
+    // Mulai setelah halaman siap
+    document.addEventListener('DOMContentLoaded', function () {
+        // Tunggu 5 detik baru mulai poll (beri waktu halaman selesai render)
+        setTimeout(() => {
+            pollUpdates();
+            setInterval(pollUpdates, POLL_INTERVAL);
+        }, 5000);
+
+        // Indikator Live — titik hijau kecil kiri bawah
+        const dot = document.createElement('div');
+        dot.innerHTML = `<span style="display:inline-block;width:8px;height:8px;background:#10B981;border-radius:50%;animation:pulse-dot 2s infinite;"></span><span style="font-size:10px;color:#94A3B8;margin-left:5px;">Live</span>`;
+        dot.style.cssText = 'position:fixed;bottom:10px;left:15px;z-index:9998;display:flex;align-items:center;';
+        document.body.appendChild(dot);
+    });
+
+})();
+</script>
+<style>
+@keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%       { opacity: 0.4; transform: scale(1.4); }
+}
+</style>
+
 </body>
 </html>

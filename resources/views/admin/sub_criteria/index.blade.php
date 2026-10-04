@@ -62,10 +62,10 @@
                                 </td>
                                 <td><span class="badge bg-success fs-6 fw-bold">{{ number_format($sub->utility_value, 0) }}</span></td>
                                 <td class="text-center">
-                                    <form action="{{ route('admin.sub-criteria.destroy', $sub->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Hapus sub kriteria ini?')">
+                                    <form action="{{ route('admin.sub-criteria.destroy', $sub->id) }}" method="POST" class="d-inline" >
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-light border text-danger"><i class="fa-solid fa-trash"></i></button>
+                                        <button type="button" class="btn btn-sm btn-light border text-danger btn-swal-del" data-label="Sub-kriteria ini"><i class="fa-solid fa-trash"></i></button>
                                     </form>
                                 </td>
                             </tr>
@@ -153,3 +153,5 @@
     });
 </script>
 @endsection
+
+

@@ -42,6 +42,8 @@ Route::post('/register', [RegisterController::class, 'register']);
 // Global Auth Routes
 Route::middleware(['auth'])->group(function () {
     Route::post('/profile/avatar', [App\Http\Controllers\ProfileController::class, 'updateAvatar'])->name('profile.avatar.update');
+    // Realtime polling endpoint — ringan, cek update per role
+    Route::get('/realtime/check', [App\Http\Controllers\RealtimeController::class, 'checkUpdates'])->name('realtime.check');
 });
 
 // Admin + Marketing Routes (shared access sesuai naskah)

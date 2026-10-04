@@ -107,10 +107,15 @@
                                 <a href="{{ route('admin.applicants.show', ['applicant' => $sub->id]) }}" class="btn btn-sm btn-light border text-primary" title="Detail Analysis"><i class="fa-solid fa-eye"></i></a>
                                 <a href="{{ route('admin.applicants.edit', ['applicant' => $sub->id]) }}" class="btn btn-sm btn-light border text-warning" title="Edit Data"><i class="fa-solid fa-pen"></i></a>
                                 <a href="{{ route('admin.history.pdf', ['submission' => $sub->id]) }}" class="btn btn-sm btn-light border text-danger" title="Download PDF"><i class="fa-solid fa-file-pdf"></i></a>
-                                <form action="{{ route('admin.applicants.destroy', ['applicant' => $sub->id]) }}" method="POST" class="d-inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data pengajuan ini?')">
+                                <form action="{{ route('admin.applicants.destroy', ['applicant' => $sub->id]) }}" method="POST" class="d-inline delete-form">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-light border text-danger" title="Hapus"><i class="fa-solid fa-trash"></i></button>
+                                    <button type="button" class="btn btn-sm btn-light border text-danger btn-delete" 
+                                        data-name="{{ $sub->user->name ?? 'pengajuan ini' }}"
+                                        data-no="{{ $sub->no_pengajuan }}"
+                                        title="Hapus">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
                                 </form>
                             </div>
                         </td>
@@ -131,4 +136,30 @@
         {{ $submissions->links() }}
     </div>
 </div>
+
+@section('scripts')
+<script>
+document.querySelectorAll('.btn-delete').forEach(btn => {
+    btn.addEventListener('click', function () {
+        const name = this.dataset.name;
+        const no   = this.dataset.no;
+        const form = this.closest('form');
+
+        Swal.fire({
+            icon: 'warning',
+            title: 'Hapus Data Pengajuan?',
+            html: `Data pengajuan <strong>${no}</strong> atas nama <strong>${name}</strong> akan dihapus permanen.<br><br>Tindakan ini <strong>tidak dapat dibatalkan</strong>.`,
+            showCancelButton: true,
+            confirmButtonText: '<i class="fa-solid fa-trash me-1"></i> Ya, Hapus',
+            cancelButtonText: 'Batal',
+            confirmButtonColor: '#DC2626',
+            cancelButtonColor: '#94A3B8',
+            reverseButtons: true,
+        }).then((result) => {
+            if (result.isConfirmed) form.submit();
+        });
+    });
+});
+</script>
 @endsection
+

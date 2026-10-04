@@ -10,11 +10,12 @@ Aplikasi ini memiliki 3 tingkatan hak akses (*Multi-Role RBAC*) untuk menjaga in
 
 | Role Pengguna | Email Login | Password | Tanggung Jawab Utama |
 | :--- | :--- | :--- | :--- |
-| **Administrator** | `admin@bank.com` | `password` | Kelola Data Master Kriteria, Bobot, Sub-Kriteria, User, Threshold, dan Eksekusi Mesin SMART |
-| **Manager KPR** | `manager@bank.com` | `password` | Tinjauan Eksekutif, Verifikasi Hasil SMART, dan Keputusan Final (*Approve / Reject*) |
-| **Calon Nasabah** | `nasabah@bank.com` | `password` | Pengisian Profil Biodata, Pengajuan KPR Baru, Upload Dokumen, Tracking Progres & Cetak Sertifikat |
+| **Administrator** | `admin@citra.com` | `password` | Kelola Data Master Kriteria, Bobot, Sub-Kriteria, User, Threshold, dan Eksekusi Mesin SMART |
+| **Marketing** | `marketing@citra.com` | `password` | Kelola data calon debitur dan pengajuan KPR |
+| **Pimpinan** | `pimpinan@citra.com` | `password` | Tinjauan hasil dan pemantauan pengajuan |
+| **Debitur Demo** | `achmad@mail.com` | `password` | Pengisian Profil Biodata, Pengajuan KPR Baru, Upload Dokumen, Tracking Progres & Cetak Sertifikat |
 
-> 💡 **Fitur 1-Click Interactive Login**: Di halaman `/login`, klik tombol chip **[Admin]**, **[Manager]**, atau **[Nasabah]** untuk mengisi form login secara otomatis.
+> 💡 **Fitur 1-Click Interactive Login**: Di halaman `/login`, klik tombol akun demo untuk mengisi form login secara otomatis.
 
 ---
 
@@ -53,7 +54,7 @@ Aplikasi ini memiliki 3 tingkatan hak akses (*Multi-Role RBAC*) untuk menjaga in
 
 ### 🏠 A. Alur Kerja Calon Nasabah
 1. **Registrasi / Login Portal Nasabah**:
-   - Nasabah membuat akun baru di `/register` atau login menggunakan akun demo `nasabah@bank.com`.
+   - Nasabah membuat akun baru di `/register` atau login menggunakan akun demo `achmad@mail.com`.
 2. **Lengkapi Profil Biodata & Finansial**:
    - Mengisi data NIK, Alamat, Pekerjaan, Penghasilan Bulanan, Pengeluaran, Cicilan Lain saat ini, dan Riwayat Kredit/SLIK.
 3. **Pengajuan KPR & Kalkulator Plafon**:

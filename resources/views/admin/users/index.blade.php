@@ -71,7 +71,7 @@
                 </div>
                 <div class="mb-3">
                     <label class="form-label fw-semibold">Email Address</label>
-                    <input type="email" name="email" class="form-control" placeholder="email@bank.com" required>
+                    <input type="email" name="email" class="form-control" placeholder="email@citra.com" required>
                 </div>
                 <div class="mb-3">
                     <label class="form-label fw-semibold">Nomor Handphone</label>

@@ -23,7 +23,7 @@
         <label class="form-label small fw-semibold text-secondary mb-1">Email Address</label>
         <div class="input-group">
             <span class="input-group-text input-group-text-custom"><i class="fa-solid fa-envelope"></i></span>
-            <input type="email" id="emailInput" name="email" value="{{ old('email') }}" class="form-control form-control-custom border-start-0" placeholder="nama@bank.com" required autofocus>
+            <input type="email" id="emailInput" name="email" value="{{ old('email') }}" class="form-control form-control-custom border-start-0" placeholder="nama@citra.com" required autofocus>
         </div>
     </div>
 

@@ -31,9 +31,10 @@ Aplikasi Web **Sistem Pendukung Keputusan (SPK) Kelayakan Calon Nasabah Kredit P
 
 | Role Access | Email Login | Password | Akses Utama |
 | :--- | :--- | :--- | :--- |
-| **Administrator** | `admin@bank.com` | `password` | Dashboard Admin, Master Data, SMART Engine, Settings |
-| **Manager KPR** | `manager@bank.com` | `password` | Executive Dashboard, Approval Manager |
-| **Calon Nasabah** | `nasabah@bank.com` | `password` | Dashboard Nasabah, Form KPR & Upload Dokumen |
+| **Administrator** | `admin@citra.com` | `password` | Dashboard Admin, Master Data, SMART Engine, Settings |
+| **Marketing** | `marketing@citra.com` | `password` | Pengelolaan pengajuan dan data calon debitur |
+| **Pimpinan** | `pimpinan@citra.com` | `password` | Dashboard pimpinan dan pemantauan hasil |
+| **Debitur Demo** | `achmad@mail.com` | `password` | Dashboard Nasabah, Form KPR & Upload Dokumen |
 
 ---
 

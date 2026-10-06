@@ -29,7 +29,13 @@ Aplikasi ini memiliki 3 tingkatan hak akses (*Multi-Role RBAC*) untuk menjaga in
  └── Status Pengajuan: PENDING
       │
       ▼
-[2. MESIN SMART (DECISION ENGINE)]
+[2. ADMIN]
+ ├── Preview data dan dokumen nasabah
+ ├── Memeriksa hasil SLIK OJK dan mengonfirmasi kredibilitas (C1)
+ └── Analisis SMART baru dijalankan setelah konfirmasi
+      │
+      ▼
+[3. MESIN SMART (DECISION ENGINE)]
  ├── Tahap 1: Pembacaan Bobot Awal Kriteria (W_j) -> C1:25%, C2:15%, C3:25%, C4:15%, C5:20%
  ├── Tahap 2: Normalisasi Bobot Kriteria (w_j = W_j / Total_W)
  ├── Tahap 3: Penentuan Nilai Utility (u_j) Berdasarkan Matching Sub-Kriteria (0 - 100)
@@ -38,13 +44,13 @@ Aplikasi ini memiliki 3 tingkatan hak akses (*Multi-Role RBAC*) untuk menjaga in
  └── Tahap 6: Evaluasi Threshold (Jika Score ≥ 80.00 -> DITERIMA, Jika < 80.00 -> TIDAK DITERIMA)
       │
       ▼
-[3. MANAGER KPR]
+[4. MANAGER KPR]
  ├── Menerima Notifikasi di Executive Approval Queue
  ├── Menelaah Transparansi Matriks Kalkulasi SMART & Poin Alasan Sistem
  └── Memberikan Eksekusi Akhir (APPROVED dengan Catatan / REJECTED dengan Alasan)
       │
       ▼
-[4. HASIL & LAPORAN AKHIR]
+[5. HASIL & LAPORAN AKHIR]
  └── Nasabah & Admin dapat Mengunduh/Mencetak SERTIFIKAT KPR OFFICIAL PDF ber-QR Code
 ```
 
@@ -56,7 +62,7 @@ Aplikasi ini memiliki 3 tingkatan hak akses (*Multi-Role RBAC*) untuk menjaga in
 1. **Registrasi / Login Portal Nasabah**:
    - Nasabah membuat akun baru di `/register` atau login menggunakan akun demo `achmad@mail.com`.
 2. **Lengkapi Profil Biodata & Finansial**:
-   - Mengisi data NIK, Alamat, Pekerjaan, Penghasilan Bulanan, Pengeluaran, Cicilan Lain saat ini, dan Riwayat Kredit/SLIK.
+   - Mengisi data NIK, Alamat, Pekerjaan, Penghasilan Bulanan, Pengeluaran, dan Cicilan Lain saat ini. Kredibilitas SLIK tidak diisi nasabah.
 3. **Pengajuan KPR & Kalkulator Plafon**:
    - Memasukkan Harga Rumah impian dan Uang Muka (DP). Sistem secara otomatis menghitung **Nilai Plafon Pinjaman** (`Harga Rumah - DP`).
    - Memilih Tenor Pinjaman (1 s/d 30 Tahun).
@@ -81,7 +87,8 @@ Aplikasi ini memiliki 3 tingkatan hak akses (*Multi-Role RBAC*) untuk menjaga in
 3. **Pengaturan Threshold System**:
    - Mengubah nilai ambang batas kelayakan (Standar: **80.00**).
 4. **Eksekusi Mesin SMART (*SMART Engine*)**:
-   - Menjalankan analisis otomatis atau memicu hitung ulang (*re-evaluate*) untuk seluruh pengajuan nasabah.
+   - Membuka preview data nasabah, memeriksa dokumen/hasil SLIK OJK, lalu mengonfirmasi kategori kredibilitas C1.
+   - Setelah konfirmasi, sistem menghitung ulang analisis SMART menggunakan C1 terverifikasi bersama kriteria lainnya.
    - Memeriksa transparansi kalkulasi di **Wizard 6-Tahap SMART**.
 
 ---

@@ -12,7 +12,8 @@ class AnalysisHistoryController extends Controller
     public function index(Request $request)
     {
         $query = KprSubmission::with(['user.profile', 'smartResult', 'approver'])
-            ->whereNotNull('final_smart_score');
+            ->whereNotNull('final_smart_score')
+            ->whereNotNull('c1_verified_at');
 
         if ($request->filled('search')) {
             $search = $request->search;
@@ -35,12 +36,16 @@ class AnalysisHistoryController extends Controller
 
     public function downloadPdf(KprSubmission $submission, ReportService $reportService)
     {
+        abort_unless($submission->c1_verified_at && $submission->smartResult, 404);
+
         $pdf = $reportService->generateSubmissionPdf($submission);
         return $pdf->download("Laporan_Analisis_KPR_{$submission->no_pengajuan}.pdf");
     }
 
     public function streamPdf(KprSubmission $submission, ReportService $reportService)
     {
+        abort_unless($submission->c1_verified_at && $submission->smartResult, 404);
+
         $pdf = $reportService->generateSubmissionPdf($submission);
         return $pdf->stream("Laporan_Analisis_KPR_{$submission->no_pengajuan}.pdf");
     }

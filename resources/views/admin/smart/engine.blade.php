@@ -16,7 +16,7 @@
                 <select name="submission_id" class="form-select" onchange="this.form.submit()">
                     @foreach($submissions as $sub)
                         <option value="{{ $sub->id }}" {{ ($activeSubmission && $activeSubmission->id == $sub->id) ? 'selected' : '' }}>
-                            {{ $sub->no_pengajuan }} - {{ $sub->user?->name ?? 'Nasabah' }} (Skor: {{ number_format($sub->final_smart_score ?? 0, 2) }})
+                            {{ $sub->no_pengajuan }} - {{ $sub->user?->name ?? 'Nasabah' }} (Skor: {{ $sub->c1_verified_at ? number_format($sub->final_smart_score ?? 0, 2) : 'Menunggu SLIK' }})
                         </option>
                     @endforeach
                 </select>
@@ -186,6 +186,16 @@
                                         <span class="badge bg-warning text-dark"><i class="fa-solid fa-crown me-1"></i> 1</span>
                                     @else
                                         <span class="fw-bold">{{ $idx + 1 }}</span>
+                                    @endif
+
+                                    @if($activeSubmission && !$activeSubmission->c1_verified_at)
+                                        <div class="alert alert-warning">
+                                            Kredibilitas SLIK untuk pengajuan ini belum dikonfirmasi admin. Konfirmasi melalui halaman
+                                            <a href="{{ route('admin.applicants.show', ['applicant' => $activeSubmission->id]) }}" class="alert-link">preview data nasabah</a>
+                                            sebelum menjalankan analisis SMART.
+                                        </div>
+                                    @elseif($activeSubmission && !$smartResult)
+                                        <div class="alert alert-warning">Pengajuan ini sudah memiliki konfirmasi SLIK, tetapi hasil SMART belum tersedia. Silakan jalankan ulang analisis.</div>
                                     @endif
                                 </td>
                                 <td>{{ $rnk->no_pengajuan }}</td>

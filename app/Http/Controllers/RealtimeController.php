@@ -29,12 +29,12 @@ class RealtimeController extends Controller
             // Debitur: cek apakah ada perubahan status pengajuan mereka
             $latest = KprSubmission::where('user_id', $user->id)
                 ->orderByDesc('updated_at')
-                ->first(['no_pengajuan', 'status_pengajuan', 'status_keputusan', 'updated_at']);
+                ->first(['no_pengajuan', 'status_pengajuan', 'status_keputusan', 'c1_verified_at', 'updated_at']);
 
             if ($latest) {
                 $data['last_updated']  = $latest->updated_at->toISOString();
                 $data['status']        = $latest->status_pengajuan;
-                $data['keputusan']     = $latest->status_keputusan;
+                $data['keputusan']     = $latest->c1_verified_at ? $latest->status_keputusan : null;
                 $data['no_pengajuan']  = $latest->no_pengajuan;
             }
 
@@ -42,7 +42,9 @@ class RealtimeController extends Controller
             // Admin/Marketing: cek submission baru yang masuk (pending)
             $latestSubmission = KprSubmission::orderByDesc('updated_at')->first(['updated_at']);
             $pendingCount     = KprSubmission::where('status_pengajuan', 'pending')->count();
-            $analyzedCount    = KprSubmission::where('status_pengajuan', 'analyzed')->count();
+            $analyzedCount    = KprSubmission::where('status_pengajuan', 'analyzed')
+                ->whereNotNull('c1_verified_at')
+                ->count();
 
             $data['last_updated']   = $latestSubmission?->updated_at->toISOString();
             $data['pending_count']  = $pendingCount;
@@ -52,7 +54,9 @@ class RealtimeController extends Controller
         } elseif ($role === 'pimpinan') {
             // Pimpinan: cek submission yang sudah dianalisis dan butuh persetujuan
             $latestSubmission = KprSubmission::orderByDesc('updated_at')->first(['updated_at']);
-            $needApproval     = KprSubmission::where('status_pengajuan', 'analyzed')->count();
+            $needApproval     = KprSubmission::where('status_pengajuan', 'analyzed')
+                ->whereNotNull('c1_verified_at')
+                ->count();
             $approved         = KprSubmission::where('status_pengajuan', 'approved')->count();
             $rejected         = KprSubmission::where('status_pengajuan', 'rejected')->count();
 

@@ -33,13 +33,14 @@ class SmartEngineController extends Controller
         }
 
         // Only get existing smart result, do NOT auto-run analysis
-        if ($activeSubmission) {
+        if ($activeSubmission && $activeSubmission->c1_verified_at) {
             $smartResult = $activeSubmission->smartResult;
         }
 
         // System Rankings of all analyzed submissions
         $rankings = KprSubmission::with(['user.profile', 'smartResult'])
             ->whereNotNull('final_smart_score')
+            ->whereNotNull('c1_verified_at')
             ->orderBy('final_smart_score', 'desc')
             ->get();
 

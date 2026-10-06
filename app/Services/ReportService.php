@@ -14,6 +14,8 @@ class ReportService
      */
     public function generateSubmissionPdf(KprSubmission $submission)
     {
+        abort_unless($submission->c1_verified_at && $submission->smartResult, 404);
+
         $submission->load(['user.profile', 'smartResult', 'approver']);
         $criteria = Criterion::where('is_active', true)->get()->keyBy('code');
 

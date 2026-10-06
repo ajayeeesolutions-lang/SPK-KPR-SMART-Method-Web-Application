@@ -28,9 +28,9 @@ class SmartService
     }
 
     /**
-     * TAHAP 2 — Ambil nilai mentah (raw) dari submission (input langsung Debitur).
+     * TAHAP 2 — Ambil nilai mentah (raw) dari submission dan profil nasabah.
      * Mapping DINAMIS: baca kode kriteria dari DB, cocokkan dengan kolom submission/profil.
-     * Fallback ke profil nasabah jika kolom submission NULL (submission lama).
+     * Kredibilitas SLIK hanya diambil dari nilai yang dikonfirmasi admin di submission.
      */
     private function extractRawValues(KprSubmission $submission, iterable $criteria): array
     {
@@ -54,7 +54,7 @@ class SmartService
             $name = strtolower($criterion->name);
 
             if (str_contains($name, 'slik') || str_contains($name, 'kredit')) {
-                $rawValues[$code] = (string) ($submission->c1_riwayat_kredit ?? $profile?->riwayat_kredit ?? 'Tidak Lancar');
+                $rawValues[$code] = $submission->c1_riwayat_kredit;
             } elseif (str_contains($name, 'penghasilan')) {
                 $rawValues[$code] = $penghasilanBersih;
             } elseif (str_contains($name, 'pekerjaan') || str_contains($name, 'kerja')) {
@@ -189,6 +189,15 @@ class SmartService
         $criteria = Criterion::with('subCriteria')->where('is_active', true)->get();
         if ($criteria->isEmpty()) {
             throw new \Exception("Kriteria SMART belum dikonfigurasi.");
+        }
+
+        $hasCredibilityCriterion = $criteria->contains(function (Criterion $criterion) {
+            $name = strtolower($criterion->name);
+            return str_contains($name, 'slik') || str_contains($name, 'kredit');
+        });
+
+        if ($hasCredibilityCriterion && (!$submission->c1_riwayat_kredit || !$submission->c1_verified_at)) {
+            throw new \Exception("Kredibilitas SLIK harus dikonfirmasi admin sebelum analisis SMART dijalankan.");
         }
 
         // TAHAP 1: Normalisasi Bobot

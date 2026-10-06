@@ -10,6 +10,14 @@
             <h5 class="fw-bold text-dark mb-1">Seluruh Pengajuan KPR</h5>
             <div class="text-muted small">Tinjau hasil perhitungan SMART dan berikan persetujuan resmi.</div>
         </div>
+        <div>
+            <a href="{{ route('manager.submissions.export_excel') }}" class="btn btn-success rounded-3 shadow-sm">
+                <i class="fa-solid fa-file-excel me-1"></i> Download Excel
+            </a>
+            <a href="{{ route('manager.submissions.export_pdf') }}" class="btn btn-danger rounded-3 shadow-sm" target="_blank">
+                <i class="fa-solid fa-file-pdf me-1"></i> Download PDF
+            </a>
+        </div>
     </div>
 
     <div class="table-responsive">

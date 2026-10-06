@@ -12,9 +12,9 @@ class DashboardController extends Controller
     public function index()
     {
         $totalPengajuan = KprSubmission::count();
-        $totalDiterima = KprSubmission::where('status_keputusan', 'LAYAK')->count();
-        $totalDitolak = KprSubmission::where('status_keputusan', 'TIDAK LAYAK')->count();
-        $totalDipertimbangkan = KprSubmission::where('status_keputusan', 'DIPERTIMBANGKAN')->count();
+        $totalDiterima = KprSubmission::whereNotNull('c1_verified_at')->where('status_keputusan', 'LAYAK')->count();
+        $totalDitolak = KprSubmission::whereNotNull('c1_verified_at')->where('status_keputusan', 'TIDAK LAYAK')->count();
+        $totalDipertimbangkan = KprSubmission::whereNotNull('c1_verified_at')->where('status_keputusan', 'DIPERTIMBANGKAN')->count();
         $totalMenunggu = KprSubmission::whereIn('status_pengajuan', ['pending', 'analyzed'])->count();
         $totalNasabah = User::where('role', 'debitur')->count();
 

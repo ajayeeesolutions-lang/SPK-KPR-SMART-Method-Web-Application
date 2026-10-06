@@ -17,11 +17,11 @@
             @php
                 $sp = $submission->status_pengajuan;
             @endphp
-            @if($sp === 'approved')
+            @if($submission->c1_verified_at && $sp === 'approved')
                 <span class="badge bg-success fs-6 px-3 py-2"><i class="fa-solid fa-circle-check me-1"></i> DISETUJUI</span>
-            @elseif($sp === 'rejected')
+            @elseif($submission->c1_verified_at && $sp === 'rejected')
                 <span class="badge bg-danger fs-6 px-3 py-2"><i class="fa-solid fa-circle-xmark me-1"></i> DITOLAK</span>
-            @elseif($sp === 'analyzed')
+            @elseif($sp === 'analyzed' && $submission->c1_verified_at)
                 <span class="badge bg-info fs-6 px-3 py-2"><i class="fa-solid fa-magnifying-glass me-1"></i> SUDAH DIANALISIS</span>
             @else
                 <span class="badge bg-warning text-dark fs-6 px-3 py-2"><i class="fa-solid fa-clock me-1"></i> MENUNGGU ANALISIS</span>
@@ -35,7 +35,6 @@
     <div class="col-12 col-lg-8">
 
         {{-- Tabel Data Input Kriteria SMART --}}
-        @if($submission->c1_riwayat_kredit)
         <div class="card-custom p-4 mb-4">
             <h6 class="fw-bold text-dark mb-3"><i class="fa-solid fa-table-list text-primary me-2"></i> Data Input Kriteria SMART (Matriks Alternatif)</h6>
             <div class="table-responsive">
@@ -51,7 +50,13 @@
                         <tr>
                             <td><span class="badge bg-success">C1</span></td>
                             <td>Riwayat SLIK OJK</td>
-                            <td class="fw-semibold">{{ $submission->c1_riwayat_kredit }}</td>
+                            <td class="fw-semibold">
+                                @if($submission->c1_verified_at)
+                                    {{ $submission->c1_riwayat_kredit }}
+                                @else
+                                    <span class="text-muted">Menunggu konfirmasi admin</span>
+                                @endif
+                            </td>
                         </tr>
                         <tr>
                             <td><span class="badge bg-primary">C2</span></td>
@@ -77,7 +82,6 @@
                 </table>
             </div>
         </div>
-        @endif
 
         {{-- Data Properti & Pinjaman --}}
         <div class="card-custom p-4 mb-4">
@@ -111,7 +115,7 @@
         </div>
 
         {{-- Hasil SMART Engine --}}
-        @if($submission->final_smart_score)
+        @if($submission->c1_verified_at && $submission->final_smart_score !== null)
         <div class="card-custom p-4 mb-4">
             <h6 class="fw-bold text-dark mb-3"><i class="fa-solid fa-robot text-primary me-2"></i> Hasil Analisis Mesin SMART</h6>
             <div class="d-flex align-items-center gap-3 mb-3 p-3 bg-light rounded-3">
@@ -146,12 +150,16 @@
         @else
         <div class="alert alert-warning border-0 rounded-3 small">
             <i class="fa-solid fa-hourglass-half me-2"></i>
-            Pengajuan Anda <strong>sedang menunggu</strong> untuk dianalisis oleh Marketing. Sistem akan menjalankan Mesin SMART setelah tim Marketing memproses berkas Anda.
+            @if(!$submission->c1_verified_at)
+                Pengajuan masih menunggu konfirmasi kredibilitas SLIK dari admin sebelum analisis SMART dapat ditampilkan.
+            @else
+                Kredibilitas SLIK telah dikonfirmasi. Analisis SMART akan tersedia setelah diproses admin.
+            @endif
         </div>
         @endif
 
         {{-- Catatan Manager --}}
-        @if($submission->manager_notes)
+        @if($submission->c1_verified_at && $submission->manager_notes)
         <div class="alert alert-info border-0 rounded-3 small">
             <i class="fa-solid fa-comment-dots me-2"></i>
             <strong>Catatan Keputusan Pimpinan:</strong> {{ $submission->manager_notes }}

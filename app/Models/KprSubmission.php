@@ -25,6 +25,8 @@ class KprSubmission extends Model
         'approved_at',
         // 5 Kriteria SMART
         'c1_riwayat_kredit',
+        'c1_verified_at',
+        'c1_verified_by',
         'c2_penghasilan_bersih',
         'c3_status_pekerjaan',
         'c3_lama_bekerja_bulan',
@@ -39,6 +41,7 @@ class KprSubmission extends Model
         'c2_penghasilan_bersih' => 'decimal:2',
         'final_smart_score'     => 'decimal:2',
         'approved_at'           => 'datetime',
+        'c1_verified_at'        => 'datetime',
     ];
 
     public function user()
@@ -49,6 +52,11 @@ class KprSubmission extends Model
     public function approver()
     {
         return $this->belongsTo(User::class, 'approved_by');
+    }
+
+    public function credibilityVerifier()
+    {
+        return $this->belongsTo(User::class, 'c1_verified_by');
     }
 
     public function documents()

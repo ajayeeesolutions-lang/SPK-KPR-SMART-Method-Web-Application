@@ -4,6 +4,10 @@
 @section('page-title', 'Review & Persetujuan Akhir Manager KPR')
 
 @section('content')
+@php
+    $credibilityVerified = $submission->c1_verified_at !== null;
+@endphp
+
 <div class="row g-3 mb-4">
     <div class="col-12 col-lg-8">
         <div class="card-custom p-4 mb-4">
@@ -39,6 +43,11 @@
         <!-- SMART Engine Matrix -->
         <div class="card-custom p-4">
             <h6 class="fw-bold text-dark mb-3"><i class="fa-solid fa-table text-primary me-2"></i> Hasil Rekomendasi SMART System</h6>
+            @if(!$credibilityVerified)
+                <div class="alert alert-warning mb-0">Analisis SMART belum tersedia karena kredibilitas SLIK belum dikonfirmasi admin.</div>
+            @elseif(!$submission->smartResult)
+                <div class="alert alert-warning mb-0">Kredibilitas SLIK telah dikonfirmasi, tetapi analisis SMART belum tersedia.</div>
+            @else
             <div class="p-3 mb-3 bg-light rounded-3 border">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
@@ -68,6 +77,7 @@
                     </ul>
                 @endif
             </div>
+            @endif
         </div>
     </div>
 
@@ -76,6 +86,11 @@
         <div class="card-custom p-4 h-100">
             <h5 class="fw-bold text-dark mb-3"><i class="fa-solid fa-stamp text-primary me-2"></i> Form Persetujuan Manager</h5>
 
+            @if(!$credibilityVerified)
+                <div class="alert alert-warning">Menunggu admin mengonfirmasi kredibilitas SLIK sebelum keputusan manager dapat diberikan.</div>
+            @elseif(!$submission->smartResult)
+                <div class="alert alert-warning">Analisis SMART belum tersedia, sehingga keputusan manager belum dapat diberikan.</div>
+            @else
             <div class="mb-3">
                 <span class="text-muted small d-block">Status Pengajuan Saat Ini:</span>
                 @if($submission->status_pengajuan === 'approved')
@@ -112,6 +127,7 @@
                     <i class="fa-solid fa-times-circle me-1"></i> TOLAK PENGAJUAN (REJECT)
                 </button>
             </form>
+            @endif
         </div>
     </div>
 </div>

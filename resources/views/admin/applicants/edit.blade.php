@@ -62,14 +62,6 @@
                 </select>
             </div>
 
-            <div class="col-12 col-md-6">
-                <label class="form-label fw-semibold">Riwayat Kredit / SLIK (C1)</label>
-                <select name="riwayat_kredit" class="form-select" required>
-                    @foreach(['Lancar', 'Dalam Perhatian Khusus', 'Kurang Lancar', 'Diragukan', 'Macet'] as $rk)
-                        <option value="{{ $rk }}" {{ ($submission->user?->profile?->riwayat_kredit ?? '') === $rk ? 'selected' : '' }}>{{ $rk }}</option>
-                    @endforeach
-                </select>
-            </div>
         </div>
 
         <div class="mt-4 pt-3 border-top text-end">

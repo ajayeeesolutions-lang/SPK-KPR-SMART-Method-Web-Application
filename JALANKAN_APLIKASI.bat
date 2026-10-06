@@ -113,7 +113,8 @@ if not exist ".env" (
 :: [5] MIGRASI DATABASE
 :: ─────────────────────────────────────────────────────────────
 echo.
-echo  [5/6] Mengecek database...
+echo  [5/6] Mengecek dan membuat database MySQL...
+php -r "try { $pdo = new PDO('mysql:host=127.0.0.1;port=3306', 'root', ''); $pdo->exec('CREATE DATABASE IF NOT EXISTS `spk_kpr_smart`;'); } catch(PDOException $e) {}" >nul 2>&1
 php artisan migrate --force --no-interaction >nul 2>&1
 if %errorlevel% neq 0 (
     echo  [!] Migrasi gagal, coba jalankan dengan seed...

@@ -32,7 +32,7 @@
 <div class="card-custom p-4 mb-4">
     <div class="mb-4 pb-3 border-bottom">
         <h5 class="fw-bold text-dark mb-1"><i class="fa-solid fa-sliders text-primary me-2"></i> Bagian 1: Input Data Kriteria SMART</h5>
-        <p class="text-muted small mb-0">Isi data di bawah secara <strong>manual</strong>. Mesin SMART akan menghitung kelayakan Anda berdasarkan 5 kriteria ini sesuai bobot yang telah ditetapkan.</p>
+        <p class="text-muted small mb-0">Isi data yang Anda ketahui. Kredibilitas SLIK (C1) akan diperiksa dan dikonfirmasi admin sebelum analisis SMART dijalankan.</p>
     </div>
 
     @if ($errors->any())
@@ -46,23 +46,6 @@
     @endif
 
     <div class="row g-3">
-        {{-- C1: Riwayat SLIK OJK --}}
-        <div class="col-12 col-md-6">
-            <div class="p-3 rounded-3 border h-100">
-                <div class="d-flex align-items-center gap-2 mb-2">
-                    <div class="bg-success text-white rounded-circle d-flex align-items-center justify-content-center fw-bold small" style="width:28px;height:28px;min-width:28px;">C1</div>
-                    <label class="form-label fw-semibold mb-0">Riwayat SLIK OJK <span class="text-danger">*</span></label>
-                </div>
-                <div class="text-muted small mb-2">Kolektabilitas riwayat kredit Anda berdasarkan pengecekan SLIK OJK.</div>
-                <select name="c1_riwayat_kredit" class="form-select @error('c1_riwayat_kredit') is-invalid @enderror" required>
-                    <option value="" disabled selected>-- Pilih Status SLIK OJK --</option>
-                    <option value="Lancar" {{ old('c1_riwayat_kredit', $profile->riwayat_kredit ?? '') == 'Lancar' ? 'selected' : '' }}>Lancar (Kolektibilitas 1)</option>
-                    <option value="Dalam Perhatian" {{ old('c1_riwayat_kredit', $profile->riwayat_kredit ?? '') == 'Dalam Perhatian' ? 'selected' : '' }}>Dalam Perhatian Khusus (Kol. 2)</option>
-                    <option value="Tidak Lancar" {{ old('c1_riwayat_kredit', $profile->riwayat_kredit ?? '') == 'Tidak Lancar' ? 'selected' : '' }}>Tidak Lancar (Kol. 3 - 5)</option>
-                </select>
-            </div>
-        </div>
-
         {{-- C2: Penghasilan Bersih --}}
         <div class="col-12 col-md-6">
             <div class="p-3 rounded-3 border h-100">

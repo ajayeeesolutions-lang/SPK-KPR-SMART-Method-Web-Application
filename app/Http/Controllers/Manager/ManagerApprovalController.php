@@ -10,7 +10,9 @@ class ManagerApprovalController extends Controller
 {
     public function index(Request $request)
     {
-        $query = KprSubmission::with(['user.profile', 'smartResult']);
+        $query = KprSubmission::with(['user.profile', 'smartResult'])
+            ->whereNotNull('c1_verified_at')
+            ->whereNotNull('final_smart_score');
 
         if ($request->filled('status')) {
             $query->where('status_pengajuan', $request->status);
@@ -28,6 +30,8 @@ class ManagerApprovalController extends Controller
 
     public function approve(Request $request, KprSubmission $submission)
     {
+        abort_unless($submission->c1_verified_at && $submission->smartResult, 403, 'Admin harus mengonfirmasi kredibilitas SLIK sebelum pengajuan dapat diputuskan.');
+
         $request->validate([
             'manager_notes' => 'nullable|string|max:1000',
         ]);
@@ -45,6 +49,8 @@ class ManagerApprovalController extends Controller
 
     public function reject(Request $request, KprSubmission $submission)
     {
+        abort_unless($submission->c1_verified_at && $submission->smartResult, 403, 'Admin harus mengonfirmasi kredibilitas SLIK sebelum pengajuan dapat diputuskan.');
+
         $request->validate([
             'manager_notes' => 'required|string|max:1000',
         ]);
@@ -59,4 +65,51 @@ class ManagerApprovalController extends Controller
         return redirect()->route('manager.submissions.show', $submission->id)
             ->with('success', "Pengajuan {$submission->no_pengajuan} ditolak (REJECTED).");
     }
+
+    public function exportExcel()
+    {
+        $headers = [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => 'attachment; filename="Laporan_Pengajuan_KPR.csv"',
+        ];
+
+        $submissions = KprSubmission::with(['user.profile', 'smartResult'])->get();
+
+        $callback = function() use ($submissions) {
+            $file = fopen('php://output', 'w');
+            $columns = [
+                'No. Pengajuan', 'Nama Nasabah', 'NIK',
+                'Plafon KPR (Rp)', 'Skor SMART', 'Rekomendasi', 'Status Pengajuan'
+            ];
+            fputcsv($file, $columns);
+
+            foreach ($submissions as $sub) {
+                fputcsv($file, [
+                    $sub->no_pengajuan,
+                    $sub->user->name,
+                    $sub->user->profile?->nik ?? '-',
+                    $sub->nilai_pinjaman,
+                    $sub->smartResult?->total_score ?? '-',
+                    $sub->smartResult?->decision ?? '-',
+                    $sub->status_pengajuan
+                ]);
+            }
+            fclose($file);
+        };
+
+        return response()->stream($callback, 200, $headers);
+    }
+
+    public function exportPdf()
+    {
+        $submissions = KprSubmission::with(['user.profile', 'smartResult'])
+            ->orderBy('created_at', 'desc')
+            ->get();
+            
+        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('manager.submissions.pdf', compact('submissions'))
+            ->setPaper('a4', 'landscape');
+            
+        return $pdf->download('Laporan_Pengajuan_KPR_Manager.pdf');
+    }
 }
+

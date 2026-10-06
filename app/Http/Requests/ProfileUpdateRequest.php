@@ -33,7 +33,6 @@ class ProfileUpdateRequest extends FormRequest
             'penghasilan_pasangan' => 'nullable|numeric|min:0',
             'pengeluaran_bulanan' => 'required|numeric|min:0',
             'cicilan_lain' => 'nullable|numeric|min:0',
-            'riwayat_kredit' => 'required|in:Lancar,Dalam Perhatian,Tidak Lancar',
             'foto' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ];
     }

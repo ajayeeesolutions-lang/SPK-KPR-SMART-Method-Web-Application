@@ -7,7 +7,7 @@
 <div class="card-custom p-4">
     <div class="mb-4 pb-3 border-bottom">
         <h5 class="fw-bold text-dark mb-1">Form Data Diri & Finansial Calon Nasabah</h5>
-        <div class="text-muted small">Informasi ini digunakan langsung oleh mesin SMART untuk analisis kelayakan KPR Anda.</div>
+        <div class="text-muted small">Informasi profil digunakan untuk penilaian. Kredibilitas SLIK akan diperiksa dan dikonfirmasi oleh admin.</div>
     </div>
 
     @if($errors->any())
@@ -133,14 +133,6 @@
                 <input type="number" name="cicilan_lain" value="{{ old('cicilan_lain', $profile->cicilan_lain ?? 1000000) }}" class="form-control">
             </div>
 
-            <div class="col-12 col-md-4">
-                <label class="form-label fw-semibold">Riwayat Kredit / SLIK <span class="text-danger">*</span></label>
-                <select name="riwayat_kredit" class="form-select" required>
-                    <option value="Lancar" {{ old('riwayat_kredit', $profile->riwayat_kredit ?? '') === 'Lancar' ? 'selected' : '' }}>Lancar (Kolektibilitas 1)</option>
-                    <option value="Dalam Perhatian" {{ old('riwayat_kredit', $profile->riwayat_kredit ?? '') === 'Dalam Perhatian' ? 'selected' : '' }}>Dalam Perhatian (Kol 2)</option>
-                    <option value="Tidak Lancar" {{ old('riwayat_kredit', $profile->riwayat_kredit ?? '') === 'Tidak Lancar' ? 'selected' : '' }}>Tidak Lancar (Kol 3-5)</option>
-                </select>
-            </div>
         </div>
 
         <div class="mt-4 pt-3 border-top text-end">

@@ -37,9 +37,9 @@
                             <small class="text-muted d-block">Harga Rumah: Rp {{ number_format($activeSubmission->harga_rumah, 0, ',', '.') }} | Tenor: {{ $activeSubmission->tenor_tahun }} Thn</small>
                         </div>
                         <div class="col-12 col-md-5 text-md-end mt-3 mt-md-0">
-                            @if($activeSubmission->status_pengajuan === 'approved')
+                            @if($activeSubmission->c1_verified_at && $activeSubmission->status_pengajuan === 'approved')
                                 <span class="badge-success-custom fs-5 d-inline-block"><i class="fa-solid fa-circle-check me-1"></i> DITERIMA</span>
-                            @elseif($activeSubmission->status_pengajuan === 'rejected')
+                            @elseif($activeSubmission->c1_verified_at && $activeSubmission->status_pengajuan === 'rejected')
                                 <span class="badge-danger-custom fs-5 d-inline-block"><i class="fa-solid fa-circle-xmark me-1"></i> DITOLAK</span>
                             @else
                                 <span class="badge-warning-custom fs-6 d-inline-block"><i class="fa-solid fa-clock me-1"></i> Dalam Proses Verifikasi</span>
@@ -56,15 +56,15 @@
                         <div class="fw-bold text-dark">Submit</div>
                     </div>
                     <div class="w-25">
-                        <div class="rounded-circle {{ $activeSubmission->smartResult ? 'bg-success text-white' : 'bg-secondary text-white' }} d-inline-flex align-items-center justify-content-center mb-1" style="width: 32px; height: 32px;"><i class="fa-solid fa-microchip"></i></div>
+                        <div class="rounded-circle {{ $activeSubmission->c1_verified_at && $activeSubmission->smartResult ? 'bg-success text-white' : 'bg-secondary text-white' }} d-inline-flex align-items-center justify-content-center mb-1" style="width: 32px; height: 32px;"><i class="fa-solid fa-microchip"></i></div>
                         <div class="fw-bold text-dark">SMART Engine</div>
                     </div>
                     <div class="w-25">
-                        <div class="rounded-circle {{ in_array($activeSubmission->status_pengajuan, ['approved', 'rejected']) ? 'bg-success text-white' : ($activeSubmission->smartResult ? 'bg-primary text-white' : 'bg-secondary text-white') }} d-inline-flex align-items-center justify-content-center mb-1" style="width: 32px; height: 32px;"><i class="fa-solid fa-user-check"></i></div>
+                        <div class="rounded-circle {{ $activeSubmission->c1_verified_at && in_array($activeSubmission->status_pengajuan, ['approved', 'rejected']) ? 'bg-success text-white' : ($activeSubmission->c1_verified_at && $activeSubmission->smartResult ? 'bg-primary text-white' : 'bg-secondary text-white') }} d-inline-flex align-items-center justify-content-center mb-1" style="width: 32px; height: 32px;"><i class="fa-solid fa-user-check"></i></div>
                         <div class="fw-bold text-dark">Verifikasi Manager</div>
                     </div>
                     <div class="w-25">
-                        <div class="rounded-circle {{ in_array($activeSubmission->status_pengajuan, ['approved', 'rejected']) ? 'bg-primary text-white' : 'bg-secondary text-white' }} d-inline-flex align-items-center justify-content-center mb-1" style="width: 32px; height: 32px;"><i class="fa-solid fa-award"></i></div>
+                        <div class="rounded-circle {{ $activeSubmission->c1_verified_at && in_array($activeSubmission->status_pengajuan, ['approved', 'rejected']) ? 'bg-primary text-white' : 'bg-secondary text-white' }} d-inline-flex align-items-center justify-content-center mb-1" style="width: 32px; height: 32px;"><i class="fa-solid fa-award"></i></div>
                         <div class="fw-bold text-dark">Hasil Akhir</div>
                     </div>
                 </div>
@@ -90,8 +90,6 @@
                     <div class="mb-2"><span class="text-muted d-block">NIK:</span> <strong>{{ $profile->nik }}</strong></div>
                     <div class="mb-2"><span class="text-muted d-block">Pekerjaan:</span> <strong>{{ $profile->pekerjaan }}</strong> ({{ $profile->status_pekerjaan }})</div>
                     <div class="mb-2"><span class="text-muted d-block">Penghasilan Total:</span> <strong class="text-success">Rp {{ number_format($profile->total_penghasilan, 0, ',', '.') }}</strong></div>
-                    <div class="mb-3"><span class="text-muted d-block">Riwayat Kredit:</span> <strong class="text-primary">{{ $profile->riwayat_kredit }}</strong></div>
-
                     <a href="{{ route('nasabah.profile.edit') }}" class="btn btn-light border w-100 rounded-3"><i class="fa-solid fa-user-pen me-1"></i> Edit Profil Biodata</a>
                 </div>
             @else

@@ -11,9 +11,23 @@
             <div class="text-muted small">Kelola seluruh biodata & pengajuan KPR nasabah.</div>
         </div>
 
-        <a href="{{ route('admin.applicants.create') }}" class="btn btn-primary rounded-3 px-3 shadow-sm">
-            <i class="fa-solid fa-plus me-1"></i> Tambah Nasabah Baru
-        </a>
+        <div class="d-flex gap-2 flex-wrap">
+            <a href="{{ route('template.excel') }}" class="btn btn-outline-secondary rounded-3 shadow-sm">
+                <i class="fa-solid fa-download me-1"></i> Template Excel
+            </a>
+            <a href="{{ route('admin.applicants.export') }}" class="btn btn-outline-success rounded-3 shadow-sm">
+                <i class="fa-solid fa-file-excel me-1"></i> Export
+            </a>
+            <a href="{{ route('admin.applicants.export_pdf') }}" class="btn btn-outline-danger rounded-3 shadow-sm" target="_blank">
+                <i class="fa-solid fa-file-pdf me-1"></i> PDF
+            </a>
+            <button type="button" class="btn btn-outline-info rounded-3 shadow-sm" data-bs-toggle="modal" data-bs-target="#importModal">
+                <i class="fa-solid fa-file-import me-1"></i> Import
+            </button>
+            <a href="{{ route('admin.applicants.create') }}" class="btn btn-primary rounded-3 shadow-sm">
+                <i class="fa-solid fa-plus me-1"></i> Tambah Baru
+            </a>
+        </div>
     </div>
 
     <!-- Filter & Search Bar -->
@@ -40,23 +54,23 @@
     <!-- Table -->
     <div class="table-responsive">
         <table class="table table-hover align-middle">
-            <thead class="table-light small text-uppercase fw-bold text-secondary">
+            <thead class="table-light small text-uppercase fw-bold text-secondary text-nowrap">
                 <tr>
-                    <th>No</th>
+                    <th class="text-center">No</th>
                     <th>No. Pengajuan</th>
                     <th>Nama / NIK</th>
                     <th>Pekerjaan & Penghasilan</th>
                     <th>Nilai Pinjaman</th>
-                    <th>Skor SMART</th>
-                    <th>Hasil SMART</th>
-                    <th>Status ACC Manager</th>
+                    <th class="text-center">Skor SMART</th>
+                    <th class="text-center">Hasil SMART</th>
+                    <th class="text-center">Status ACC Manager</th>
                     <th class="text-center">Aksi</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="text-nowrap">
                 @forelse($submissions as $index => $sub)
                     <tr>
-                        <td>{{ $submissions->firstItem() + $index }}</td>
+                        <td class="text-center">{{ $submissions->firstItem() + $index }}</td>
                         <td>
                             <span class="fw-bold text-primary">{{ $sub->no_pengajuan }}</span><br>
                             <small class="text-muted">{{ $sub->created_at->format('d/m/Y H:i') }}</small>
@@ -73,40 +87,44 @@
                             <div class="fw-bold text-dark">Rp {{ number_format($sub->nilai_pinjaman, 0, ',', '.') }}</div>
                             <small class="text-muted">Tenor {{ $sub->tenor_tahun }} Tahun</small>
                         </td>
-                        <td>
-                            @if($sub->final_smart_score)
-                                <span class="badge bg-primary bg-opacity-10 text-primary fs-6 px-3 py-2 fw-bold">
+                        <td class="text-center">
+                            @if($sub->c1_verified_at && $sub->final_smart_score !== null)
+                                <span class="badge bg-primary bg-opacity-10 text-primary fs-6 px-3 py-1 fw-bold">
                                     {{ number_format($sub->final_smart_score, 2) }}
                                 </span>
+                            @elseif(!$sub->c1_verified_at)
+                                <span class="badge bg-warning text-dark border">Menunggu konfirmasi SLIK</span>
                             @else
                                 <span class="badge bg-light text-muted border">Belum dihitung</span>
                             @endif
                         </td>
-                        <td>
-                            @if($sub->status_keputusan === 'LAYAK')
-                                <span class="badge-success-custom text-nowrap"><i class="fa-solid fa-circle-check me-1"></i> LAYAK</span>
-                            @elseif($sub->status_keputusan === 'DIPERTIMBANGKAN')
-                                <span class="badge bg-warning text-dark text-nowrap"><i class="fa-solid fa-triangle-exclamation me-1"></i> DIPERTIMBANGKAN</span>
-                            @elseif($sub->status_keputusan === 'TIDAK LAYAK')
-                                <span class="badge-danger-custom text-nowrap"><i class="fa-solid fa-circle-xmark me-1"></i> TIDAK LAYAK</span>
+                        <td class="text-center">
+                            @if($sub->c1_verified_at && $sub->status_keputusan === 'LAYAK')
+                                <span class="badge-success-custom"><i class="fa-solid fa-circle-check me-1"></i> LAYAK</span>
+                            @elseif($sub->c1_verified_at && $sub->status_keputusan === 'DIPERTIMBANGKAN')
+                                <span class="badge bg-warning text-dark"><i class="fa-solid fa-triangle-exclamation me-1"></i> DIPERTIMBANGKAN</span>
+                            @elseif($sub->c1_verified_at && $sub->status_keputusan === 'TIDAK LAYAK')
+                                <span class="badge-danger-custom"><i class="fa-solid fa-circle-xmark me-1"></i> TIDAK LAYAK</span>
                             @else
-                                <span class="badge-warning-custom text-nowrap"><i class="fa-solid fa-clock me-1"></i> Menunggu</span>
+                                <span class="badge-warning-custom"><i class="fa-solid fa-clock me-1"></i> {{ $sub->c1_verified_at ? 'Menunggu analisis' : 'Menunggu SLIK' }}</span>
                             @endif
                         </td>
-                        <td>
-                            @if($sub->status_pengajuan === 'approved')
-                                <span class="badge bg-success text-nowrap"><i class="fa-solid fa-check-double me-1"></i> ACC Manager</span>
-                            @elseif($sub->status_pengajuan === 'rejected')
-                                <span class="badge bg-danger text-nowrap"><i class="fa-solid fa-xmark me-1"></i> Ditolak Manager</span>
+                        <td class="text-center">
+                            @if($sub->c1_verified_at && $sub->status_pengajuan === 'approved')
+                                <span class="badge bg-success"><i class="fa-solid fa-check-double me-1"></i> ACC Manager</span>
+                            @elseif($sub->c1_verified_at && $sub->status_pengajuan === 'rejected')
+                                <span class="badge bg-danger"><i class="fa-solid fa-xmark me-1"></i> Ditolak Manager</span>
                             @else
-                                <span class="badge bg-warning text-dark text-nowrap"><i class="fa-solid fa-clock me-1"></i> Menunggu ACC</span>
+                                <span class="badge bg-warning text-dark"><i class="fa-solid fa-clock me-1"></i> Menunggu ACC</span>
                             @endif
                         </td>
                         <td class="text-center">
                             <div class="btn-group">
                                 <a href="{{ route('admin.applicants.show', ['applicant' => $sub->id]) }}" class="btn btn-sm btn-light border text-primary" title="Detail Analysis"><i class="fa-solid fa-eye"></i></a>
                                 <a href="{{ route('admin.applicants.edit', ['applicant' => $sub->id]) }}" class="btn btn-sm btn-light border text-warning" title="Edit Data"><i class="fa-solid fa-pen"></i></a>
-                                <a href="{{ route('admin.history.pdf', ['submission' => $sub->id]) }}" class="btn btn-sm btn-light border text-danger" title="Download PDF"><i class="fa-solid fa-file-pdf"></i></a>
+                                @if($sub->c1_verified_at && $sub->smartResult)
+                                    <a href="{{ route('admin.history.pdf', ['submission' => $sub->id]) }}" class="btn btn-sm btn-light border text-danger" title="Download PDF"><i class="fa-solid fa-file-pdf"></i></a>
+                                @endif
                                 <form action="{{ route('admin.applicants.destroy', ['applicant' => $sub->id]) }}" method="POST" class="d-inline delete-form">
                                     @csrf
                                     @method('DELETE')
@@ -122,7 +140,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="8" class="text-center py-5 text-muted">
+                        <td colspan="9" class="text-center py-5 text-muted">
                             <i class="fa-solid fa-folder-open fs-1 mb-2 d-block opacity-50"></i>
                             Tidak ada data calon nasabah yang ditemukan.
                         </td>
@@ -136,6 +154,7 @@
         {{ $submissions->links() }}
     </div>
 </div>
+@endsection
 
 @section('scripts')
 <script>
@@ -161,5 +180,31 @@ document.querySelectorAll('.btn-delete').forEach(btn => {
     });
 });
 </script>
-@endsection
 
+<!-- Import Modal -->
+<div class="modal fade" id="importModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <form action="{{ route('admin.applicants.import') }}" method="POST" enctype="multipart/form-data" class="modal-content">
+      @csrf
+      <div class="modal-header border-0 pb-0">
+        <h1 class="modal-title fs-5 fw-bold"><i class="fa-solid fa-file-import text-info me-2"></i> Import Data Excel/CSV</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="alert alert-warning small">
+            Pastikan Anda telah mendownload <b>Template Excel</b>, mengisi datanya dengan format yang benar, lalu menyimpannya dalam format <b>.CSV (Comma delimited)</b> sebelum meng-uploadnya ke sini.
+        </div>
+        <div class="mb-3">
+            <label class="form-label fw-bold">Pilih File (.csv)</label>
+            <input class="form-control" type="file" name="file" accept=".csv" required>
+        </div>
+      </div>
+      <div class="modal-footer border-0 pt-0">
+        <button type="button" class="btn btn-light rounded-3 px-4" data-bs-dismiss="modal">Batal</button>
+        <button type="submit" class="btn btn-info text-white rounded-3 px-4"><i class="fa-solid fa-upload me-1"></i> Upload & Import</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+@endsection

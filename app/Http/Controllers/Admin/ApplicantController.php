@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Services\SmartService;
 use App\Services\UploadService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
@@ -46,7 +47,7 @@ class ApplicantController extends Controller
         return view('admin.applicants.create');
     }
 
-    public function store(Request $request, UploadService $uploadService, SmartService $smartService)
+    public function store(Request $request, UploadService $uploadService)
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
@@ -66,7 +67,6 @@ class ApplicantController extends Controller
             'penghasilan_pasangan' => 'nullable|numeric|min:0',
             'pengeluaran_bulanan' => 'required|numeric|min:0',
             'cicilan_lain' => 'nullable|numeric|min:0',
-            'riwayat_kredit' => 'required|in:Lancar,Dalam Perhatian,Tidak Lancar',
             'harga_rumah' => 'required|numeric|min:10000000',
             'uang_muka_dp' => 'required|numeric|min:0',
             'nilai_pinjaman' => 'required|numeric|min:10000000',
@@ -105,7 +105,6 @@ class ApplicantController extends Controller
             'penghasilan_pasangan' => $validated['penghasilan_pasangan'] ?? 0,
             'pengeluaran_bulanan' => $validated['pengeluaran_bulanan'],
             'cicilan_lain' => $validated['cicilan_lain'] ?? 0,
-            'riwayat_kredit' => $validated['riwayat_kredit'],
             'foto_path' => $fotoPath,
         ]);
 
@@ -121,21 +120,14 @@ class ApplicantController extends Controller
             'status_pengajuan' => 'pending',
         ]);
 
-        // Auto run SMART analysis
-        try {
-            $smartService->analyzeSubmission($submission);
-        } catch (\Exception $e) {
-            // handle gracefully
-        }
-
         return redirect()->route('admin.applicants.show', $submission->id)
-            ->with('success', 'Data calon nasabah berhasil ditambahkan & dianalisis!');
+            ->with('success', 'Data calon nasabah berhasil ditambahkan. Konfirmasi kredibilitas SLIK untuk menjalankan analisis.');
     }
 
     public function show(KprSubmission $applicant)
     {
         $submission = $applicant;
-        $submission->load(['user.profile', 'documents', 'smartResult', 'approver']);
+        $submission->load(['user.profile', 'documents', 'smartResult', 'approver', 'credibilityVerifier']);
         return view('admin.applicants.show', compact('submission'));
     }
 
@@ -161,7 +153,6 @@ class ApplicantController extends Controller
             'penghasilan_bulanan' => 'required|numeric|min:0',
             'lama_bekerja_bulan' => 'required|integer|min:0',
             'status_pekerjaan' => 'required|string',
-            'riwayat_kredit' => 'required|string',
         ]);
 
         $user->update(['name' => $validated['name']]);
@@ -171,7 +162,6 @@ class ApplicantController extends Controller
                 'penghasilan_bulanan' => $validated['penghasilan_bulanan'],
                 'lama_bekerja_bulan' => $validated['lama_bekerja_bulan'],
                 'status_pekerjaan' => $validated['status_pekerjaan'],
-                'riwayat_kredit' => $validated['riwayat_kredit'],
             ]);
         }
 
@@ -182,13 +172,32 @@ class ApplicantController extends Controller
             'tenor_tahun' => $validated['tenor_tahun'],
         ]);
 
-        // Re-run SMART
-        try {
+        if ($submission->c1_verified_at) {
             $smartService->analyzeSubmission($submission);
-        } catch (\Exception $e) {}
+        }
 
         return redirect()->route('admin.applicants.show', ['applicant' => $submission->id])
             ->with('success', 'Data pengajuan berhasil diperbarui!');
+    }
+
+    public function confirmCredibility(Request $request, KprSubmission $applicant, SmartService $smartService)
+    {
+        $validated = $request->validate([
+            'c1_riwayat_kredit' => 'required|in:Lancar,Dalam Perhatian Khusus,Kurang Lancar,Diragukan,Macet',
+        ]);
+
+        DB::transaction(function () use ($applicant, $validated, $smartService) {
+            $applicant->update([
+                'c1_riwayat_kredit' => $validated['c1_riwayat_kredit'],
+                'c1_verified_at' => now(),
+                'c1_verified_by' => auth()->id(),
+            ]);
+
+            $smartService->analyzeSubmission($applicant);
+        });
+
+        return redirect()->route('admin.applicants.show', ['applicant' => $applicant->id])
+            ->with('success', 'Kredibilitas SLIK dikonfirmasi dan analisis SMART berhasil dijalankan.');
     }
 
     public function destroy(KprSubmission $applicant)
@@ -196,4 +205,193 @@ class ApplicantController extends Controller
         $applicant->delete();
         return redirect()->route('admin.applicants.index')->with('success', 'Data pengajuan berhasil dihapus.');
     }
+
+    public function downloadTemplate()
+    {
+        $headers = [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => 'attachment; filename="Template_Data_Nasabah_KPR.csv"',
+        ];
+
+        $columns = [
+            'Nama Lengkap', 'Email', 'NIK', 'Tempat Lahir', 'Tanggal Lahir (YYYY-MM-DD)',
+            'Jenis Kelamin', 'Alamat', 'No HP',
+            'Status Pernikahan', 'Jumlah Tanggungan',
+            'Pekerjaan', 'Status Pekerjaan', 'Lama Bekerja (Bulan)',
+            'Penghasilan Bulanan', 'Penghasilan Pasangan', 'Pengeluaran Bulanan',
+            'Cicilan Lain', 'Riwayat Kredit',
+            'Harga Rumah', 'Uang Muka (DP)', 'Nilai Pinjaman', 'Tenor (Tahun)'
+        ];
+
+        $callback = function() use ($columns) {
+            $file = fopen('php://output', 'w');
+            fputcsv($file, $columns);
+            
+            // Contoh pengisian
+            fputcsv($file, [
+                'Budi Santoso', 'budi@mail.com', '3201012345678901', 'Jakarta', '1990-01-01',
+                'Laki-laki', 'Jl. Merdeka No. 1', '08123456789',
+                'Menikah', 2,
+                'Karyawan Swasta', 'Tetap > 2 Tahun', 36,
+                10000000, 0, 4000000,
+                1000000, 'Lancar',
+                500000000, 100000000, 400000000, 15
+            ]);
+            fclose($file);
+        };
+
+        return response()->stream($callback, 200, $headers);
+    }
+
+    public function export()
+    {
+        $headers = [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => 'attachment; filename="Export_Data_Nasabah_KPR.csv"',
+        ];
+
+        $submissions = KprSubmission::with(['user.profile'])->get();
+
+        $callback = function() use ($submissions) {
+            $file = fopen('php://output', 'w');
+            $columns = [
+                'Nama Lengkap', 'Email', 'NIK', 'Tempat Lahir', 'Tanggal Lahir',
+                'Jenis Kelamin', 'Alamat', 'No HP',
+                'Status Pernikahan', 'Jumlah Tanggungan',
+                'Pekerjaan', 'Status Pekerjaan', 'Lama Bekerja (Bulan)',
+                'Penghasilan Bulanan', 'Penghasilan Pasangan', 'Pengeluaran Bulanan',
+                'Cicilan Lain', 'Riwayat Kredit',
+                'Harga Rumah', 'Uang Muka (DP)', 'Nilai Pinjaman', 'Tenor (Tahun)', 'Status SMART'
+            ];
+            fputcsv($file, $columns);
+
+            foreach ($submissions as $sub) {
+                $prof = $sub->user->profile;
+                fputcsv($file, [
+                    $prof?->nama_lengkap ?? '-',
+                    $sub->user->email,
+                    $prof?->nik ?? '-',
+                    $prof?->tempat_lahir ?? '-',
+                    $prof?->tanggal_lahir ?? '-',
+                    $prof?->jenis_kelamin ?? '-',
+                    $prof?->alamat ?? '-',
+                    $prof?->no_hp ?? '-',
+                    $prof?->status_pernikahan ?? '-',
+                    $prof?->jumlah_tanggungan ?? 0,
+                    $prof?->pekerjaan ?? '-',
+                    $prof?->status_pekerjaan ?? '-',
+                    $prof?->lama_bekerja_bulan ?? 0,
+                    $prof?->penghasilan_bulanan ?? 0,
+                    $prof?->penghasilan_pasangan ?? 0,
+                    $prof?->pengeluaran_bulanan ?? 0,
+                    $prof?->cicilan_lain ?? 0,
+                    $prof?->riwayat_kredit ?? '-',
+                    $sub->harga_rumah,
+                    $sub->uang_muka_dp,
+                    $sub->nilai_pinjaman,
+                    $sub->tenor_tahun,
+                    $sub->status_keputusan ?? 'Belum Dianalisis'
+                ]);
+            }
+            fclose($file);
+        };
+
+        return response()->stream($callback, 200, $headers);
+    }
+
+    public function import(Request $request, SmartService $smartService)
+    {
+        $request->validate([
+            'file' => 'required|file|mimes:csv,txt|max:2048',
+        ]);
+
+        $file = $request->file('file');
+        $handle = fopen($file->path(), 'r');
+        $header = fgetcsv($handle); // skip header
+
+        DB::beginTransaction();
+        try {
+            while (($row = fgetcsv($handle)) !== false) {
+                // Pastikan format sesuai dengan template
+                if (count($row) < 22) continue;
+
+                // 1. Create User
+                $user = User::firstOrCreate(
+                    ['email' => trim($row[1])],
+                    [
+                        'name' => trim($row[0]),
+                        'phone' => trim($row[7]),
+                        'role' => 'debitur',
+                        'password' => Hash::make('password123'),
+                    ]
+                );
+
+                // 2. Create/Update Profile
+                NasabahProfile::updateOrCreate(
+                    ['nik' => trim($row[2])],
+                    [
+                        'user_id' => $user->id,
+                        'nama_lengkap' => trim($row[0]),
+                        'tempat_lahir' => trim($row[3]),
+                        'tanggal_lahir' => trim($row[4]),
+                        'jenis_kelamin' => trim($row[5]),
+                        'alamat' => trim($row[6]),
+                        'no_hp' => trim($row[7]),
+                        'status_pernikahan' => trim($row[8]),
+                        'jumlah_tanggungan' => (int)trim($row[9]),
+                        'pekerjaan' => trim($row[10]),
+                        'status_pekerjaan' => trim($row[11]),
+                        'lama_bekerja_bulan' => (int)trim($row[12]),
+                        'penghasilan_bulanan' => (float)trim($row[13]),
+                        'penghasilan_pasangan' => (float)trim($row[14]),
+                        'pengeluaran_bulanan' => (float)trim($row[15]),
+                        'cicilan_lain' => (float)trim($row[16]),
+                        'riwayat_kredit' => trim($row[17]),
+                    ]
+                );
+
+                // 3. Create Submission
+                $noPengajuan = 'NAS-' . date('Y') . '-' . Str::padLeft(KprSubmission::count() + 1, 3, '0');
+                $submission = KprSubmission::create([
+                    'no_pengajuan' => $noPengajuan,
+                    'user_id' => $user->id,
+                    'harga_rumah' => (float)trim($row[18]),
+                    'uang_muka_dp' => (float)trim($row[19]),
+                    'nilai_pinjaman' => (float)trim($row[20]),
+                    'tenor_tahun' => (int)trim($row[21]),
+                    'status_pengajuan' => 'pending',
+                ]);
+
+                // Auto Verify C1 if Lancar so it gets analyzed
+                if (in_array(trim($row[17]), ['Lancar', 'Dalam Perhatian Khusus', 'Kurang Lancar', 'Diragukan', 'Macet'])) {
+                    $submission->update([
+                        'c1_riwayat_kredit' => trim($row[17]),
+                        'c1_verified_at' => now(),
+                        'c1_verified_by' => auth()->id() ?? 1,
+                    ]);
+                    $smartService->analyzeSubmission($submission);
+                }
+            }
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Gagal import: ' . $e->getMessage());
+        }
+
+        return redirect()->back()->with('success', 'Data CSV berhasil di-import!');
+    }
+
+    public function exportPdf()
+    {
+        $submissions = KprSubmission::with(['user.profile', 'smartResult'])
+            ->orderBy('created_at', 'desc')
+            ->get();
+            
+        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('manager.submissions.pdf', compact('submissions'))
+            ->setPaper('a4', 'landscape');
+            
+        return $pdf->download('Laporan_Data_Nasabah.pdf');
+    }
+
+
 }

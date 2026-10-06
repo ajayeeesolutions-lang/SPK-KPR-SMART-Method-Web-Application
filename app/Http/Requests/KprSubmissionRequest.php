@@ -18,8 +18,7 @@ class KprSubmissionRequest extends FormRequest
             'uang_muka_dp'          => 'required|numeric|min:0',
             'nilai_pinjaman'        => 'required|numeric|min:10000000',
             'tenor_tahun'           => 'required|integer|min:1|max:30',
-            // 5 Kriteria SMART — Wajib diisi di form pengajuan
-            'c1_riwayat_kredit'     => 'required|string',
+            // Kredibilitas/SLIK (C1) is confirmed by an admin after submission.
             'c2_penghasilan_bersih' => 'required|numeric|min:0',
             'c3_status_pekerjaan'   => 'required|string',
             'c3_lama_bekerja_bulan' => 'required|integer|min:0',
@@ -39,7 +38,6 @@ class KprSubmissionRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'c1_riwayat_kredit.required'     => 'Riwayat SLIK OJK (C1) wajib dipilih.',
             'c2_penghasilan_bersih.required'  => 'Penghasilan Bersih (C2) wajib diisi.',
             'c3_status_pekerjaan.required'    => 'Status Pekerjaan (C3) wajib dipilih.',
             'c3_lama_bekerja_bulan.required'  => 'Lama Bekerja (C3) wajib diisi.',

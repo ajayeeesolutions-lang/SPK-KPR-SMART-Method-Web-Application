@@ -147,16 +147,6 @@
                         <input type="number" name="cicilan_lain" value="{{ old('cicilan_lain', 1500000) }}" class="form-control">
                     </div>
 
-                    <div class="col-12 col-md-4">
-                        <label class="form-label fw-semibold">Riwayat Kredit / SLIK (Kriteria C1) <span class="text-danger">*</span></label>
-                        <select name="riwayat_kredit" class="form-select" required>
-                            <option value="Lancar">Lancar</option>
-                            <option value="Dalam Perhatian Khusus">Dalam Perhatian Khusus</option>
-                            <option value="Kurang Lancar">Kurang Lancar</option>
-                            <option value="Diragukan">Diragukan</option>
-                            <option value="Macet">Macet</option>
-                        </select>
-                    </div>
                 </div>
             </div>
 

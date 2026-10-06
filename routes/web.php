@@ -44,11 +44,18 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/profile/avatar', [App\Http\Controllers\ProfileController::class, 'updateAvatar'])->name('profile.avatar.update');
     // Realtime polling endpoint — ringan, cek update per role
     Route::get('/realtime/check', [App\Http\Controllers\RealtimeController::class, 'checkUpdates'])->name('realtime.check');
+    // Download Template CSV/Excel
+    Route::get('/nasabah/template-excel', [App\Http\Controllers\Admin\ApplicantController::class, 'downloadTemplate'])->name('template.excel');
 });
 
 // Admin + Marketing Routes (shared access sesuai naskah)
 Route::middleware(['auth', 'role:admin,marketing'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
+
+    // Export / Import Data Nasabah
+    Route::get('/applicants/export', [ApplicantController::class, 'export'])->name('applicants.export');
+    Route::get('/applicants/export-pdf', [ApplicantController::class, 'exportPdf'])->name('applicants.export_pdf');
+    Route::post('/applicants/import', [ApplicantController::class, 'import'])->name('applicants.import');
 
     // Data Nasabah — Admin & Marketing bisa input/edit/lihat debitur
     Route::resource('applicants', ApplicantController::class);
@@ -65,6 +72,9 @@ Route::middleware(['auth', 'role:admin,marketing'])->prefix('admin')->name('admi
 
 // Admin ONLY Routes (sesuai naskah Tabel 3.1 — hanya Admin yang kelola kriteria, user, settings)
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::post('/applicants/{applicant}/confirm-credibility', [ApplicantController::class, 'confirmCredibility'])
+        ->name('applicants.confirm-credibility');
+
     // Master Kriteria & Bobot — hanya Admin
     Route::resource('criteria', CriterionController::class)->except(['create', 'edit', 'show']);
     // Sub Kriteria & Utility — hanya Admin
@@ -79,6 +89,11 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
 // Manager Routes
 Route::middleware(['auth', 'role:pimpinan'])->prefix('manager')->name('manager.')->group(function () {
     Route::get('/dashboard', [ManagerDashboardController::class, 'index'])->name('dashboard');
+    
+    // Export Laporan
+    Route::get('/submissions/export-excel', [ManagerApprovalController::class, 'exportExcel'])->name('submissions.export_excel');
+    Route::get('/submissions/export-pdf', [ManagerApprovalController::class, 'exportPdf'])->name('submissions.export_pdf');
+    
     Route::get('/submissions', [ManagerApprovalController::class, 'index'])->name('submissions.index');
     Route::get('/submissions/{submission}', [ManagerApprovalController::class, 'show'])->name('submissions.show');
     Route::post('/submissions/{submission}/approve', [ManagerApprovalController::class, 'approve'])->name('submissions.approve');

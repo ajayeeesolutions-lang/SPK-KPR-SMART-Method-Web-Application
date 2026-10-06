@@ -148,16 +148,18 @@
                                 </td>
                                 <td>Rp {{ number_format($sub->nilai_pinjaman, 0, ',', '.') }}</td>
                                 <td>
-                                    @if($sub->final_smart_score)
+                                    @if($sub->c1_verified_at && $sub->final_smart_score !== null)
                                         <span class="fw-bold fs-6">{{ number_format($sub->final_smart_score, 2) }}</span>
+                                    @elseif(!$sub->c1_verified_at)
+                                        <span class="badge bg-warning text-dark">Menunggu SLIK</span>
                                     @else
                                         <span class="badge bg-light text-muted border">-</span>
                                     @endif
                                 </td>
                                 <td>
-                                    @if($sub->status_keputusan === 'DITERIMA')
+                                    @if($sub->c1_verified_at && $sub->status_keputusan === 'LAYAK')
                                         <span class="badge-success-custom"><i class="fa-solid fa-circle-check me-1"></i> DITERIMA</span>
-                                    @elseif($sub->status_keputusan === 'TIDAK DITERIMA')
+                                    @elseif($sub->c1_verified_at && $sub->status_keputusan === 'TIDAK LAYAK')
                                         <span class="badge-danger-custom"><i class="fa-solid fa-circle-xmark me-1"></i> TIDAK DITERIMA</span>
                                     @else
                                         <span class="badge-warning-custom"><i class="fa-solid fa-clock me-1"></i> Menunggu</span>

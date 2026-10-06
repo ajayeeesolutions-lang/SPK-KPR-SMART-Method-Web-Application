@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Nasabah;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\KprSubmissionRequest;
 use App\Models\KprSubmission;
-use App\Services\SmartService;
 use App\Services\UploadService;
 use App\Services\ReportService;
 use Illuminate\Http\Request;
@@ -24,7 +23,7 @@ class KprSubmissionController extends Controller
         return view('nasabah.submission.create', compact('user', 'profile'));
     }
 
-    public function store(KprSubmissionRequest $request, UploadService $uploadService, SmartService $smartService)
+    public function store(KprSubmissionRequest $request, UploadService $uploadService)
     {
         $user = auth()->user();
 
@@ -38,8 +37,7 @@ class KprSubmissionController extends Controller
             'nilai_pinjaman'        => $request->nilai_pinjaman,
             'tenor_tahun'           => $request->tenor_tahun,
             'status_pengajuan'      => 'pending',
-            // 5 Kriteria SMART — tersimpan per-pengajuan
-            'c1_riwayat_kredit'     => $request->c1_riwayat_kredit,
+            // C1 kredibilitas/SLIK diisi admin setelah pemeriksaan.
             'c2_penghasilan_bersih' => $request->c2_penghasilan_bersih,
             'c3_status_pekerjaan'   => $request->c3_status_pekerjaan,
             'c3_lama_bekerja_bulan' => $request->c3_lama_bekerja_bulan,
@@ -55,12 +53,7 @@ class KprSubmissionController extends Controller
             }
         }
 
-        // Run SMART Engine automatically
-        try {
-            $smartService->analyzeSubmission($submission);
-        } catch (\Exception $e) {}
-
-        return redirect()->route('nasabah.dashboard')->with('success', "Pengajuan KPR No. {$noPengajuan} berhasil dikirim dan dianalisis!");
+        return redirect()->route('nasabah.dashboard')->with('success', "Pengajuan KPR No. {$noPengajuan} berhasil dikirim dan menunggu pemeriksaan admin.");
     }
 
     public function show(KprSubmission $submission)

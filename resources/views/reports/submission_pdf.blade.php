@@ -184,7 +184,7 @@
         </tr>
         <tr>
             <td><strong>Riwayat SLIK</strong></td>
-            <td>: {{ $submission->user->profile->riwayat_kredit ?? '-' }}</td>
+            <td>: {{ $submission->c1_verified_at ? $submission->c1_riwayat_kredit : 'Belum dikonfirmasi admin' }}</td>
             <td><strong>Tenor Pinjaman</strong></td>
             <td>: {{ $submission->tenor_tahun }} Tahun</td>
         </tr>

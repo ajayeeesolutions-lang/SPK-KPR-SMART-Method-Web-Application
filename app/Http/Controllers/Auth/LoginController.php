@@ -13,7 +13,8 @@ class LoginController extends Controller
         if (Auth::check()) {
             return $this->redirectUser(Auth::user());
         }
-        return view('auth.login');
+        $debiturs = \App\Models\User::where('role', 'debitur')->select('name', 'email')->get();
+        return view('auth.login', compact('debiturs'));
     }
 
     public function login(Request $request)

@@ -42,12 +42,12 @@
         </div>
     </div>
 
-    <button type="submit" class="btn btn-bank w-100 mb-3">
+    <button type="submit" class="btn btn-primary-custom text-white w-100 mb-3">
         <i class="fa-solid fa-right-to-bracket me-2"></i> Masuk Sekarang
     </button>
 </form>
 
-<div class="text-center pt-2 border-top">
+<div class="text-center pt-2">
     <div class="small text-muted mb-2">Belum memiliki akun calon nasabah?</div>
     <a href="{{ route('register') }}" class="btn btn-light border btn-sm w-100 rounded-3 text-secondary fw-semibold py-2">
         Registrasi Nasabah Baru
@@ -55,7 +55,7 @@
 </div>
 
 <!-- 1-Click Interactive Demo Accounts -->
-<div class="mt-4 p-3 bg-light rounded-4 border text-center">
+<div class="mt-4 demo-buttons-wrapper text-center">
     <small class="text-muted d-block fw-bold mb-2">💡 Klik Akun Demo di Bawah Ini:</small>
     <div class="d-flex justify-content-center gap-1 flex-wrap">
         <span class="demo-chip bg-primary text-white shadow-sm" onclick="fillDemo('admin@citra.com', 'password')">
@@ -67,17 +67,29 @@
         <span class="demo-chip bg-success text-white shadow-sm" onclick="fillDemo('pimpinan@citra.com', 'password')">
             <i class="fa-solid fa-user-tie me-1"></i> Pimpinan
         </span>
-        <span class="demo-chip bg-dark text-white shadow-sm" onclick="fillDemo('achmad@mail.com', 'password')">
-            <i class="fa-solid fa-user me-1"></i> Debitur
+        <span class="demo-chip bg-dark text-white shadow-sm" onclick="fillRandomDebitur()" title="Klik untuk mengacak dan login sebagai Debitur berbeda">
+            <i class="fa-solid fa-user me-1"></i> <span id="debiturLabel">Debitur (Random)</span>
         </span>
     </div>
-    <small class="text-muted d-block mt-2" style="font-size: 0.75rem;">Password default: <code>password</code></small>
+    <small class="text-muted d-block mt-2" style="font-size: 0.75rem;">Setiap refresh, akun debitur otomatis terganti untuk mempermudah testing.</small>
 </div>
 @endsection
 
 @section('scripts')
 <script>
-    function fillDemo(email, password) {
+    const debitursList = @json($debiturs ?? []);
+function fillRandomDebitur() {
+    if (debitursList.length === 0) return;
+    const randomIndex = Math.floor(Math.random() * debitursList.length);
+    const selected = debitursList[randomIndex];
+    fillDemo(selected.email, 'password123');
+
+    // Ganti teks label supaya kelihatan siapa yang terpilih
+    const label = document.getElementById('debiturLabel');
+    if(label) label.innerText = "Debitur (" + selected.name.split(" ")[0] + ")";
+}
+
+function fillDemo(email, password) {
         document.getElementById('emailInput').value = email;
         document.getElementById('passwordInput').value = password;
     }

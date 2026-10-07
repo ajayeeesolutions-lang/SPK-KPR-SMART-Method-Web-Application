@@ -116,10 +116,11 @@ echo.
 echo  [5/6] Mengecek dan membuat database MySQL...
 php -r "try { $pdo = new PDO('mysql:host=127.0.0.1;port=3306', 'root', ''); $pdo->exec('CREATE DATABASE IF NOT EXISTS `spk_kpr_smart`;'); } catch(PDOException $e) {}" >nul 2>&1
 php artisan migrate --force --no-interaction >nul 2>&1
+php artisan db:seed --force --no-interaction >nul 2>&1
 if %errorlevel% neq 0 (
-    echo  [!] Migrasi gagal, coba jalankan dengan seed...
+    echo  [!] Seeding atau Migrasi ada yang terlewat, namun diusahakan tetap berjalan.
 ) else (
-    echo  [OK] Database siap.
+    echo  [OK] Database siap dan berisi pengaturan default.
 )
 
 :: Storage link

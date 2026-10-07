@@ -24,19 +24,27 @@ class ManagerDashboardController extends Controller
             ->take(5)
             ->get();
 
-        $monthlyStats = KprSubmission::oldest()
-            ->get()
-            ->groupBy(function ($item) {
-                return $item->created_at->format('b Y');
-            })
-            ->map(function ($items, $month) {
-                return (object) [
-                    'month' => $month,
-                    'total' => $items->count(),
-                ];
-            })
-            ->take(6)
-            ->values();
+        $months = [];
+        for ($i = 5; $i >= 0; $i--) {
+            $months[now()->subMonths($i)->format('M Y')] = 0;
+        }
+
+        $submissions = KprSubmission::where('created_at', '>=', now()->subMonths(5)->startOfMonth())->get();
+
+        foreach ($submissions as $sub) {
+            $month = $sub->created_at->format('M Y');
+            if (isset($months[$month])) {
+                $months[$month]++;
+            }
+        }
+
+        $monthlyStats = [];
+        foreach ($months as $month => $total) {
+            $monthlyStats[] = (object) [
+                'month' => $month,
+                'total' => $total
+            ];
+        }
 
         return view('manager.dashboard', compact(
             'totalPengajuan',

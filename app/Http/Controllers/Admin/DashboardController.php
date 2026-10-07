@@ -19,19 +19,28 @@ class DashboardController extends Controller
         $totalNasabah = User::where('role', 'debitur')->count();
 
         // Monthly trends data for Chart.js (Database-Agnostic for SQLite & MySQL)
-        $monthlySubmissions = KprSubmission::oldest()
-            ->get()
-            ->groupBy(function ($item) {
-                return $item->created_at->format('M Y');
-            })
-            ->map(function ($items, $month) {
-                return (object) [
-                    'month' => $month,
-                    'total' => $items->count(),
-                ];
-            })
-            ->take(6)
-            ->values();
+        // Get last 6 months
+        $months = [];
+        for ($i = 5; $i >= 0; $i--) {
+            $months[now()->subMonths($i)->format('M Y')] = 0;
+        }
+
+        $submissions = KprSubmission::where('created_at', '>=', now()->subMonths(5)->startOfMonth())->get();
+
+        foreach ($submissions as $sub) {
+            $month = $sub->created_at->format('M Y');
+            if (isset($months[$month])) {
+                $months[$month]++;
+            }
+        }
+
+        $monthlySubmissions = [];
+        foreach ($months as $month => $total) {
+            $monthlySubmissions[] = (object) [
+                'month' => $month,
+                'total' => $total
+            ];
+        }
 
         $recentSubmissions = KprSubmission::with(['user.profile'])
             ->latest()

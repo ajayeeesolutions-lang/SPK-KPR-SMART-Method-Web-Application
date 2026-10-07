@@ -18,7 +18,7 @@ class ManagerApprovalController extends Controller
             $query->where('status_pengajuan', $request->status);
         }
 
-        $submissions = $query->latest()->paginate(10);
+        $submissions = $query->latest()->get();
         return view('manager.submissions.index', compact('submissions'));
     }
 

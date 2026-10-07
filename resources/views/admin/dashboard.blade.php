@@ -184,14 +184,18 @@
 
 @section('scripts')
 <script>
+    const monthlyData = @json($monthlySubmissions);
+    const labels = monthlyData.map(item => item.month);
+    const dataCounts = monthlyData.map(item => item.total);
+
     const ctxMonthly = document.getElementById('monthlyChart').getContext('2d');
     new Chart(ctxMonthly, {
         type: 'line',
         data: {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun'],
+            labels: labels,
             datasets: [{
                 label: 'Jumlah Pengajuan',
-                data: [12, 19, 15, 25, 22, {{ $totalPengajuan }}],
+                data: dataCounts,
                 borderColor: '#2563EB',
                 backgroundColor: 'rgba(37, 99, 235, 0.1)',
                 fill: true,

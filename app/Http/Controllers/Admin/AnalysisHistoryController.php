@@ -29,7 +29,7 @@ class AnalysisHistoryController extends Controller
             $query->where('status_keputusan', $request->status);
         }
 
-        $history = $query->latest('updated_at')->paginate(10);
+        $history = $query->latest('updated_at')->get();
 
         return view('admin.history.index', compact('history'));
     }

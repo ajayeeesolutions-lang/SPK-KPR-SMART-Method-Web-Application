@@ -105,6 +105,12 @@
             color: #b91c1c;
         }
 
+        .decision-warning {
+            border-color: #d97706;
+            background: #fffbeb;
+            color: #b45309;
+        }
+
         .decision-status {
             font-size: 18pt;
             font-weight: bold;
@@ -192,10 +198,12 @@
 
     <!-- Decision Box Card -->
     @php
-        $decision = $submission->smartResult->decision ?? 'PENDING';
-        $isAccepted = ($decision === 'LAYAK' || $decision === 'DIPERTIMBANGKAN');
-    @endphp
-    <div class="decision-box {{ $isAccepted ? 'decision-accepted' : 'decision-rejected' }}">
+          $decision = $submission->smartResult->decision ?? 'PENDING';
+          $decisionClass = 'decision-rejected';
+          if ($decision === 'LAYAK') $decisionClass = 'decision-accepted';
+          elseif ($decision === 'DIPERTIMBANGKAN') $decisionClass = 'decision-warning';
+      @endphp
+      <div class="decision-box {{ $decisionClass }}">
         <div style="font-size: 10pt; text-transform: uppercase; font-weight: bold; margin-bottom: 4px;">HASIL REKOMENDASI MESIN SMART</div>
         <div class="decision-status">{{ $decision }}</div>
         <div style="font-size: 11pt; margin-top: 4px;">Total Skor SMART: <strong>{{ number_format($submission->smartResult->total_score ?? 0, 2) }} / 1.00</strong></div>

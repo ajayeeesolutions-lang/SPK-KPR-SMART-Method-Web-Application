@@ -61,22 +61,22 @@
                         <tr>
                             <td><span class="badge bg-primary">C2</span></td>
                             <td>Penghasilan Bersih/Bulan</td>
-                            <td class="fw-semibold">Rp {{ number_format($submission->c2_penghasilan_bersih, 0, ',', '.') }}</td>
+                            <td class="fw-semibold">Rp {{ number_format($submission->c2_penghasilan_bersih ?? max(0, ($submission->user->profile->penghasilan_bulanan ?? 0) + ($submission->user->profile->penghasilan_pasangan ?? 0) - ($submission->user->profile->pengeluaran_bulanan ?? 0)), 0, ',', '.') }}</td>
                         </tr>
                         <tr>
                             <td><span class="badge bg-warning text-dark">C3</span></td>
                             <td>Status Pekerjaan</td>
-                            <td class="fw-semibold">{{ $submission->c3_status_pekerjaan }} <span class="text-muted">({{ $submission->c3_lama_bekerja_bulan }} bulan)</span></td>
+                            <td class="fw-semibold">{{ $submission->c3_status_pekerjaan ?? $submission->user->profile->status_pekerjaan ?? '-' }} <span class="text-muted">({{ $submission->c3_lama_bekerja_bulan ?? $submission->user->profile->lama_bekerja_bulan ?? 0 }} bulan)</span></td>
                         </tr>
                         <tr>
                             <td><span class="badge" style="background:#9333EA;">C4</span></td>
                             <td>Usia</td>
-                            <td class="fw-semibold">{{ $submission->c4_usia }} Tahun</td>
+                            <td class="fw-semibold">{{ $submission->c4_usia ?? ($submission->user->profile->tanggal_lahir ? \Carbon\Carbon::parse($submission->user->profile->tanggal_lahir)->age : 0) }} Tahun</td>
                         </tr>
                         <tr>
                             <td><span class="badge bg-danger">C5</span></td>
                             <td>Jumlah Tanggungan</td>
-                            <td class="fw-semibold">{{ $submission->c5_jumlah_tanggungan }} Orang</td>
+                            <td class="fw-semibold">{{ $submission->c5_jumlah_tanggungan ?? $submission->user->profile->jumlah_tanggungan ?? 0 }} Orang</td>
                         </tr>
                     </tbody>
                 </table>

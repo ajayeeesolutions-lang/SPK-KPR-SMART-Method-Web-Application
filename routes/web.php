@@ -62,6 +62,7 @@ Route::middleware(['auth', 'role:admin,marketing'])->prefix('admin')->name('admi
 
     // Mesin SMART — Admin & Marketing bisa jalankan analisis
     Route::get('/smart/engine', [SmartEngineController::class, 'index'])->name('smart.engine');
+    Route::any('/smart/engine/all/recalculate', [SmartEngineController::class, 'runAnalysisAll'])->name('smart.analyze_all');
     Route::post('/smart/engine/{submission}', [SmartEngineController::class, 'runAnalysis'])->name('smart.analyze');
 
     // Riwayat & Laporan — Admin & Marketing bisa lihat & cetak PDF

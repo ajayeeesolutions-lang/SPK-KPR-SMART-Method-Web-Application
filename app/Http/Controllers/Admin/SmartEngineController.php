@@ -64,4 +64,24 @@ class SmartEngineController extends Controller
             return back()->with('error', "Gagal menjalankan analisis SMART: " . $e->getMessage());
         }
     }
+
+    public function runAnalysisAll(Request $request, SmartService $smartService)
+    {
+        try {
+            $submissions = KprSubmission::whereNotNull('c1_verified_at')->get();
+            $count = 0;
+            foreach ($submissions as $sub) {
+                try {
+                    $smartService->analyzeSubmission($sub);
+                    $count++;
+                } catch (\Exception $e) {
+                    \Illuminate\Support\Facades\Log::warning("Skipped ID " . $sub->id . " in runAnalysisAll: " . $e->getMessage());
+                }
+            }
+            return redirect()->route('admin.smart.engine')
+                ->with('success', "Berhasil menghitung ulang seluruh ($count) data nasabah yang sudah diverifikasi SLIK!");
+        } catch (\Exception $e) {
+            return back()->with('error', "Gagal menghitung ulang semua data: " . $e->getMessage());
+        }
+    }
 }

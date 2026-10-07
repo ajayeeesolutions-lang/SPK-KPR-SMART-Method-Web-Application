@@ -61,13 +61,14 @@
                     <th>Nama / NIK</th>
                     <th>Pekerjaan & Penghasilan</th>
                     <th>Nilai Pinjaman</th>
+                    <th class="text-center">Status SLIK OJK</th>
                     <th class="text-center">Skor SMART</th>
                     <th class="text-center">Hasil SMART</th>
                     <th class="text-center">Status ACC Manager</th>
                     <th class="text-center">Aksi</th>
                 </tr>
             </thead>
-            <tbody class="text-nowrap">
+            <tbody class="text-nowrap" id="applicants-tbody">
                 @forelse($submissions as $index => $sub)
                     <tr>
                         <td class="text-center">{{ $submissions->firstItem() + $index }}</td>
@@ -86,6 +87,21 @@
                         <td>
                             <div class="fw-bold text-dark">Rp {{ number_format($sub->nilai_pinjaman, 0, ',', '.') }}</div>
                             <small class="text-muted">Tenor {{ $sub->tenor_tahun }} Tahun</small>
+                        </td>
+                        <td class="text-center">
+                            @if($sub->c1_riwayat_kredit === 'Lancar')
+                                <span class="badge bg-success bg-opacity-10 text-success border border-success fw-bold">Lancar (Kol 1)</span>
+                            @elseif($sub->c1_riwayat_kredit === 'Dalam Perhatian Khusus')
+                                <span class="badge bg-info bg-opacity-10 text-info border border-info fw-bold">DPK (Kol 2)</span>
+                            @elseif($sub->c1_riwayat_kredit === 'Kurang Lancar')
+                                <span class="badge bg-warning bg-opacity-10 text-warning border border-warning fw-bold">Kurang Lancar (Kol 3)</span>
+                            @elseif($sub->c1_riwayat_kredit === 'Diragukan')
+                                <span class="badge bg-danger bg-opacity-10 text-danger border border-danger fw-bold">Diragukan (Kol 4)</span>
+                            @elseif($sub->c1_riwayat_kredit === 'Macet')
+                                <span class="badge bg-dark text-white fw-bold">Macet (Kol 5)</span>
+                            @else
+                                <span class="badge bg-secondary bg-opacity-10 text-secondary border fw-bold">Belum Dicek</span>
+                            @endif
                         </td>
                         <td class="text-center">
                             @if($sub->c1_verified_at && $sub->final_smart_score !== null)

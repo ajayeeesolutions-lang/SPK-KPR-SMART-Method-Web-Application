@@ -172,7 +172,7 @@ class ApplicantController extends Controller
             'tenor_tahun' => $validated['tenor_tahun'],
         ]);
 
-        if ($submission->c1_verified_at) {
+        if ($submission->c1_verified_at && \App\Models\Setting::getByKey('smart_auto_calculate') == '1') {
             $smartService->analyzeSubmission($submission);
         }
 
@@ -180,24 +180,39 @@ class ApplicantController extends Controller
             ->with('success', 'Data pengajuan berhasil diperbarui!');
     }
 
-    public function confirmCredibility(Request $request, KprSubmission $applicant, SmartService $smartService)
+    public function confirmCredibility(Request $request, KprSubmission $applicant)
     {
         $validated = $request->validate([
             'c1_riwayat_kredit' => 'required|in:Lancar,Dalam Perhatian Khusus,Kurang Lancar,Diragukan,Macet',
         ]);
 
-        DB::transaction(function () use ($applicant, $validated, $smartService) {
-            $applicant->update([
-                'c1_riwayat_kredit' => $validated['c1_riwayat_kredit'],
-                'c1_verified_at' => now(),
-                'c1_verified_by' => auth()->id(),
-            ]);
+        $profile = $applicant->user->profile;
+        $updates = [
+            'c1_riwayat_kredit' => $validated['c1_riwayat_kredit'],
+            'c1_verified_at'    => now(),
+            'c1_verified_by'    => auth()->id(),
+        ];
 
-            $smartService->analyzeSubmission($applicant);
-        });
+        // Jika data C2-C5 kosong (misal karena import), tarik dari profil nasabah
+        if ($profile) {
+            $penghasilanBersih = ($profile->penghasilan_bulanan + $profile->penghasilan_pasangan) - $profile->pengeluaran_bulanan;
+
+            $updates['c2_penghasilan_bersih'] = $applicant->c2_penghasilan_bersih ?? max(0, $penghasilanBersih);
+            $updates['c3_status_pekerjaan']   = $applicant->c3_status_pekerjaan ?? $profile->status_pekerjaan;
+            $updates['c3_lama_bekerja_bulan'] = $applicant->c3_lama_bekerja_bulan ?? $profile->lama_bekerja_bulan;
+            $updates['c4_usia']               = $applicant->c4_usia ?? ($profile->tanggal_lahir ? \Carbon\Carbon::parse($profile->tanggal_lahir)->age : 0);
+            $updates['c5_jumlah_tanggungan']  = $applicant->c5_jumlah_tanggungan ?? $profile->jumlah_tanggungan;
+
+            // Simpan juga ke tabel nasabah_profiles (kolom riwayat_kredit / SLIK OJK)
+            $profile->update([
+                'riwayat_kredit' => $validated['c1_riwayat_kredit']
+            ]);
+        }
+
+        $applicant->update($updates);
 
         return redirect()->route('admin.applicants.show', ['applicant' => $applicant->id])
-            ->with('success', 'Kredibilitas SLIK dikonfirmasi dan analisis SMART berhasil dijalankan.');
+            ->with('success', 'Kredibilitas SLIK berhasil dikonfirmasi. Data masuk antrian perhitungan SMART.');
     }
 
     public function destroy(KprSubmission $applicant)
@@ -369,7 +384,9 @@ class ApplicantController extends Controller
                         'c1_verified_at' => now(),
                         'c1_verified_by' => auth()->id() ?? 1,
                     ]);
-                    $smartService->analyzeSubmission($submission);
+                    if (\App\Models\Setting::getByKey('smart_auto_calculate') == '1') {
+                        $smartService->analyzeSubmission($submission);
+                    }
                 }
             }
             DB::commit();

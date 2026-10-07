@@ -229,6 +229,51 @@
             font-weight: 700;
             color: #64748B;
         }
+        /* RESPONSIVE STYLES */
+        @media (max-width: 768px) {
+            #sidebar-wrapper {
+                margin-left: -270px;
+                position: fixed;
+                height: 100vh;
+                overflow-y: auto;
+            }
+            #sidebar-wrapper.toggled {
+                margin-left: 0;
+            }
+            #page-content-wrapper {
+                width: 100% !important;
+            }
+            #mobile-overlay {
+                display: none;
+                position: fixed;
+                top: 0; left: 0; right: 0; bottom: 0;
+                background: rgba(0,0,0,0.5);
+                z-index: 999;
+            }
+            #mobile-overlay.active {
+                display: block;
+            }
+
+            /* Hide wizard lines on mobile or make it scrollable */
+            .smart-wizard-nav {
+                overflow-x: auto;
+                padding-bottom: 10px;
+            }
+            .wizard-step-item {
+                min-width: 80px;
+            }
+            .wizard-step-label {
+                font-size: 0.65rem;
+            }
+
+            /* Card & Layouts adjustments */
+            .card-custom {
+                padding: 1rem !important;
+            }
+            #navbar-wrapper {
+                padding: 1rem;
+            }
+        }
     </style>
     @yield('styles')
 </head>
@@ -328,12 +373,19 @@
     </div>
 
     <!-- Page Content -->
-    <div class="w-100 d-flex flex-column min-vh-100">
+        <!-- Page Content -->
+    <div class="w-100 d-flex flex-column min-vh-100" id="page-content-wrapper">
+        <div id="mobile-overlay"></div>
         <!-- Navbar Header -->
         <div id="navbar-wrapper" class="d-flex justify-content-between align-items-center">
-            <div>
-                <h5 class="mb-0 fw-bold text-dark" style="letter-spacing: -0.3px;">@yield('page-title', 'Dashboard System')</h5>
-                <small class="text-muted">Sistem Pendukung Keputusan KPR Method SMART</small>
+            <div class="d-flex align-items-center gap-2">
+                <button class="btn btn-light border d-md-none me-2" id="sidebarToggle">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <div>
+                    <h5 class="mb-0 fw-bold text-dark" style="letter-spacing: -0.3px;">@yield('page-title', 'Dashboard System')</h5>
+                    <small class="text-muted d-none d-sm-block">Sistem Pendukung Keputusan KPR Method SMART</small>
+                </div>
             </div>
 
             <div class="d-flex align-items-center gap-3">
@@ -415,7 +467,28 @@
 
 <!-- JS Libraries -->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const toggleBtn = document.getElementById('sidebarToggle');
+        const sidebar = document.getElementById('sidebar-wrapper');
+        const overlay = document.getElementById('mobile-overlay');
+
+        if (toggleBtn) {
+            toggleBtn.addEventListener('click', function() {
+                sidebar.classList.toggle('toggled');
+                overlay.classList.toggle('active');
+            });
+        }
+        if (overlay) {
+            overlay.addEventListener('click', function() {
+                sidebar.classList.remove('toggled');
+                overlay.classList.remove('active');
+            });
+        }
+    });
+</script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>

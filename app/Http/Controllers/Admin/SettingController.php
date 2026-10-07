@@ -11,6 +11,7 @@ class SettingController extends Controller
     public function index()
     {
         $smartThreshold = Setting::getByKey('smart_threshold', '80.00');
+        $smartAutoCalc  = Setting::getByKey('smart_auto_calculate', '0');
         $bankName       = Setting::getByKey('bank_name', 'PT Citra Pasada Properti');
         $bankAddress    = Setting::getByKey('bank_address', 'Jl. Jenderal Sudirman, Jakarta');
         $bankPhone      = Setting::getByKey('bank_phone', '(021) 555-8888');
@@ -22,7 +23,7 @@ class SettingController extends Controller
         $nipTtd     = Setting::getByKey('nip_ttd', '19880415 201201 2 004');
 
         return view('admin.settings.index', compact(
-            'smartThreshold', 'bankName', 'bankAddress', 'bankPhone', 'adminWa',
+            'smartThreshold', 'smartAutoCalc', 'bankName', 'bankAddress', 'bankPhone', 'adminWa',
             'jabatanTtd', 'namaTtd', 'nipTtd'
         ));
     }
@@ -38,6 +39,7 @@ class SettingController extends Controller
             'jabatan_ttd'     => 'required|string|max:150',
             'nama_ttd'        => 'required|string|max:150',
             'nip_ttd'         => 'nullable|string|max:100',
+            'smart_auto_calculate' => 'nullable|boolean',
         ]);
 
         Setting::setKey('smart_threshold', $request->smart_threshold);
@@ -48,6 +50,7 @@ class SettingController extends Controller
         Setting::setKey('jabatan_ttd',     $request->jabatan_ttd);
         Setting::setKey('nama_ttd',        $request->nama_ttd);
         Setting::setKey('nip_ttd',         $request->nip_ttd ?? '');
+        Setting::setKey('smart_auto_calculate', $request->has('smart_auto_calculate') ? '1' : '0');
 
         return redirect()->route('admin.settings.index')->with('success', 'Pengaturan sistem berhasil diperbarui.');
     }

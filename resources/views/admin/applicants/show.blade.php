@@ -77,7 +77,11 @@
                         <p class="text-muted small mb-0">Nasabah <strong>BELUM MEMENUHI</strong> standar kelayakan KPR.</p>
                     @else
                         <h2 class="fw-bold text-warning mb-1"><i class="fa-solid fa-clock me-2"></i> MENUNGGU KONFIRMASI</h2>
-                        <p class="text-muted small mb-0">Hasil SMART akan tersedia setelah admin memeriksa dan mengonfirmasi kredibilitas SLIK.</p>
+                        <p class="text-muted small mb-0">@if($credibilityVerified && !$submission->smartResult)
+                            Kredibilitas SLIK sudah dikonfirmasi. Menunggu perhitungan SMART dari Admin.
+                        @else
+                            Hasil SMART akan tersedia setelah admin memeriksa dan mengonfirmasi kredibilitas SLIK.
+                        @endif</p>
                     @endif
                 </div>
 
@@ -157,7 +161,7 @@
                 </select>
             </div>
             <button type="submit" class="btn btn-primary text-nowrap">
-                <i class="fa-solid fa-check me-1"></i> {{ $credibilityVerified ? 'Perbarui & Hitung Ulang' : 'Konfirmasi & Hitung SMART' }}
+                <i class="fa-solid fa-check me-1"></i> {{ $credibilityVerified ? 'Perbarui Konfirmasi SLIK' : 'Konfirmasi SLIK OJK' }}
             </button>
         </form>
     </div>

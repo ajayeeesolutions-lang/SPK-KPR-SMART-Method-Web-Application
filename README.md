@@ -27,14 +27,15 @@ Aplikasi Web **Sistem Pendukung Keputusan (SPK) Kelayakan Calon Nasabah Kredit P
 
 ## 🔑 Akun Demo Default
 
- database telah di-seed dengan data awal realistis perbankan:
+ Database telah di-seed dengan akun staf berikut:
 
-| Role Access | Email Login | Password | Akses Utama |
-| :--- | :--- | :--- | :--- |
-| **Administrator** | `admin@citra.com` | `password` | Dashboard Admin, Master Data, SMART Engine, Settings |
-| **Marketing** | `marketing@citra.com` | `password` | Pengelolaan pengajuan dan data calon debitur |
-| **Pimpinan** | `pimpinan@citra.com` | `password` | Dashboard pimpinan dan pemantauan hasil |
-| **Debitur Demo** | `achmad@mail.com` | `password` | Dashboard Nasabah, Form KPR & Upload Dokumen |
+| Role Access | Email Login | Akses Utama |
+| :--- | :--- | :--- |
+| **Administrator** | `admin@citra.com` | Dashboard Admin, Master Data, SMART Engine, Settings |
+| **Marketing** | `marketing@citra.com` | Pengelolaan pengajuan dan data calon debitur |
+| **Pimpinan** | `pimpinan@citra.com` | Dashboard pimpinan dan pemantauan hasil |
+
+Akun calon nasabah tersimpan di database aplikasi dan dikelola melalui sistem. Email maupun identitas nasabah tidak dicantumkan di repository untuk menjaga privasi. Password tidak dipublikasikan; database hanya menyimpan hash password.
 
 ---
 

@@ -42,12 +42,12 @@
         <input type="password" name="password_confirmation" class="form-control form-control-custom" placeholder="Ulangi password" required>
     </div>
 
-    <button type="submit" class="btn btn-bank w-100 mb-3 shadow-sm">
+    <button type="submit" class="btn btn-primary-custom text-white w-100 mb-3 shadow-sm">
         <i class="fa-solid fa-user-plus me-2"></i> Daftar Akun KPR
     </button>
 </form>
 
-<div class="text-center mt-3 pt-3 border-top">
+<div class="text-center mt-3 pt-3">
     <div class="small text-muted mb-2">Sudah memiliki akun?</div>
     <a href="{{ route('login') }}" class="btn btn-outline-secondary btn-sm w-100 rounded-3">
         Kembali ke Login

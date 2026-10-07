@@ -12,21 +12,23 @@
             <p class="text-muted small mb-0">Pilih pengajuan calon nasabah untuk melihat 6 tahapan perhitungan SMART secara mendalam.</p>
         </div>
         <div class="col-12 col-md-6">
-            <form action="{{ route('admin.smart.engine') }}" method="GET" class="d-flex gap-2">
-                <select name="submission_id" class="form-select" onchange="this.form.submit()">
-                    @foreach($submissions as $sub)
-                        <option value="{{ $sub->id }}" {{ ($activeSubmission && $activeSubmission->id == $sub->id) ? 'selected' : '' }}>
-                            {{ $sub->no_pengajuan }} - {{ $sub->user?->name ?? 'Nasabah' }} (Skor: {{ $sub->c1_verified_at ? number_format($sub->final_smart_score ?? 0, 2) : 'Menunggu SLIK' }})
-                        </option>
-                    @endforeach
-                </select>
+            <div class="d-flex flex-column flex-sm-row gap-2">
+                <form action="{{ route('admin.smart.engine') }}" method="GET" class="flex-grow-1">
+                    <select name="submission_id" class="form-select" onchange="this.form.submit()">
+                        @foreach($submissions as $sub)
+                            <option value="{{ $sub->id }}" {{ ($activeSubmission && $activeSubmission->id == $sub->id) ? 'selected' : '' }}>
+                                {{ $sub->no_pengajuan }} - {{ $sub->user?->name ?? 'Nasabah' }} (Skor: {{ $sub->c1_verified_at ? number_format($sub->final_smart_score ?? 0, 2) : 'Menunggu SLIK' }})
+                            </option>
+                        @endforeach
+                    </select>
+                </form>
                 @if($activeSubmission)
-                    <form action="{{ route('admin.smart.analyze', ['submission' => $activeSubmission->id]) }}" method="POST">
+                    <form action="{{ route('admin.smart.analyze_all') }}" method="POST">
                         @csrf
-                        <button type="submit" class="btn btn-primary text-nowrap shadow-sm"><i class="fa-solid fa-rotate me-1"></i> Hitung Ulang</button>
+                        <button type="submit" class="btn btn-dark text-nowrap shadow-sm"><i class="fa-solid fa-rotate-right me-1"></i> Hitung Ulang Semua</button>
                     </form>
                 @endif
-            </form>
+            </div>
         </div>
     </div>
 </div>
@@ -166,39 +168,21 @@
     <!-- Step 5: Rankings Table -->
     <div class="col-12 col-lg-7">
         <div class="card-custom p-4 h-100">
-            <h6 class="fw-bold text-dark mb-3"><span class="badge bg-primary me-2">Tahap 5</span> Ranking Kelayakan Seluruh Pengajuan</h6>
+            <h6 class="fw-bold text-dark mb-3"><span class="badge bg-primary me-2">Tahap 5</span> Daftar Skor Kelayakan Pengajuan</h6>
             <div class="table-responsive">
                 <table class="table table-hover align-middle small">
-                    <thead class="table-light text-center">
+                    <thead class="table-light">
                         <tr>
-                            <th>Rank</th>
-                            <th>No. Pengajuan</th>
+                            <th class="ps-3">No. Pengajuan</th>
                             <th>Nama Nasabah</th>
-                            <th>Skor SMART</th>
-                            <th>Keputusan</th>
+                            <th class="text-center">Skor SMART</th>
+                            <th class="text-center">Keputusan</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($rankings as $idx => $rnk)
                             <tr class="{{ $rnk->id == $activeSubmission->id ? 'table-primary fw-bold' : '' }}">
-                                <td class="text-center">
-                                    @if($idx == 0)
-                                        <span class="badge bg-warning text-dark"><i class="fa-solid fa-crown me-1"></i> 1</span>
-                                    @else
-                                        <span class="fw-bold">{{ $idx + 1 }}</span>
-                                    @endif
-
-                                    @if($activeSubmission && !$activeSubmission->c1_verified_at)
-                                        <div class="alert alert-warning">
-                                            Kredibilitas SLIK untuk pengajuan ini belum dikonfirmasi admin. Konfirmasi melalui halaman
-                                            <a href="{{ route('admin.applicants.show', ['applicant' => $activeSubmission->id]) }}" class="alert-link">preview data nasabah</a>
-                                            sebelum menjalankan analisis SMART.
-                                        </div>
-                                    @elseif($activeSubmission && !$smartResult)
-                                        <div class="alert alert-warning">Pengajuan ini sudah memiliki konfirmasi SLIK, tetapi hasil SMART belum tersedia. Silakan jalankan ulang analisis.</div>
-                                    @endif
-                                </td>
-                                <td>{{ $rnk->no_pengajuan }}</td>
+                                <td class="ps-3">{{ $rnk->no_pengajuan }}</td>
                                 <td>{{ $rnk->user?->name ?? 'Nasabah' }}</td>
                                 <td class="text-center fw-bold text-primary">{{ number_format($rnk->final_smart_score, 2) }}</td>
                                 <td class="text-center">

@@ -22,6 +22,15 @@
                     </div>
                 </div>
 
+                <div class="mb-4 p-3 bg-light rounded border">
+                    <label class="form-label fw-bold text-dark"><i class="fa-solid fa-robot text-primary me-1"></i> Perhitungan Otomatis SMART</label>
+                    <div class="text-muted small mb-3">Jika Aktif, saat admin melakukan Verifikasi SLIK, mesin akan langsung menghitung hasil kelayakan. Jika Nonaktif, admin harus menekan tombol "Hitung Ulang" secara manual di menu Engine Transparansi.</div>
+                    <div class="form-check form-switch fs-5">
+                        <input class="form-check-input" type="checkbox" role="switch" id="auto_calc" name="smart_auto_calculate" value="1" {{ old('smart_auto_calculate', $smartAutoCalc) == '1' ? 'checked' : '' }}>
+                        <label class="form-check-label fs-6 ms-2 mt-1" for="auto_calc">Aktifkan Perhitungan Otomatis</label>
+                    </div>
+                </div>
+
                 <div class="mb-3">
                     <label class="form-label fw-semibold">Nama Bank / Lembaga Keuangan</label>
                     <input type="text" name="bank_name" value="{{ old('bank_name', $bankName) }}" class="form-control" required>
